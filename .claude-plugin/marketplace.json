@@ -1,0 +1,108 @@
+{
+  "name": "how-to-build-software",
+  "owner": {
+    "name": "LucSena",
+    "url": "https://github.com/LucSena"
+  },
+  "metadata": {
+    "description": "Agent Skills for software architecture, clean code, scalability, and 2026 web and mobile design.",
+    "version": "0.1.0",
+    "repository": "https://github.com/LucSena/how-to-build-software"
+  },
+  "plugins": [
+    {
+      "name": "how-to-build-software",
+      "description": "Every skill in the collection: engineering, design, and mobile.",
+      "source": "./",
+      "strict": false,
+      "skills": [
+        "./skills/accessibility",
+        "./skills/ai-interface-design",
+        "./skills/ai-native-architecture",
+        "./skills/android-design",
+        "./skills/api-design",
+        "./skills/clean-code",
+        "./skills/code-review",
+        "./skills/conversion-ux",
+        "./skills/data-dense-ui",
+        "./skills/design-foundations",
+        "./skills/design-patterns",
+        "./skills/design-resources",
+        "./skills/design-review",
+        "./skills/design-systems",
+        "./skills/design-taste",
+        "./skills/frontend-architecture",
+        "./skills/how-to-build-software",
+        "./skills/interaction-design",
+        "./skills/ios-design",
+        "./skills/mobile-architecture",
+        "./skills/mobile-design",
+        "./skills/motion-design",
+        "./skills/project-context",
+        "./skills/reliability",
+        "./skills/scalability",
+        "./skills/software-architecture",
+        "./skills/testing-strategy",
+        "./skills/ux-principles",
+        "./skills/web-platform"
+      ]
+    },
+    {
+      "name": "engineering-skills",
+      "description": "Architecture, design patterns, clean code, scalability, reliability, APIs, testing, and AI-native systems.",
+      "source": "./",
+      "strict": false,
+      "skills": [
+        "./skills/how-to-build-software",
+        "./skills/project-context",
+        "./skills/ai-native-architecture",
+        "./skills/api-design",
+        "./skills/clean-code",
+        "./skills/code-review",
+        "./skills/design-patterns",
+        "./skills/frontend-architecture",
+        "./skills/reliability",
+        "./skills/scalability",
+        "./skills/software-architecture",
+        "./skills/testing-strategy"
+      ]
+    },
+    {
+      "name": "design-skills",
+      "description": "Product design for 2026: taste, foundations, design systems, UX laws, interaction, motion, accessibility, conversion, and AI interfaces.",
+      "source": "./",
+      "strict": false,
+      "skills": [
+        "./skills/how-to-build-software",
+        "./skills/project-context",
+        "./skills/accessibility",
+        "./skills/ai-interface-design",
+        "./skills/conversion-ux",
+        "./skills/data-dense-ui",
+        "./skills/design-foundations",
+        "./skills/design-resources",
+        "./skills/design-review",
+        "./skills/design-systems",
+        "./skills/design-taste",
+        "./skills/interaction-design",
+        "./skills/motion-design",
+        "./skills/ux-principles",
+        "./skills/web-platform"
+      ]
+    },
+    {
+      "name": "mobile-skills",
+      "description": "2026 mobile design and architecture: Liquid Glass (iOS 26\u201327), Material 3 Expressive (Android 16\u201317), and cross-platform apps.",
+      "source": "./",
+      "strict": false,
+      "skills": [
+        "./skills/how-to-build-software",
+        "./skills/project-context",
+        "./skills/android-design",
+        "./skills/ios-design",
+        "./skills/mobile-architecture",
+        "./skills/mobile-design"
+      ]
+    }
+  ]
+}

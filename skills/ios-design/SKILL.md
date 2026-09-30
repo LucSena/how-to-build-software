@@ -16,7 +16,7 @@ Great iOS apps look like they were built by Apple's neighbors: system navigation
 
 If `.agents/project-context.md` exists (or `.claude/project-context.md`), read it first and treat it as ground truth for stack, platforms, scale, design system, and constraints. Only ask for what it does not cover. If it does not exist and the task is larger than a quick fix, suggest running the `project-context` skill — but never block on it.
 
-Also confirm: minimum iOS version (Liquid Glass APIs need iOS 26+; provide fallbacks below that), UI framework (SwiftUI, UIKit, React Native/Expo, Flutter, CMP), and whether iPad is supported (App Review 2.4.1 expects iPhone apps to run on iPad).
+Also confirm: minimum iOS version (Liquid Glass APIs need iOS 26+; provide fallbacks below that), UI framework (SwiftUI, UIKit, React Native/Expo, Flutter, CMP), and whether iPad is supported (App Review 2.4.1 asks that iPhone apps run on iPad whenever possible).
 
 ## Core principles
 
@@ -127,7 +127,7 @@ Component details, tab bar minimize/accessory, sheets, search variants: `referen
 
 - Use system semantics: **notification** (success/warning/error), **impact** (light/medium/heavy/soft/rigid for collisions and snaps), **selection** (value ticks in pickers).
 - SwiftUI: `.sensoryFeedback(.success, trigger: value)` (also `.selection`, `.impact(...)`, `.increase`/`.decrease`). UIKit: `UINotificationFeedbackGenerator`, `UIImpactFeedbackGenerator`, `UISelectionFeedbackGenerator`. Core Haptics only for custom patterns (games, instruments).
-- Standard controls (toggles, pickers, pull-to-refresh) already play haptics; don't double them. Never haptic on scroll or every tap.
+- Standard controls such as pickers already play their own haptics; don't double them. Never haptic on scroll or every tap.
 
 ## Accessibility
 

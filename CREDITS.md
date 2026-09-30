@@ -65,4 +65,6 @@ Nothing here implies endorsement by the authors below.
 - Apple HIG (Liquid Glass, iOS 26–27), SwiftUI documentation, App Store Review Guidelines
 - Material 3 Expressive, Jetpack Compose, Android architecture guide, [Now in Android](https://github.com/android/nowinandroid)
 - React Native, Expo, Flutter, and Kotlin Multiplatform documentation and release notes
-- [conorluddy/LiquidGlassReference](https://github.com/conorluddy/LiquidGlassReference)
+- [conorluddy/LiquidGlassReference](https://github.com/conorluddy/LiquidGlassReference) · [y-128/Apple-HIG-Design](https://github.com/y-128/Apple-HIG-Design) (HIG mirror)
+- impeccable (Apache-2.0) native references · emilkowalski/skill `mobile-native` · community Material 3 skill repos
+- [deceptive.design](https://www.deceptive.design/) — dark-pattern taxonomy

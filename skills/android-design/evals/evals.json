@@ -1,0 +1,55 @@
+{
+  "skill_name": "android-design",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "We bumped our Compose app to targetSdk 36 and now the FAB sits under the gesture bar, the last list item is hidden, and our 'Press back again to exit' toast stopped working. What's going on and how do we fix it properly?",
+      "expected_output": "Explains that edge-to-edge is enforced (no opt-out at API 36) and predictive back is on by default (onBackPressed not called), then gives fixes: enableEdgeToEdge + adjustResize, Scaffold innerPadding / safeDrawingPadding / navigation bar contentPadding for lists / imePadding, and removal of the exit-confirmation back interceptor in favor of letting system back go home; BackHandler/PredictiveBackHandler only for real in-app state.",
+      "files": [],
+      "expectations": [
+        "States that apps targeting API 36 cannot opt out of edge-to-edge",
+        "States that onBackPressed is no longer called for apps targeting API 36 on Android 16+",
+        "Recommends handling window insets (e.g. Scaffold innerPadding, safeDrawingPadding, or navigation bar content padding for the list)",
+        "Recommends removing the 'press back again to exit' behavior rather than re-implementing it",
+        "Mentions BackHandler, PredictiveBackHandler, or OnBackPressedDispatcher for legitimate in-app back handling"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Design the navigation and layout for our Android email app so it works on phones, foldables, and tablets. We currently lock it to portrait and use a navigation drawer.",
+      "expected_output": "Uses window size classes (compact <600, medium 600-839, expanded 840+), navigation bar on compact and navigation rail on medium+ (NavigationSuiteScaffold), list-detail canonical layout (ListDetailPaneScaffold) with one pane on compact/medium and two on expanded, removes the portrait lock noting that Android ignores orientation/resizability locks on >=600dp displays for apps targeting API 36 and removes the opt-out at 37, and replaces the drawer with the expanded rail.",
+      "files": [],
+      "expectations": [
+        "Uses window size class breakpoints rather than device type or orientation",
+        "Uses a navigation bar on compact width and a navigation rail on medium or wider",
+        "Proposes a list-detail layout with two panes at expanded width",
+        "States that orientation locks are ignored on large screens when targeting API 36 and cannot be opted out of at API 37",
+        "Recommends replacing the navigation drawer as primary navigation"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Set up our Compose theme for Material 3 Expressive. We want dynamic color but our brand purple as a fallback, and it must look right in dark mode.",
+      "expected_output": "A theme function that picks dynamicLight/DarkColorScheme on API 31+ and brand light/dark schemes otherwise, passes the color scheme explicitly to MaterialExpressiveTheme (whose default is a light expressive scheme), sets MotionScheme.expressive() or standard with a reason, maps typography to M3 roles in sp, and notes the experimental API status of M3E components in Material3 1.5.",
+      "files": [],
+      "expectations": [
+        "Uses dynamicLightColorScheme/dynamicDarkColorScheme gated on Android 12 (API 31) or higher",
+        "Provides brand light and dark fallback schemes",
+        "Passes the color scheme explicitly to MaterialExpressiveTheme or warns that its default is a light scheme",
+        "Sets a MotionScheme (expressive or standard)",
+        "Uses color roles rather than hard-coded hex values inside components"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Our React Native app asks for camera, location, and notifications on the first screen. When should we ask instead?",
+      "expected_output": "Near-miss: a cross-platform permission timing question that belongs to mobile-design. Answers with just-in-time requests tied to features and notes the iOS single-Continue pre-prompt rule, rather than producing Material 3 theming or Compose code.",
+      "files": [],
+      "expectations": [
+        "Recommends requesting each permission when the related feature is used",
+        "Does not produce Material 3 Expressive theme code or Compose component recommendations",
+        "Mentions or defers to mobile-design guidance, or covers both iOS and Android behavior"
+      ]
+    }
+  ]
+}

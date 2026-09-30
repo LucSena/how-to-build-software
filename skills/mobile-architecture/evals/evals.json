@@ -1,0 +1,55 @@
+{
+  "skill_name": "mobile-architecture",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "We're a 4-person team of React/TypeScript web developers. We need an iOS and Android app for our field-service product: technicians work in basements with no signal, take photos, fill forms, and sync later. Some customers want a home-screen widget later. Which stack and how should we structure it?",
+      "expected_output": "Recommends React Native + Expo given the team, with native navigation primitives, and flags widgets as native-module work (expo-widgets or native targets). Designs offline-first: local SQLite as source of truth, write-local-then-sync with an outbox and idempotency keys, background sync with exponential backoff, explicit conflict policy, photo uploads via background transfer, and offline UX (pending badges, last synced). Includes an ADR-style rationale with rejected alternatives.",
+      "files": [],
+      "expectations": [
+        "Recommends React Native with Expo (or clearly justifies another choice) based on team skills",
+        "Makes the local database the source of truth that the UI reads from",
+        "Specifies queued/lazy writes with idempotency keys for offline form submissions",
+        "Names an explicit conflict resolution policy",
+        "Mentions background sync with exponential backoff",
+        "Notes that widgets need native code or a native-module package",
+        "Lists rejected alternatives with reasons"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Our Android app takes 3.5 seconds to show the first screen on a mid-range phone and scrolling the feed stutters. Where do we start?",
+      "expected_output": "Measures first with release builds on a mid-tier device (Macrobenchmark, TTID/TTFD, JankStats/Perfetto), then applies top fixes: Baseline/Startup Profiles, deferring SDK init, no main-thread I/O, render cached content first, SplashScreen API; for scrolling: stable keys and contentType, immutable models, deferred state reads, sized/cached images. States budgets (under 1 s target start, 16.7/8.3 ms frames, frozen frames > 700 ms).",
+      "files": [],
+      "expectations": [
+        "Recommends measuring on a release build and a physical mid-tier device before changing code",
+        "Mentions Baseline Profiles (or Startup Profiles)",
+        "Recommends deferring or lazily initializing SDKs and removing main-thread I/O",
+        "Mentions stable keys for lazy list items",
+        "States a frame-time budget (16.7 ms at 60 Hz or 8.3 ms at 120 Hz)"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "We use Expo. Can we push a new checkout feature to users with EAS Update tonight instead of waiting for App Store review?",
+      "expected_output": "Explains that OTA updates are for fixes and small changes within reviewed functionality; adding a new feature that changes the app's reviewed functionality violates Apple's rules (DPLA 3.3.1(B), App Review 2.5.2), and native code changes can't ship OTA. Recommends shipping through review behind a feature flag, using OTA only for fixes, runtime-version binding, and gradual rollout with rollback.",
+      "files": [],
+      "expectations": [
+        "Does not recommend shipping a substantially new feature via OTA to bypass review",
+        "Cites Apple's rules on downloaded or interpreted code (DPLA 3.3.1(B) or App Review 2.5.2)",
+        "Mentions that native code changes require a store build",
+        "Recommends a feature flag and/or staged rollout for the new feature"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "What corner radius should our Android bottom sheet use?",
+      "expected_output": "Near-miss: a visual Material question for android-design, not an architecture question. Answers briefly (extraLarge, 28 dp top corners) or defers to android-design without producing a stack decision or layer diagram.",
+      "files": [],
+      "expectations": [
+        "Does not produce a stack recommendation, architecture layers, or sync design",
+        "Answers with the Material shape token (extraLarge / 28 dp) or refers to android-design"
+      ]
+    }
+  ]
+}

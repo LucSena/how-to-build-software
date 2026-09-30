@@ -26,7 +26,7 @@ python3 scripts/sync.py                        # regenerate README index + marke
 ## Adding a skill
 
 1. Check the router table in `skills/how-to-build-software/SKILL.md` — does an existing skill already cover it? Prefer a new `references/` file in an existing skill over a near-duplicate skill.
-2. Copy `template/` to `skills/<name>/`, write `SKILL.md`, references, and `evals/evals.json`.
+2. Copy `template/SKILL.template.md` to `skills/<name>/SKILL.md`, then write it, references, and `evals/evals.json`.
 3. Add the skill to the router's routing table and to `related` of the skills that should point to it.
 4. Validate, sync, and add a `CHANGELOG.md` entry.
 
