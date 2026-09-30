@@ -1,0 +1,55 @@
+{
+  "skill_name": "frontend-architecture",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "We're building a B2B invoicing SaaS in Next.js App Router: public marketing pages, a pricing page, and a logged-in app with an invoice list (filters, pagination) and invoice detail. Propose the frontend architecture.",
+      "expected_output": "A per-route plan: marketing and pricing static with revalidation; app routes server-rendered with RSC and client islands; filters and pagination in the URL; server data via RSC/DAL or a query cache, not a client store; Server Actions that authenticate, validate with a shared schema, and authorize per invoice; feature folders; error boundaries per region; JS budgets.",
+      "files": [],
+      "expectations": [
+        "Assigns a rendering strategy per route rather than one for the whole app, with marketing pages static",
+        "Puts invoice list filters and pagination in URL search params",
+        "Does not place fetched invoice data in a global client store such as Redux or Zustand",
+        "States that every Server Action must authenticate, validate input with a schema, and authorize the specific invoice",
+        "Includes a numeric JS size budget or Core Web Vitals targets (LCP 2.5 s, INP 200 ms, CLS 0.1)",
+        "Uses the output format sections: routes table, state map, server boundary, structure, failure paths, budgets"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Review this Server Action:\n\n'use server'\nexport async function updateProfile(formData: FormData) {\n  const userId = formData.get('userId') as string\n  await db.user.update({ where: { id: userId }, data: { name: formData.get('name') as string, role: formData.get('role') as string } })\n  return await db.user.findUnique({ where: { id: userId } })\n}",
+      "expected_output": "Flags missing authentication, trusting client-supplied userId (BOLA), mass-assignment of role, no schema validation, and returning the full DB row to the client; provides a fixed version deriving the user from the session, validating with a schema, allow-listing fields, and returning a DTO; mentions keeping React/framework patched.",
+      "files": [],
+      "expectations": [
+        "Identifies that userId comes from the client and must be derived from the session instead",
+        "Identifies that the role field allows privilege escalation and must not be client-editable",
+        "Adds schema validation of input (e.g. Zod or equivalent)",
+        "Flags returning the full user row to the client and replaces it with a minimal DTO",
+        "Provides corrected code"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Our dashboard page takes 4 seconds to show anything. The layout awaits getUser(), then the page awaits getOrg(), then getStats(), then getRecentActivity(). How should we restructure it?",
+      "expected_output": "Diagnoses a sequential waterfall; starts independent fetches in parallel (Promise.all or sibling components), keeps only shell-critical data blocking, wraps slow regions (stats, activity) in Suspense boundaries with layout-matching skeletons, dedupes getUser per request, and suggests measuring after.",
+      "files": [],
+      "expectations": [
+        "Names the problem as a request waterfall caused by sequential awaits",
+        "Starts independent requests in parallel",
+        "Adds Suspense or loading boundaries around the slow regions rather than one around the whole page",
+        "Mentions that skeletons should match the final layout to avoid layout shift"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Our LCP is 3.8 s because the hero image is a 2 MB PNG and fonts block rendering. Fix it.",
+      "expected_output": "Near-miss: this is image and font optimization (web-platform territory). The answer fixes image format/size/priority and font loading directly, or points to web-platform, without redesigning rendering strategy, state management, or folder structure.",
+      "files": [],
+      "expectations": [
+        "Addresses the image (modern format such as AVIF/WebP, correct dimensions, fetchpriority/high priority, not lazy-loaded) and font loading",
+        "Does not propose changing the app's rendering strategy, state library, or folder structure",
+        "May reference the web-platform skill for the detailed performance work"
+      ]
+    }
+  ]
+}

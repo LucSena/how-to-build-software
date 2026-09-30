@@ -1,0 +1,54 @@
+{
+  "skill_name": "ai-interface-design",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Build the chat UI for our in-app AI assistant in React. It streams answers from our /api/chat SSE endpoint and answers are based on the user's documents.",
+      "expected_output": "A chat component with Send turning into Stop (which aborts the request and keeps partial text), per-frame token batching, auto-scroll only when pinned with a Jump to latest control, IME-safe Enter handling, inline citations linking to the source passage, retry/edit/copy actions, error states that keep the draft, aria-busy plus a polite status announcement on completion, and an empty state with grounded starters.",
+      "files": [],
+      "expectations": [
+        "Send is replaced by a Stop control during streaming, and Stop aborts the request while keeping partial output",
+        "Auto-scroll follows new tokens only when the user is already at the bottom",
+        "The Enter handler checks isComposing (IME-safe) before submitting",
+        "Streaming content uses aria-busy and a polite live region announcement on completion rather than announcing every token",
+        "Citations are shown inline and link to the source",
+        "Errors keep the user's input and offer retry"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Our agent can clean up CRM data: merge duplicate contacts, delete stale leads, and email account owners about changes. Design the UX so users trust it.",
+      "expected_output": "An agent UI with a live plan checklist, collapsible tool-call steps, risk tiers (read-only automatic; merges and deletes previewed with counts, samples, and undo window; outbound emails requiring explicit approval showing recipients and body), previews generated from the actual tool-call parameters, scoped and revocable permissions, background run with notifications, a final summary with activity log and undo, and no fake progress.",
+      "files": [],
+      "expectations": [
+        "Shows the plan as a checklist or stepper rather than chat prose",
+        "Requires explicit approval before emails are sent, with recipients and content visible",
+        "Delete/merge previews include affected counts and whether/how long they can be undone",
+        "States that approval previews come from the actual tool-call parameters rather than the model's description",
+        "Does not default remembered permissions to 'always allow'",
+        "Includes a results summary or activity log after the run"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "We want users to filter our flight search results by talking to an AI chatbot instead of the filter sidebar. Good idea?",
+      "expected_output": "Pushes back on chat-only for a structured, comparison-heavy task; recommends natural-language input that sets visible, editable filters alongside the existing controls and results table, with grounded suggestions and clear feedback about what was applied.",
+      "files": [],
+      "expectations": [
+        "Explains why chat alone is a poor fit for a structured filtering and comparison task",
+        "Recommends language input that populates visible, editable filters (hybrid) rather than removing the controls",
+        "Keeps results in a scannable list or table"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Our RAG assistant keeps citing the wrong documents. How do we fix retrieval?",
+      "expected_output": "Near-miss: this is a retrieval architecture problem for ai-native-architecture. The answer addresses retrieval (chunking, hybrid search, reranking, evals) or points to that skill, rather than redesigning the citation UI.",
+      "files": [],
+      "expectations": [
+        "Addresses retrieval quality (e.g. chunking, hybrid search, reranking, retrieval evals) or routes to ai-native-architecture",
+        "Does not answer only with UI changes to how citations are displayed"
+      ]
+    }
+  ]
+}

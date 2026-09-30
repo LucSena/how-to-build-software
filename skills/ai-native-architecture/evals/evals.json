@@ -1,0 +1,56 @@
+{
+  "skill_name": "ai-native-architecture",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Build a support assistant for our B2B SaaS that answers questions from our help center and each customer's own uploaded contracts. Multi-tenant, Postgres backend. Design the architecture.",
+      "expected_output": "A design at the lowest sufficient rung (retrieval + single call, not an agent), hybrid search with reranking over pgvector, tenant/ACL filters in the retrieval query, citations with 'not found' behavior, prompts as versioned files behind a gateway, structured output validated by schema, a golden set and CI evals, prompt-injection controls for uploaded contracts, streaming with abort, token budgets per tenant, tracing, and no hardcoded model IDs or prices.",
+      "files": [],
+      "expectations": [
+        "Chooses retrieval plus a single model call (or a simple workflow) rather than an autonomous agent, and says why",
+        "Applies tenant and permission filters in the retrieval query, not in the prompt",
+        "Recommends hybrid search (keyword + vector) with reranking and citations",
+        "Includes an eval plan with a golden set and a CI gate",
+        "Treats uploaded contracts as untrusted content (indirect prompt injection)",
+        "Does not hardcode a specific model ID or per-token price as a recommendation"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "I want an agent that reads incoming customer emails, looks up their orders, and automatically issues refunds and replies. Here's my plan: give the agent our admin API key and a tool that runs any HTTP request. Is that OK?",
+      "expected_output": "Rejects the plan: an admin key plus a generic HTTP tool is excessive agency and an exfiltration channel, and emails are untrusted input (indirect injection). Proposes narrow tools (lookup_order, propose_refund, draft_reply) scoped to the customer, human approval for refunds and outbound replies, idempotency keys, step/cost limits, allow-listed egress, and evals including injection cases.",
+      "files": [],
+      "expectations": [
+        "Identifies incoming emails as untrusted content that can carry prompt injection",
+        "Rejects the admin API key and the generic HTTP tool as excessive agency",
+        "Requires human approval for refunds and/or outbound emails",
+        "Proposes narrow, typed tools with permissions enforced in code",
+        "Mentions step, time, or cost limits on the agent loop",
+        "Mentions idempotency for the refund side effect"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Our LLM bill tripled this month and p95 latency is 14 seconds. We call the biggest model for everything, put the current timestamp and user name at the top of the system prompt, and retrieve 40 chunks per question. What should we change?",
+      "expected_output": "Diagnoses: timestamp/user name at the top breaks prompt caching; 40 chunks inflate input and latency; one large model for all traffic. Recommends moving variable content to the end, reranking to 5-20 chunks, routing easy traffic to smaller models validated by evals, capping output, streaming, per-tenant budgets, and measuring cost per task with tracing.",
+      "files": [],
+      "expectations": [
+        "Explains that variable content at the start of the prompt defeats prompt caching and moves it to the end",
+        "Recommends reducing retrieved chunks via reranking",
+        "Recommends routing easy requests to a smaller model, gated by evals",
+        "Recommends measuring tokens and cost per request or task",
+        "Does not quote specific current model prices as fact"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Design the chat screen for our assistant: where does the stop button go, how should streaming text look, and how do we show sources?",
+      "expected_output": "Near-miss: this is a UI question for ai-interface-design. The answer focuses on the interface (stop replaces send, streaming render without layout shift, inline citations) or routes to ai-interface-design, without redesigning backend architecture, RAG pipelines, or eval infrastructure.",
+      "files": [],
+      "expectations": [
+        "Addresses the UI concerns (stop control, streaming display, citations) or points to the ai-interface-design skill",
+        "Does not produce a backend architecture document with gateway, eval, and RAG pipeline sections"
+      ]
+    }
+  ]
+}
