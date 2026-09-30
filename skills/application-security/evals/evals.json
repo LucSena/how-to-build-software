@@ -1,0 +1,57 @@
+{
+  "skill_name": "application-security",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "We're a multi-tenant SaaS on Next.js App Router + Prisma. Our auth check lives in middleware.ts. Add an endpoint and server action so org admins can update any project in their org and members can update only projects they own.",
+      "expected_output": "Implements a central policy function, re-checks authentication and authorization inside the route handler and server action (not only middleware, citing CVE-2025-29927), scopes Prisma queries by orgId from the session, uses a strict per-operation input schema, returns 404 for other tenants' projects, and adds cross-user and cross-tenant tests.",
+      "files": [],
+      "expectations": [
+        "Authorization is enforced inside the handler/server action or a data-access layer, not only in middleware",
+        "The Prisma query includes the orgId (tenant) taken from the session, not from the request body",
+        "A single central policy function (e.g., can/authorize) encodes admin vs owner rules",
+        "Input is validated with a strict schema that does not allow setting orgId, ownerId, or role",
+        "Tests are added where a user from another tenant and a non-owner member attempt the update",
+        "Another tenant's project results in 404 (or equivalent not-found), not a data leak"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Add a 'link preview' feature: when a user pastes a URL in a comment, our Node server fetches the page and extracts the title and image.",
+      "expected_output": "Treats the fetch as an SSRF risk: http/https only, DNS resolution with all addresses checked against private/loopback/link-local/metadata ranges, pinned IP connection, no automatic redirects (or re-validation per hop), timeouts and size caps, IMDSv2 note; sanitizes extracted title and image URL before rendering; rate limits.",
+      "files": [],
+      "expectations": [
+        "Identifies server-side request forgery as the main risk",
+        "Blocks private, loopback, link-local, and cloud metadata addresses (169.254.169.254) after DNS resolution",
+        "Handles redirects safely (disabled or re-validated) and mentions DNS rebinding or pinning the resolved IP",
+        "Sets a timeout and a response size limit",
+        "Escapes or sanitizes the fetched title/image URL before rendering (only http/https image URLs)"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Security review this Express handler: app.get('/api/export', async (req, res) => { const rows = await db.query(`SELECT * FROM orders WHERE org_id = ${req.query.org} ORDER BY ${req.query.sort}`); res.set('Access-Control-Allow-Origin', req.headers.origin); res.set('Access-Control-Allow-Credentials', 'true'); res.json(rows); });",
+      "expected_output": "Findings with severity and evidence: SQL injection via interpolation (parameterize org, allowlist sort column), tenant taken from query string instead of session (IDOR), reflected Origin with credentials (any site can read data), SELECT * leaking fields (explicit DTO), no auth check, no pagination/limit; fixed code provided.",
+      "files": [],
+      "expectations": [
+        "Flags SQL injection and fixes it with bound parameters",
+        "Uses an allowlist map for the ORDER BY column instead of parameterizing or interpolating it",
+        "Flags that org_id comes from the request rather than the authenticated session",
+        "Flags reflecting the Origin header with credentials as a critical CORS issue",
+        "Findings carry a severity label (Blocker/Major/Minor or equivalent)",
+        "Mentions a missing authentication/authorization check or unbounded export"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Design our sign-up screen: email, password or Google, and a nice verification step.",
+      "expected_output": "Near-miss: this is a login/sign-up UX and auth-implementation task that belongs to auth-flows. A good answer routes to auth-flows (unified Continue flow, email codes, passkeys, NIST password rules, copy) and does not respond with an OWASP Top 10 audit or generic hardening checklist.",
+      "files": [],
+      "expectations": [
+        "Routes to or applies auth-flows guidance (identifier-first flow, verification timing, password rules)",
+        "Does not answer primarily with an OWASP Top 10 or headers checklist",
+        "Keeps any application-security content to supporting points (e.g., CSRF, rate limiting)"
+      ]
+    }
+  ]
+}

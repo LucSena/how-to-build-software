@@ -11,8 +11,16 @@ const REPO = "https://github.com/LucSena/how-to-build-software";
 const BASE_URL = (process.env.SITE_URL || "https://lucsena.github.io/how-to-build-software/").replace(/\/?$/, "/");
 const LANGS = ["en", "pt", "es"];
 const CATEGORY_ORDER = ["meta", "engineering", "design", "mobile"];
-const FONTS_URL =
-  "https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,400..700;1,8..60,400..600&display=swap";
+// Self-hosted fonts (OFL), copied from pinned @fontsource packages at build time.
+const FONT_FILES = [
+  ["@fontsource-variable/source-serif-4/files/source-serif-4-latin-opsz-normal.woff2", "source-serif-4-opsz.woff2"],
+  ["@fontsource-variable/source-serif-4/files/source-serif-4-latin-opsz-italic.woff2", "source-serif-4-opsz-italic.woff2"],
+  ["@fontsource/ibm-plex-sans/files/ibm-plex-sans-latin-400-normal.woff2", "ibm-plex-sans-400.woff2"],
+  ["@fontsource/ibm-plex-sans/files/ibm-plex-sans-latin-500-normal.woff2", "ibm-plex-sans-500.woff2"],
+  ["@fontsource/ibm-plex-sans/files/ibm-plex-sans-latin-600-normal.woff2", "ibm-plex-sans-600.woff2"],
+  ["@fontsource/ibm-plex-mono/files/ibm-plex-mono-latin-400-normal.woff2", "ibm-plex-mono-400.woff2"],
+  ["@fontsource/ibm-plex-mono/files/ibm-plex-mono-latin-500-normal.woff2", "ibm-plex-mono-500.woff2"],
+];
 
 const ui = JSON.parse(fs.readFileSync(path.join(SITE_DIR, "i18n/ui.json"), "utf8"));
 const skillI18n = readJson(path.join(SITE_DIR, "i18n/skills.json"), {});
@@ -287,9 +295,7 @@ function layout({ lang, pagePath, depth, title, description, body, bodyClass = "
     <meta property="og:locale" content="${t.htmlLang.replace("-", "_")}">
     <meta name="twitter:card" content="summary">
     <link rel="icon" href="${root}assets/favicon.svg" type="image/svg+xml">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="${FONTS_URL}">
+    <link rel="preload" href="${root}assets/fonts/source-serif-4-opsz.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="stylesheet" href="${root}assets/styles.css">
     <script>try{var t=localStorage.getItem("hbs-theme");if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
     <script src="${root}assets/app.js" defer></script>
@@ -654,6 +660,8 @@ function notFoundPage() {
 
 fs.rmSync(OUT, { recursive: true, force: true });
 fs.cpSync(path.join(SITE_DIR, "assets"), path.join(OUT, "assets"), { recursive: true });
+fs.mkdirSync(path.join(OUT, "assets/fonts"), { recursive: true });
+for (const [from, to] of FONT_FILES) fs.copyFileSync(path.join(SITE_DIR, "node_modules", from), path.join(OUT, "assets/fonts", to));
 for (const lang of LANGS) {
   homePage(lang);
   sourcesPage(lang);

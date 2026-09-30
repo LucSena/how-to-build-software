@@ -5,12 +5,24 @@
     "siteTitle": "How to Build Software",
     "metaDescription": "Agent Skills that teach AI coding agents to architect, write, ship, and design software the way experienced people do — with defaults, trade-offs, and lessons from real postmortems.",
     "skipLink": "Skip to content",
-    "nav": { "skills": "Skills", "how": "How it works", "failures": "Failures", "install": "Install", "sources": "Sources", "github": "GitHub" },
+    "nav": {
+      "skills": "Skills",
+      "how": "How it works",
+      "failures": "Failures",
+      "install": "Install",
+      "sources": "Sources",
+      "github": "GitHub"
+    },
     "themeToggle": "Switch between light and dark",
     "langLabel": "Language",
-    "categories": { "meta": "Start here", "engineering": "Engineering", "design": "Design", "mobile": "Mobile" },
+    "categories": {
+      "meta": "Start here",
+      "engineering": "Engineering",
+      "design": "Design",
+      "mobile": "Mobile"
+    },
     "hero": {
-      "title": "The notes a senior engineer would leave in {mark}your margins{/mark}.",
+      "title": "The notes a senior engineer would leave in your {mark}margins{/mark}.",
       "lead": "How to Build Software is a collection of {skills} skills that teach AI coding agents to architect, write, ship, and design software the way experienced people do: with sensible defaults, honest trade-offs, and the scars from real postmortems.",
       "installLabel": "Install in any agent",
       "copy": "Copy",
@@ -63,11 +75,36 @@
       "title": "Things that broke, so you don't have to break them",
       "intro": "Some of the most useful rules in this collection were paid for by other people, in public. Here are five of them; {skill} holds the rest.",
       "cases": [
-        { "name": "GitLab", "year": "2017", "what": "During a late-night incident, an engineer deleted the production database directory on the wrong host. The backups turned out to have been failing silently; about six hours of data was lost.", "rule": "A backup you have never restored is a hope, not a backup." },
-        { "name": "Amazon S3", "year": "2017", "what": "A typo in a routine command removed far more servers than intended. Restarting the core subsystems took hours, and a large part of the internet went down with us-east-1.", "rule": "Tools should make dangerous actions slow, bounded, and reversible." },
-        { "name": "Knight Capital", "year": "2012", "what": "A manual deploy missed one of eight servers, and a reused flag woke up dead code. In about 45 minutes the firm lost more than $460 million.", "rule": "Never reuse a flag's meaning. Delete dead code. Automate and verify deploys." },
-        { "name": "CrowdStrike", "year": "2024", "what": "A content update — not a code release — crashed about 8.5 million Windows machines, because content was pushed everywhere at once.", "rule": "Config and content deserve the same staged rollout as code." },
-        { "name": "Sonos", "year": "2024", "what": "A rebuilt app shipped without features people used every day. The fix cost tens of millions, and the CEO later stepped down.", "rule": "Never ship a redesign without a parity inventory and a way back." }
+        {
+          "name": "GitLab",
+          "year": "2017",
+          "what": "During a late-night incident, an engineer deleted the production database directory on the wrong host. The backups turned out to have been failing silently; about six hours of data was lost.",
+          "rule": "A backup you have never restored is a hope, not a backup."
+        },
+        {
+          "name": "Amazon S3",
+          "year": "2017",
+          "what": "A typo in a routine command removed far more servers than intended. Restarting the core subsystems took hours, and a large part of the internet went down with us-east-1.",
+          "rule": "Tools should make dangerous actions slow, bounded, and reversible."
+        },
+        {
+          "name": "Knight Capital",
+          "year": "2012",
+          "what": "A manual deploy missed one of eight servers, and a reused flag woke up dead code. In about 45 minutes the firm lost more than $460 million.",
+          "rule": "Never reuse a flag's meaning. Delete dead code. Automate and verify deploys."
+        },
+        {
+          "name": "CrowdStrike",
+          "year": "2024",
+          "what": "A content update — not a code release — crashed about 8.5 million Windows machines, because content was pushed everywhere at once.",
+          "rule": "Config and content deserve the same staged rollout as code."
+        },
+        {
+          "name": "Sonos",
+          "year": "2024",
+          "what": "A rebuilt app shipped without features people used every day. The fix cost tens of millions, and the CEO later stepped down.",
+          "rule": "Never ship a redesign without a parity inventory and a way back."
+        }
       ],
       "whatLabel": "What happened",
       "ruleLabel": "The rule it left behind"
@@ -75,19 +112,44 @@
     "beliefs": {
       "title": "What the collection believes",
       "items": [
-        { "title": "Signal over coverage.", "body": "Generic advice is cut. What stays are defaults, thresholds, decision tables, and the mistakes an agent will make without being told." },
-        { "title": "Defaults, not menus.", "body": "Each skill picks a default and names the exact situation that justifies the alternative." },
-        { "title": "Boring by default.", "body": "A modular monolith, managed Postgres, platform conventions, system components. Anything heavier needs a stated reason." },
-        { "title": "Taste is a process.", "body": "Ground the design in its subject, plan the tokens, compare against the generic default, spend boldness in one place, then critique." },
-        { "title": "Platform-true mobile.", "body": "Liquid Glass and Material 3 Expressive are used as their platforms intend, never imitated on the wrong one." },
-        { "title": "An ethics floor.", "body": "No dark patterns, no fabricated data, no fake social proof. Persuasion means removing friction from something people already want." },
-        { "title": "Dated and sourced.", "body": "Anything that ages carries its date, and every reference file lists the sources behind it." }
+        {
+          "title": "Signal over coverage.",
+          "body": "Generic advice is cut. What stays are defaults, thresholds, decision tables, and the mistakes an agent will make without being told."
+        },
+        {
+          "title": "Defaults, not menus.",
+          "body": "Each skill picks a default and names the exact situation that justifies the alternative."
+        },
+        {
+          "title": "Boring by default.",
+          "body": "A modular monolith, managed Postgres, platform conventions, system components. Anything heavier needs a stated reason."
+        },
+        {
+          "title": "Taste is a process.",
+          "body": "Ground the design in its subject, plan the tokens, compare against the generic default, spend boldness in one place, then critique."
+        },
+        {
+          "title": "Platform-true mobile.",
+          "body": "Liquid Glass and Material 3 Expressive are used as their platforms intend, never imitated on the wrong one."
+        },
+        {
+          "title": "An ethics floor.",
+          "body": "No dark patterns, no fabricated data, no fake social proof. Persuasion means removing friction from something people already want."
+        },
+        {
+          "title": "Dated and sourced.",
+          "body": "Anything that ages carries its date, and every reference file lists the sources behind it."
+        }
       ]
     },
     "install": {
       "title": "Install",
       "intro": "Skills follow the open Agent Skills format, so they work in Claude Code, Codex, Cursor, Gemini CLI, GitHub Copilot, OpenCode, and any agent that reads SKILL.md.",
-      "tabs": { "npx": "Any agent", "claude": "Claude Code", "manual": "Manual" },
+      "tabs": {
+        "npx": "Any agent",
+        "claude": "Claude Code",
+        "manual": "Manual"
+      },
       "npxNote": "Running this from inside an agent session? Name the agent explicitly with -a, for example -a claude-code.",
       "claudeNote": "Install everything, or only the engineering, design, or mobile plugin.",
       "manualNote": "Copy the folders where your agent looks for skills."
@@ -123,8 +185,16 @@
       "credits": "Credits",
       "repo": "Source on GitHub"
     },
-    "suggest": { "text": "This page is also available in English.", "link": "Read in English", "dismiss": "Dismiss" },
-    "notFound": { "title": "This page isn't in the notebook.", "body": "The link may be old, or the page may have moved. The skills are all still here.", "home": "Back to the start" }
+    "suggest": {
+      "text": "This page is also available in English.",
+      "link": "Read in English",
+      "dismiss": "Dismiss"
+    },
+    "notFound": {
+      "title": "This page isn't in the notebook.",
+      "body": "The link may be old, or the page may have moved. The skills are all still here.",
+      "home": "Back to the start"
+    }
   },
   "pt": {
     "htmlLang": "pt-BR",
@@ -132,12 +202,24 @@
     "siteTitle": "How to Build Software",
     "metaDescription": "Agent Skills que ensinam agentes de IA a arquitetar, escrever, publicar e desenhar software como gente experiente faz — com padrões sensatos, trade-offs honestos e lições de postmortems reais.",
     "skipLink": "Pular para o conteúdo",
-    "nav": { "skills": "Skills", "how": "Como funciona", "failures": "Falhas", "install": "Instalar", "sources": "Fontes", "github": "GitHub" },
+    "nav": {
+      "skills": "Skills",
+      "how": "Como funciona",
+      "failures": "Falhas",
+      "install": "Instalar",
+      "sources": "Fontes",
+      "github": "GitHub"
+    },
     "themeToggle": "Alternar entre claro e escuro",
     "langLabel": "Idioma",
-    "categories": { "meta": "Comece aqui", "engineering": "Engenharia", "design": "Design", "mobile": "Mobile" },
+    "categories": {
+      "meta": "Comece aqui",
+      "engineering": "Engenharia",
+      "design": "Design",
+      "mobile": "Mobile"
+    },
     "hero": {
-      "title": "As anotações que um engenheiro sênior deixaria {mark}na margem do seu caderno{/mark}.",
+      "title": "As anotações que um engenheiro sênior deixaria na {mark}margem{/mark} do seu caderno.",
       "lead": "How to Build Software é uma coleção de {skills} skills que ensinam agentes de IA a arquitetar, escrever, publicar e desenhar software do jeito que pessoas experientes fazem: com padrões sensatos, trade-offs honestos e as cicatrizes de postmortems reais.",
       "installLabel": "Instale em qualquer agente",
       "copy": "Copiar",
@@ -190,11 +272,36 @@
       "title": "Coisas que quebraram, para você não precisar quebrar",
       "intro": "Algumas das regras mais úteis desta coleção foram pagas por outras pessoas, em público. Aqui estão cinco; {skill} guarda o resto.",
       "cases": [
-        { "name": "GitLab", "year": "2017", "what": "Durante um incidente de madrugada, um engenheiro apagou o diretório do banco de produção no servidor errado. Os backups vinham falhando em silêncio; cerca de seis horas de dados se perderam.", "rule": "Backup que nunca foi restaurado é esperança, não backup." },
-        { "name": "Amazon S3", "year": "2017", "what": "Um erro de digitação num comando de rotina removeu muito mais servidores do que o previsto. Reiniciar os subsistemas centrais levou horas, e boa parte da internet caiu junto com us-east-1.", "rule": "Ferramentas devem tornar ações perigosas lentas, limitadas e reversíveis." },
-        { "name": "Knight Capital", "year": "2012", "what": "Um deploy manual esqueceu um de oito servidores, e uma flag reaproveitada acordou código morto. Em cerca de 45 minutos, a empresa perdeu mais de 460 milhões de dólares.", "rule": "Nunca reaproveite o significado de uma flag. Apague código morto. Automatize e verifique deploys." },
-        { "name": "CrowdStrike", "year": "2024", "what": "Uma atualização de conteúdo — não de código — derrubou cerca de 8,5 milhões de máquinas Windows, porque o conteúdo foi enviado para todas de uma vez.", "rule": "Configuração e conteúdo merecem o mesmo rollout gradual que código." },
-        { "name": "Sonos", "year": "2024", "what": "Um app reconstruído foi lançado sem funções que as pessoas usavam todo dia. A correção custou dezenas de milhões, e o CEO acabou deixando o cargo.", "rule": "Nunca lance um redesign sem inventário de paridade e sem caminho de volta." }
+        {
+          "name": "GitLab",
+          "year": "2017",
+          "what": "Durante um incidente de madrugada, um engenheiro apagou o diretório do banco de produção no servidor errado. Os backups vinham falhando em silêncio; cerca de seis horas de dados se perderam.",
+          "rule": "Backup que nunca foi restaurado é esperança, não backup."
+        },
+        {
+          "name": "Amazon S3",
+          "year": "2017",
+          "what": "Um erro de digitação num comando de rotina removeu muito mais servidores do que o previsto. Reiniciar os subsistemas centrais levou horas, e boa parte da internet caiu junto com us-east-1.",
+          "rule": "Ferramentas devem tornar ações perigosas lentas, limitadas e reversíveis."
+        },
+        {
+          "name": "Knight Capital",
+          "year": "2012",
+          "what": "Um deploy manual esqueceu um de oito servidores, e uma flag reaproveitada acordou código morto. Em cerca de 45 minutos, a empresa perdeu mais de 460 milhões de dólares.",
+          "rule": "Nunca reaproveite o significado de uma flag. Apague código morto. Automatize e verifique deploys."
+        },
+        {
+          "name": "CrowdStrike",
+          "year": "2024",
+          "what": "Uma atualização de conteúdo — não de código — derrubou cerca de 8,5 milhões de máquinas Windows, porque o conteúdo foi enviado para todas de uma vez.",
+          "rule": "Configuração e conteúdo merecem o mesmo rollout gradual que código."
+        },
+        {
+          "name": "Sonos",
+          "year": "2024",
+          "what": "Um app reconstruído foi lançado sem funções que as pessoas usavam todo dia. A correção custou dezenas de milhões, e o CEO acabou deixando o cargo.",
+          "rule": "Nunca lance um redesign sem inventário de paridade e sem caminho de volta."
+        }
       ],
       "whatLabel": "O que aconteceu",
       "ruleLabel": "A regra que ficou"
@@ -202,19 +309,44 @@
     "beliefs": {
       "title": "No que a coleção acredita",
       "items": [
-        { "title": "Sinal acima de cobertura.", "body": "Conselho genérico sai. Ficam padrões, limites, tabelas de decisão e os erros que um agente cometeria sem ser avisado." },
-        { "title": "Padrões, não cardápios.", "body": "Cada skill escolhe um padrão e diz exatamente em que situação a alternativa se justifica." },
-        { "title": "Chato por padrão.", "body": "Monólito modular, Postgres gerenciado, convenções da plataforma, componentes do sistema. Qualquer coisa mais pesada precisa de um motivo declarado." },
-        { "title": "Bom gosto é processo.", "body": "Ancorar o design no assunto, planejar os tokens, comparar com o padrão genérico, gastar a ousadia num lugar só e então criticar." },
-        { "title": "Mobile fiel à plataforma.", "body": "Liquid Glass e Material 3 Expressive são usados como cada plataforma pretende, nunca imitados na plataforma errada." },
-        { "title": "Um piso ético.", "body": "Sem dark patterns, sem dados inventados, sem prova social falsa. Persuadir é tirar atrito de algo que as pessoas já querem." },
-        { "title": "Datado e com fontes.", "body": "O que envelhece leva data, e todo arquivo de referência lista as fontes por trás das regras." }
+        {
+          "title": "Sinal acima de cobertura.",
+          "body": "Conselho genérico sai. Ficam padrões, limites, tabelas de decisão e os erros que um agente cometeria sem ser avisado."
+        },
+        {
+          "title": "Padrões, não cardápios.",
+          "body": "Cada skill escolhe um padrão e diz exatamente em que situação a alternativa se justifica."
+        },
+        {
+          "title": "Chato por padrão.",
+          "body": "Monólito modular, Postgres gerenciado, convenções da plataforma, componentes do sistema. Qualquer coisa mais pesada precisa de um motivo declarado."
+        },
+        {
+          "title": "Bom gosto é processo.",
+          "body": "Ancorar o design no assunto, planejar os tokens, comparar com o padrão genérico, gastar a ousadia num lugar só e então criticar."
+        },
+        {
+          "title": "Mobile fiel à plataforma.",
+          "body": "Liquid Glass e Material 3 Expressive são usados como cada plataforma pretende, nunca imitados na plataforma errada."
+        },
+        {
+          "title": "Um piso ético.",
+          "body": "Sem dark patterns, sem dados inventados, sem prova social falsa. Persuadir é tirar atrito de algo que as pessoas já querem."
+        },
+        {
+          "title": "Datado e com fontes.",
+          "body": "O que envelhece leva data, e todo arquivo de referência lista as fontes por trás das regras."
+        }
       ]
     },
     "install": {
       "title": "Instalar",
       "intro": "As skills seguem o formato aberto Agent Skills, então funcionam no Claude Code, Codex, Cursor, Gemini CLI, GitHub Copilot, OpenCode e em qualquer agente que leia SKILL.md.",
-      "tabs": { "npx": "Qualquer agente", "claude": "Claude Code", "manual": "Manual" },
+      "tabs": {
+        "npx": "Qualquer agente",
+        "claude": "Claude Code",
+        "manual": "Manual"
+      },
       "npxNote": "Rodando de dentro de uma sessão de agente? Informe o agente com -a, por exemplo -a claude-code.",
       "claudeNote": "Instale tudo, ou só o plugin de engenharia, de design ou de mobile.",
       "manualNote": "Copie as pastas para onde o seu agente procura skills."
@@ -250,8 +382,16 @@
       "credits": "Créditos",
       "repo": "Código no GitHub"
     },
-    "suggest": { "text": "Esta página também existe em português.", "link": "Ler em português", "dismiss": "Fechar" },
-    "notFound": { "title": "Esta página não está no caderno.", "body": "O link pode estar antigo, ou a página mudou de lugar. As skills continuam todas aqui.", "home": "Voltar ao início" }
+    "suggest": {
+      "text": "Esta página também existe em português.",
+      "link": "Ler em português",
+      "dismiss": "Fechar"
+    },
+    "notFound": {
+      "title": "Esta página não está no caderno.",
+      "body": "O link pode estar antigo, ou a página mudou de lugar. As skills continuam todas aqui.",
+      "home": "Voltar ao início"
+    }
   },
   "es": {
     "htmlLang": "es",
@@ -259,12 +399,24 @@
     "siteTitle": "How to Build Software",
     "metaDescription": "Agent Skills que enseñan a los agentes de IA a diseñar la arquitectura, escribir, publicar y diseñar software como lo hace la gente con experiencia — con valores por defecto sensatos, trade-offs honestos y lecciones de postmortems reales.",
     "skipLink": "Saltar al contenido",
-    "nav": { "skills": "Skills", "how": "Cómo funciona", "failures": "Fallos", "install": "Instalar", "sources": "Fuentes", "github": "GitHub" },
+    "nav": {
+      "skills": "Skills",
+      "how": "Cómo funciona",
+      "failures": "Fallos",
+      "install": "Instalar",
+      "sources": "Fuentes",
+      "github": "GitHub"
+    },
     "themeToggle": "Cambiar entre claro y oscuro",
     "langLabel": "Idioma",
-    "categories": { "meta": "Empieza aquí", "engineering": "Ingeniería", "design": "Diseño", "mobile": "Mobile" },
+    "categories": {
+      "meta": "Empieza aquí",
+      "engineering": "Ingeniería",
+      "design": "Diseño",
+      "mobile": "Mobile"
+    },
     "hero": {
-      "title": "Las notas que un ingeniero sénior dejaría {mark}en el margen de tu cuaderno{/mark}.",
+      "title": "Las notas que un ingeniero sénior dejaría en el {mark}margen{/mark} de tu cuaderno.",
       "lead": "How to Build Software es una colección de {skills} skills que enseñan a los agentes de IA a diseñar la arquitectura, escribir, publicar y diseñar software como lo hace la gente con experiencia: con valores por defecto sensatos, trade-offs honestos y las cicatrices de postmortems reales.",
       "installLabel": "Instala en cualquier agente",
       "copy": "Copiar",
@@ -317,11 +469,36 @@
       "title": "Cosas que se rompieron, para que tú no tengas que romperlas",
       "intro": "Algunas de las reglas más útiles de esta colección las pagaron otras personas, en público. Aquí van cinco; {skill} guarda el resto.",
       "cases": [
-        { "name": "GitLab", "year": "2017", "what": "Durante un incidente de madrugada, un ingeniero borró el directorio de la base de datos de producción en el servidor equivocado. Los backups llevaban tiempo fallando en silencio; se perdieron unas seis horas de datos.", "rule": "Un backup que nunca restauraste es una esperanza, no un backup." },
-        { "name": "Amazon S3", "year": "2017", "what": "Un error al escribir un comando rutinario eliminó muchos más servidores de lo previsto. Reiniciar los subsistemas centrales tomó horas, y buena parte de internet cayó con us-east-1.", "rule": "Las herramientas deben hacer que las acciones peligrosas sean lentas, acotadas y reversibles." },
-        { "name": "Knight Capital", "year": "2012", "what": "Un deploy manual olvidó uno de ocho servidores, y una flag reutilizada despertó código muerto. En unos 45 minutos la empresa perdió más de 460 millones de dólares.", "rule": "Nunca reutilices el significado de una flag. Borra el código muerto. Automatiza y verifica los deploys." },
-        { "name": "CrowdStrike", "year": "2024", "what": "Una actualización de contenido — no de código — tumbó unos 8,5 millones de equipos Windows, porque el contenido se envió a todos a la vez.", "rule": "La configuración y el contenido merecen el mismo despliegue gradual que el código." },
-        { "name": "Sonos", "year": "2024", "what": "Una app reconstruida salió sin funciones que la gente usaba a diario. Arreglarlo costó decenas de millones, y el CEO terminó dejando el cargo.", "rule": "Nunca lances un rediseño sin inventario de paridad y sin camino de vuelta." }
+        {
+          "name": "GitLab",
+          "year": "2017",
+          "what": "Durante un incidente de madrugada, un ingeniero borró el directorio de la base de datos de producción en el servidor equivocado. Los backups llevaban tiempo fallando en silencio; se perdieron unas seis horas de datos.",
+          "rule": "Un backup que nunca restauraste es una esperanza, no un backup."
+        },
+        {
+          "name": "Amazon S3",
+          "year": "2017",
+          "what": "Un error al escribir un comando rutinario eliminó muchos más servidores de lo previsto. Reiniciar los subsistemas centrales tomó horas, y buena parte de internet cayó con us-east-1.",
+          "rule": "Las herramientas deben hacer que las acciones peligrosas sean lentas, acotadas y reversibles."
+        },
+        {
+          "name": "Knight Capital",
+          "year": "2012",
+          "what": "Un deploy manual olvidó uno de ocho servidores, y una flag reutilizada despertó código muerto. En unos 45 minutos la empresa perdió más de 460 millones de dólares.",
+          "rule": "Nunca reutilices el significado de una flag. Borra el código muerto. Automatiza y verifica los deploys."
+        },
+        {
+          "name": "CrowdStrike",
+          "year": "2024",
+          "what": "Una actualización de contenido — no de código — tumbó unos 8,5 millones de equipos Windows, porque el contenido se envió a todos a la vez.",
+          "rule": "La configuración y el contenido merecen el mismo despliegue gradual que el código."
+        },
+        {
+          "name": "Sonos",
+          "year": "2024",
+          "what": "Una app reconstruida salió sin funciones que la gente usaba a diario. Arreglarlo costó decenas de millones, y el CEO terminó dejando el cargo.",
+          "rule": "Nunca lances un rediseño sin inventario de paridad y sin camino de vuelta."
+        }
       ],
       "whatLabel": "Qué pasó",
       "ruleLabel": "La regla que dejó"
@@ -329,19 +506,44 @@
     "beliefs": {
       "title": "En qué cree la colección",
       "items": [
-        { "title": "Señal antes que cobertura.", "body": "El consejo genérico se elimina. Quedan valores por defecto, umbrales, tablas de decisión y los errores que un agente cometería si nadie se lo advierte." },
-        { "title": "Valores por defecto, no menús.", "body": "Cada skill elige un valor por defecto y dice exactamente qué situación justifica la alternativa." },
-        { "title": "Aburrido por defecto.", "body": "Monolito modular, Postgres gestionado, convenciones de la plataforma, componentes del sistema. Cualquier cosa más pesada necesita una razón explícita." },
-        { "title": "El buen gusto es un proceso.", "body": "Anclar el diseño en su tema, planificar los tokens, compararlo con el resultado genérico, gastar la audacia en un solo lugar y luego criticar." },
-        { "title": "Mobile fiel a la plataforma.", "body": "Liquid Glass y Material 3 Expressive se usan como cada plataforma pretende, nunca imitados en la plataforma equivocada." },
-        { "title": "Un piso ético.", "body": "Sin dark patterns, sin datos inventados, sin prueba social falsa. Persuadir es quitar fricción a algo que la gente ya quiere." },
-        { "title": "Fechado y con fuentes.", "body": "Lo que envejece lleva fecha, y cada archivo de referencia lista las fuentes detrás de sus reglas." }
+        {
+          "title": "Señal antes que cobertura.",
+          "body": "El consejo genérico se elimina. Quedan valores por defecto, umbrales, tablas de decisión y los errores que un agente cometería si nadie se lo advierte."
+        },
+        {
+          "title": "Valores por defecto, no menús.",
+          "body": "Cada skill elige un valor por defecto y dice exactamente qué situación justifica la alternativa."
+        },
+        {
+          "title": "Aburrido por defecto.",
+          "body": "Monolito modular, Postgres gestionado, convenciones de la plataforma, componentes del sistema. Cualquier cosa más pesada necesita una razón explícita."
+        },
+        {
+          "title": "El buen gusto es un proceso.",
+          "body": "Anclar el diseño en su tema, planificar los tokens, compararlo con el resultado genérico, gastar la audacia en un solo lugar y luego criticar."
+        },
+        {
+          "title": "Mobile fiel a la plataforma.",
+          "body": "Liquid Glass y Material 3 Expressive se usan como cada plataforma pretende, nunca imitados en la plataforma equivocada."
+        },
+        {
+          "title": "Un piso ético.",
+          "body": "Sin dark patterns, sin datos inventados, sin prueba social falsa. Persuadir es quitar fricción a algo que la gente ya quiere."
+        },
+        {
+          "title": "Fechado y con fuentes.",
+          "body": "Lo que envejece lleva fecha, y cada archivo de referencia lista las fuentes detrás de sus reglas."
+        }
       ]
     },
     "install": {
       "title": "Instalar",
       "intro": "Las skills siguen el formato abierto Agent Skills, así que funcionan en Claude Code, Codex, Cursor, Gemini CLI, GitHub Copilot, OpenCode y cualquier agente que lea SKILL.md.",
-      "tabs": { "npx": "Cualquier agente", "claude": "Claude Code", "manual": "Manual" },
+      "tabs": {
+        "npx": "Cualquier agente",
+        "claude": "Claude Code",
+        "manual": "Manual"
+      },
       "npxNote": "¿Lo ejecutas desde una sesión de agente? Indica el agente con -a, por ejemplo -a claude-code.",
       "claudeNote": "Instala todo, o solo el plugin de ingeniería, de diseño o de mobile.",
       "manualNote": "Copia las carpetas donde tu agente busca skills."
@@ -377,7 +579,15 @@
       "credits": "Créditos",
       "repo": "Código en GitHub"
     },
-    "suggest": { "text": "Esta página también está en español.", "link": "Leer en español", "dismiss": "Cerrar" },
-    "notFound": { "title": "Esta página no está en el cuaderno.", "body": "Puede que el enlace sea antiguo o que la página se haya movido. Las skills siguen todas aquí.", "home": "Volver al inicio" }
+    "suggest": {
+      "text": "Esta página también está en español.",
+      "link": "Leer en español",
+      "dismiss": "Cerrar"
+    },
+    "notFound": {
+      "title": "Esta página no está en el cuaderno.",
+      "body": "Puede que el enlace sea antiguo o que la página se haya movido. Las skills siguen todas aquí.",
+      "home": "Volver al inicio"
+    }
   }
 }

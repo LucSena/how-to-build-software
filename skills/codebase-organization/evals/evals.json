@@ -1,0 +1,65 @@
+{
+  "skill_name": "codebase-organization",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Our Express + TypeScript API has top-level controllers/, services/, models/ and a 900-line utils.ts. We have orders, billing and users. Reorganize it.",
+      "expected_output": "Maps the current layout, proposes feature modules (orders, billing, users) each with entry-points/domain/data-access and a small public file, splits utils.ts into named helpers placed with their consumers or in libraries/, adds a boundary rule (no cycles, no deep imports) in CI, and plans an incremental migration one module per PR with moves separated from behavior changes.",
+      "files": [],
+      "expectations": [
+        "Proposes organizing by feature or domain modules instead of top-level controllers/services/models",
+        "Splits utils.ts into concept-named files placed with their consumers or in a shared library folder",
+        "Adds an automated boundary check (e.g., dependency-cruiser or eslint rules) that runs in CI",
+        "Migrates incrementally, one module per PR, keeping file moves separate from behavior changes",
+        "Does not propose splitting into microservices"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Set up the folder structure for a new Go REST service with one API binary.",
+      "expected_output": "Uses the official go.dev module layout: go.mod at the root, a small main (in the root or cmd/api-server/ if a second binary is expected), domain packages under internal/, no pkg/ or empty scaffolding; notes that golang-standards/project-layout is not an official standard.",
+      "files": [],
+      "expectations": [
+        "Puts non-public packages under internal/",
+        "Does not create a pkg/ directory or empty scaffolding folders such as api/, build/, deployments/",
+        "States or implies that golang-standards/project-layout is not an official Go standard",
+        "Names packages after what they provide rather than util/common"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Our React app is slow in dev and every feature folder has an index.ts that does export * from everything. Also features import each other all over the place. What should we do?",
+      "expected_output": "Explains the barrel-file cost (Vite guidance, bulletproof-react, Atlassian build speedup), recommends direct imports or small named public entries without export *, adds import/no-restricted-paths or eslint-plugin-boundaries zones to block cross-feature imports and enforce shared → features → app, and removes barrels incrementally with a codemod.",
+      "files": [],
+      "expectations": [
+        "Recommends removing export * barrel files in favor of direct imports or a small explicit named public API",
+        "Cites a concrete reason or source for barrel cost (dev-server transform of all re-exported files, tree shaking, or build time)",
+        "Adds a lint rule that blocks cross-feature imports and enforces one-way shared to features to app dependencies",
+        "Proposes an incremental rollout rather than one big-bang change"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "We're 3 developers starting a Next.js app. Should we set up an Nx monorepo with separate packages for ui, utils, and each feature, plus CODEOWNERS?",
+      "expected_output": "Stage 0-1 answer: a single Next.js app with feature folders and a shared ui folder; no monorepo tooling or per-feature packages until a second deployable or consumer exists; CODEOWNERS not needed yet; names the triggers for adopting each.",
+      "files": [],
+      "expectations": [
+        "Recommends a single app with feature folders rather than a monorepo with per-feature packages",
+        "States that packages should be created only when a second consumer or deployable exists",
+        "Names at least one concrete trigger for adopting monorepo tooling or CODEOWNERS later",
+        "Advises against a utils package"
+      ]
+    },
+    {
+      "id": 5,
+      "prompt": "Should our payments module become its own microservice with its own database?",
+      "expected_output": "Near-miss: service extraction is a system-architecture decision; answers with the triggers (independent scaling, deploy cadence, isolation, runtime) and defers the extraction procedure to software-architecture rather than re-deriving folder layouts.",
+      "files": [],
+      "expectations": [
+        "Asks for or lists concrete triggers for extracting a service (scaling, team ownership and deploy cadence, isolation or compliance, runtime)",
+        "Recommends enforcing the module boundary in-process before any extraction",
+        "Points to software-architecture for the extraction procedure"
+      ]
+    }
+  ]
+}

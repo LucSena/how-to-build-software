@@ -97,11 +97,13 @@ Most home pages serve a mix; lead for the dominant traffic and let sections serv
 
 ## Signup and forms
 
-- **Field cost**: every extra field loses some people. Start from email (or social/passkey) plus password or magic link; defer name, company, role, phone, and use case to onboarding or infer them (company from email domain). Treat field-count benchmarks as directional; measure your own field-level drop-off.
+This is the conversion view of signup: what to ask for, what each step costs, and how to measure it. Build the flow itself — the unified "Continue" screen, sign-in methods, markup and autocomplete, verification timing, error copy, and the security behind them — from `auth-flows`.
+
+- **Field cost**: every extra field loses some people. Start from email (or social/passkey) plus an email code or password (codes beat magic links, which email link scanners can consume); defer name, company, role, phone, and use case to onboarding or infer them (company from email domain). Treat field-count benchmarks as directional; measure your own field-level drop-off.
 - **Social and passwordless**: offer the providers your audience uses (Google, Microsoft, Apple for consumer; SSO for enterprise B2B) and passkeys; on iOS, apps offering third-party login must also offer a privacy-focused option (App Store Review Guideline 4.8), usually Sign in with Apple.
 - **No confirm-email or confirm-password fields**; show/hide password, requirements shown upfront, paste allowed.
 - **Qualification**: long forms are justified only for high-touch sales (demo requests), and even then 5–8 fields is the ceiling.
-- **Errors** that route: "This email already has an account. Sign in?" with the link.
+- **Errors** that route: "This email already has an account. Sign in?" with the link (unless membership itself is sensitive; follow the enumeration stance in `auth-flows`).
 - **Verification**: let users continue into the product and verify later when risk allows; say where the email went, offer resend and change-email.
 - Form mechanics (labels, validation timing, autocomplete): `interaction-design`. Authentication methods, verification, recovery, and sessions: `auth-flows`. Signup field costs: `references/signup-onboarding.md`.
 

@@ -1,0 +1,227 @@
+{
+  "how-to-build-software": {
+    "en": "The front door: picks the right skills for the job, in the right order, and holds everything to one quality bar",
+    "pt": "A porta de entrada: escolhe as skills certas para o trabalho, na ordem certa, e mantém tudo num mesmo padrão de qualidade",
+    "es": "La puerta de entrada: elige las skills correctas para el trabajo, en el orden correcto, y mantiene todo en un mismo estándar de calidad"
+  },
+  "project-context": {
+    "en": "Writes down your stack, users, scale, and design system once, so no skill has to ask again",
+    "pt": "Registra uma vez o stack, os usuários, a escala e o design system, para nenhuma skill perguntar de novo",
+    "es": "Anota una sola vez tu stack, usuarios, escala y design system, para que ninguna skill vuelva a preguntar"
+  },
+  "project-bootstrap": {
+    "en": "Starting a new repo right: a walking skeleton, CI before features, a deploy on day one, and standards that prevent later pain",
+    "pt": "Começar um repositório do jeito certo: esqueleto funcional, CI antes das features, deploy no primeiro dia e padrões que evitam dor depois",
+    "es": "Empezar un repositorio bien: esqueleto funcional, CI antes que las features, deploy el primer día y estándares que evitan dolores después"
+  },
+  "tech-stack-selection": {
+    "en": "Choosing languages, frameworks, databases, and hosting with boring defaults and an honest decision matrix",
+    "pt": "Escolher linguagens, frameworks, bancos e hospedagem com padrões chatos e uma matriz de decisão honesta",
+    "es": "Elegir lenguajes, frameworks, bases de datos y hosting con opciones aburridas por defecto y una matriz de decisión honesta"
+  },
+  "codebase-organization": {
+    "en": "Where code should live as it grows: feature folders, enforced module boundaries, and folder templates per stack",
+    "pt": "Onde o código deve morar conforme cresce: pastas por feature, fronteiras de módulo garantidas e modelos de pastas por stack",
+    "es": "Dónde debe vivir el código a medida que crece: carpetas por feature, límites de módulo reforzados y plantillas de carpetas por stack"
+  },
+  "software-architecture": {
+    "en": "Drawing boundaries: modular monolith first, DDD where it pays, microservices only with a reason, decisions written as ADRs",
+    "pt": "Traçar fronteiras: monólito modular primeiro, DDD onde compensa, microsserviços só com motivo, decisões registradas em ADRs",
+    "es": "Trazar límites: monolito modular primero, DDD donde compensa, microservicios solo con motivo y decisiones escritas como ADRs"
+  },
+  "system-design": {
+    "en": "Designing a system end to end, from access patterns and invariants to a design doc, with real case studies",
+    "pt": "Desenhar um sistema de ponta a ponta, dos padrões de acesso e invariantes até o design doc, com estudos de caso reais",
+    "es": "Diseñar un sistema de punta a punta, de los patrones de acceso e invariantes al design doc, con casos reales"
+  },
+  "data-modeling": {
+    "en": "Schemas that hold up: keys, constraints in the database, money and time done right, and migrations that don't lock tables",
+    "pt": "Schemas que se sustentam: chaves, restrições no banco, dinheiro e tempo do jeito certo e migrações que não travam tabelas",
+    "es": "Esquemas que aguantan: claves, restricciones en la base de datos, dinero y tiempo bien hechos y migraciones que no bloquean tablas"
+  },
+  "data-infrastructure": {
+    "en": "Which database, cache, queue, search engine, or storage to use — and when you don't need a new one at all",
+    "pt": "Qual banco, cache, fila, busca ou armazenamento usar — e quando você não precisa de mais nenhum",
+    "es": "Qué base de datos, caché, cola, buscador o almacenamiento usar — y cuándo no necesitas uno nuevo"
+  },
+  "scalability": {
+    "en": "Handling more load and data in the right order: measure, index, cache, replicate, queue, and only then shard",
+    "pt": "Aguentar mais carga e dados na ordem certa: medir, indexar, cachear, replicar, enfileirar e só então particionar",
+    "es": "Aguantar más carga y datos en el orden correcto: medir, indexar, cachear, replicar, encolar y solo entonces particionar"
+  },
+  "reliability": {
+    "en": "Staying up when things break: timeouts, retries with jitter, SLOs, safe deploys, and blameless incidents",
+    "pt": "Continuar no ar quando algo quebra: timeouts, retries com jitter, SLOs, deploys seguros e incidentes sem culpados",
+    "es": "Seguir en pie cuando algo falla: timeouts, reintentos con jitter, SLOs, deploys seguros e incidentes sin culpables"
+  },
+  "api-design": {
+    "en": "API contracts people can trust: resources, errors, pagination, versioning, idempotency, and webhooks",
+    "pt": "Contratos de API confiáveis: recursos, erros, paginação, versionamento, idempotência e webhooks",
+    "es": "Contratos de API confiables: recursos, errores, paginación, versionado, idempotencia y webhooks"
+  },
+  "application-security": {
+    "en": "Secure by default: authorization on every request, injection, XSS, SSRF, secrets, and OWASP Top 10 as code rules",
+    "pt": "Seguro por padrão: autorização em toda requisição, injeção, XSS, SSRF, segredos e o OWASP Top 10 como regras de código",
+    "es": "Seguro por defecto: autorización en cada petición, inyección, XSS, SSRF, secretos y el OWASP Top 10 como reglas de código"
+  },
+  "environments-and-config": {
+    "en": "Local, preview, staging, and production without surprises: typed config, secrets outside the repo, and parity",
+    "pt": "Local, preview, staging e produção sem surpresas: config tipada, segredos fora do repositório e paridade",
+    "es": "Local, preview, staging y producción sin sorpresas: configuración tipada, secretos fuera del repositorio y paridad"
+  },
+  "deployment-and-infrastructure": {
+    "en": "Shipping it: CI/CD, containers, infrastructure as code, Kubernetes only when earned, and background jobs",
+    "pt": "Colocar no ar: CI/CD, containers, infraestrutura como código, Kubernetes só quando merecido e jobs em segundo plano",
+    "es": "Ponerlo en producción: CI/CD, contenedores, infraestructura como código, Kubernetes solo cuando se justifica y jobs en segundo plano"
+  },
+  "clean-code": {
+    "en": "Code that is easy to read and change: names, small honest functions, errors that aren't swallowed, safe refactoring",
+    "pt": "Código fácil de ler e mudar: nomes, funções pequenas e honestas, erros que não são engolidos, refatoração segura",
+    "es": "Código fácil de leer y cambiar: nombres, funciones pequeñas y honestas, errores que no se ocultan, refactorización segura"
+  },
+  "object-oriented-design": {
+    "en": "Objects that earn their keep: responsibilities, invariants, composition over inheritance, and when a function is enough",
+    "pt": "Objetos que valem a pena: responsabilidades, invariantes, composição em vez de herança e quando uma função basta",
+    "es": "Objetos que valen la pena: responsabilidades, invariantes, composición antes que herencia y cuándo basta una función"
+  },
+  "design-patterns": {
+    "en": "When a pattern fits and when it's ceremony: the simplest thing first, then GoF, functional, and frontend patterns",
+    "pt": "Quando um padrão cabe e quando é cerimônia: o mais simples primeiro, depois GoF, padrões funcionais e de frontend",
+    "es": "Cuándo encaja un patrón y cuándo es ceremonia: lo más simple primero, luego GoF, patrones funcionales y de frontend"
+  },
+  "dependency-management": {
+    "en": "Fewer, better packages: the standard library first, a checklist before every install, and supply-chain defenses",
+    "pt": "Menos pacotes, e melhores: biblioteca padrão primeiro, checklist antes de cada instalação e defesas de supply chain",
+    "es": "Menos paquetes, y mejores: la biblioteca estándar primero, una lista antes de cada instalación y defensas de supply chain"
+  },
+  "testing-strategy": {
+    "en": "What to test at which level, tests that fail for the right reasons, and a zero-tolerance policy for flakiness",
+    "pt": "O que testar em cada nível, testes que falham pelo motivo certo e tolerância zero com testes instáveis",
+    "es": "Qué probar en cada nivel, tests que fallan por la razón correcta y tolerancia cero con los tests inestables"
+  },
+  "frontend-architecture": {
+    "en": "How a web frontend is built: rendering per route, where state lives, data fetching without waterfalls, safe server actions",
+    "pt": "Como um frontend web é construído: renderização por rota, onde o estado mora, dados sem cascata e server actions seguras",
+    "es": "Cómo se construye un frontend web: renderizado por ruta, dónde vive el estado, datos sin cascadas y server actions seguras"
+  },
+  "ai-native-architecture": {
+    "en": "LLM features that hold up: when to use a model at all, tools and agents, RAG, evals, and prompt-injection defenses",
+    "pt": "Recursos com LLM que se sustentam: quando usar um modelo, ferramentas e agentes, RAG, avaliações e defesa contra prompt injection",
+    "es": "Funciones con LLM que aguantan: cuándo usar un modelo, herramientas y agentes, RAG, evaluaciones y defensas contra prompt injection"
+  },
+  "code-review": {
+    "en": "Reviewing code and AI-written changes in the right order, with evidence, severity, and the failure modes agents repeat",
+    "pt": "Revisar código e mudanças escritas por IA na ordem certa, com evidência, severidade e as falhas que agentes repetem",
+    "es": "Revisar código y cambios escritos por IA en el orden correcto, con evidencia, severidad y los errores que los agentes repiten"
+  },
+  "lessons-from-failures": {
+    "en": "Famous outages, breaches, rewrites, and redesigns turned into rules — plus how to write a blameless postmortem",
+    "pt": "Quedas, vazamentos, reescritas e redesigns famosos transformados em regras — e como escrever um postmortem sem culpados",
+    "es": "Caídas, filtraciones, reescrituras y rediseños famosos convertidos en reglas — y cómo escribir un postmortem sin culpables"
+  },
+  "design-taste": {
+    "en": "A visual direction that belongs to its subject instead of looking AI-generated, decided before any code",
+    "pt": "Uma direção visual que pertence ao assunto em vez de parecer gerada por IA, decidida antes de qualquer código",
+    "es": "Una dirección visual que pertenece a su tema en lugar de parecer generada por IA, decidida antes de escribir código"
+  },
+  "design-foundations": {
+    "en": "The numbers behind good UI: type scales, OKLCH color and contrast, spacing, layout, depth, and icons",
+    "pt": "Os números por trás de uma boa interface: escalas tipográficas, cor OKLCH e contraste, espaçamento, layout, profundidade e ícones",
+    "es": "Los números detrás de una buena interfaz: escalas tipográficas, color OKLCH y contraste, espaciado, layout, profundidad e iconos"
+  },
+  "design-systems": {
+    "en": "Tokens, components, and DESIGN.md — and how to build a design system from zero that people actually adopt",
+    "pt": "Tokens, componentes e DESIGN.md — e como construir do zero um design system que as pessoas realmente adotam",
+    "es": "Tokens, componentes y DESIGN.md — y cómo construir desde cero un design system que la gente de verdad adopte"
+  },
+  "ux-principles": {
+    "en": "The laws of UX and Nielsen's heuristics as decisions, humane design, and the dark patterns never to build",
+    "pt": "As leis de UX e as heurísticas de Nielsen como decisões, design humano e os dark patterns que nunca se constroem",
+    "es": "Las leyes de UX y las heurísticas de Nielsen como decisiones, diseño humano y los dark patterns que nunca se construyen"
+  },
+  "interaction-design": {
+    "en": "Every state, form, loading moment, error, and empty screen — and words that tell people what to do next",
+    "pt": "Cada estado, formulário, carregamento, erro e tela vazia — e palavras que dizem às pessoas o que fazer em seguida",
+    "es": "Cada estado, formulario, carga, error y pantalla vacía — y palabras que dicen a la gente qué hacer después"
+  },
+  "motion-design": {
+    "en": "Whether something should animate at all, then exact easing, durations, springs, and reduced-motion behavior",
+    "pt": "Se algo deve animar ou não, e então easing, durações, molas e comportamento com movimento reduzido exatos",
+    "es": "Si algo debe animarse o no, y luego easing, duraciones, resortes y comportamiento con movimiento reducido exactos"
+  },
+  "accessibility": {
+    "en": "WCAG 2.2 AA in practice: semantics before ARIA, keyboard and focus, screen readers, contrast, and real testing",
+    "pt": "WCAG 2.2 AA na prática: semântica antes de ARIA, teclado e foco, leitores de tela, contraste e testes de verdade",
+    "es": "WCAG 2.2 AA en la práctica: semántica antes que ARIA, teclado y foco, lectores de pantalla, contraste y pruebas reales"
+  },
+  "web-platform": {
+    "en": "Modern CSS that's safe to ship, Core Web Vitals, fonts and images, RTL, and dark mode without a flash",
+    "pt": "CSS moderno seguro para usar, Core Web Vitals, fontes e imagens, RTL e modo escuro sem piscar",
+    "es": "CSS moderno seguro de usar, Core Web Vitals, fuentes e imágenes, RTL y modo oscuro sin parpadeos"
+  },
+  "auth-flows": {
+    "en": "Login and sign-up done well: passkeys, email codes, social and SSO, MFA, recovery, and secure sessions",
+    "pt": "Login e cadastro bem feitos: passkeys, códigos por e-mail, login social e SSO, MFA, recuperação e sessões seguras",
+    "es": "Login y registro bien hechos: passkeys, códigos por correo, login social y SSO, MFA, recuperación y sesiones seguras"
+  },
+  "onboarding-design": {
+    "en": "Getting people to their first real win fast: activation metrics, empty states, checklists, and five blueprints",
+    "pt": "Levar as pessoas rápido à primeira conquista real: métricas de ativação, estados vazios, checklists e cinco blueprints",
+    "es": "Llevar rápido a la gente a su primer logro real: métricas de activación, estados vacíos, checklists y cinco blueprints"
+  },
+  "dashboard-design": {
+    "en": "App shells and dashboards that answer “what should I do now?”: sidebar, ⌘K, KPIs, widget states, and filters",
+    "pt": "App shells e dashboards que respondem “o que eu faço agora?”: sidebar, ⌘K, KPIs, estados dos widgets e filtros",
+    "es": "App shells y dashboards que responden “¿qué hago ahora?”: sidebar, ⌘K, KPIs, estados de los widgets y filtros"
+  },
+  "app-screen-patterns": {
+    "en": "The screens every product needs: settings, team and billing, notifications, search, API keys, and error pages",
+    "pt": "As telas que todo produto precisa: configurações, time e cobrança, notificações, busca, chaves de API e páginas de erro",
+    "es": "Las pantallas que todo producto necesita: ajustes, equipo y facturación, notificaciones, búsqueda, claves de API y páginas de error"
+  },
+  "data-dense-ui": {
+    "en": "Tables, data grids, charts, number formatting, and admin screens built for people who work in them all day",
+    "pt": "Tabelas, grids de dados, gráficos, formatação de números e telas de admin para quem trabalha nelas o dia todo",
+    "es": "Tablas, grids de datos, gráficos, formato de números y pantallas de admin para quien trabaja en ellas todo el día"
+  },
+  "conversion-ux": {
+    "en": "Landing pages, pricing, paywalls, checkout, and cancel flows that convert honestly, with a hard ethics floor",
+    "pt": "Landing pages, preços, paywalls, checkout e cancelamento que convertem com honestidade, com um piso ético firme",
+    "es": "Landing pages, precios, paywalls, checkout y cancelación que convierten con honestidad, con un piso ético firme"
+  },
+  "ai-interface-design": {
+    "en": "Chat, copilot, and agent interfaces people can steer and trust: streaming, sources, approvals, and failure states",
+    "pt": "Interfaces de chat, copiloto e agente que as pessoas conseguem guiar e confiar: streaming, fontes, aprovações e falhas",
+    "es": "Interfaces de chat, copiloto y agente que la gente puede guiar y en las que confía: streaming, fuentes, aprobaciones y fallos"
+  },
+  "design-review": {
+    "en": "A repeatable UI audit: heuristic scores, accessibility, AI-slop check, states, and severity with evidence",
+    "pt": "Uma auditoria de interface repetível: notas por heurística, acessibilidade, checagem de AI slop, estados e severidade com evidência",
+    "es": "Una auditoría de interfaz repetible: puntuación por heurística, accesibilidad, revisión de AI slop, estados y severidad con evidencia"
+  },
+  "design-resources": {
+    "en": "A curated shelf of component libraries, icon sets, fonts, inspiration galleries, and AI design tools",
+    "pt": "Uma estante curada de bibliotecas de componentes, ícones, fontes, galerias de inspiração e ferramentas de design com IA",
+    "es": "Una estantería curada de librerías de componentes, iconos, fuentes, galerías de inspiración y herramientas de diseño con IA"
+  },
+  "mobile-design": {
+    "en": "Mobile UX that feels native on both platforms: navigation, gestures, permissions, keyboards, and offline states",
+    "pt": "UX mobile que parece nativa nas duas plataformas: navegação, gestos, permissões, teclados e estados offline",
+    "es": "UX móvil que se siente nativa en ambas plataformas: navegación, gestos, permisos, teclados y estados sin conexión"
+  },
+  "ios-design": {
+    "en": "iPhone and iPad apps for iOS 26 and 27: Liquid Glass used as intended, SwiftUI, Dynamic Type, and App Review",
+    "pt": "Apps de iPhone e iPad para iOS 26 e 27: Liquid Glass usado como deve, SwiftUI, Dynamic Type e App Review",
+    "es": "Apps de iPhone y iPad para iOS 26 y 27: Liquid Glass usado como se debe, SwiftUI, Dynamic Type y App Review"
+  },
+  "android-design": {
+    "en": "Android apps with Material 3 Expressive: edge-to-edge, predictive back, adaptive layouts, and Play policy",
+    "pt": "Apps Android com Material 3 Expressive: edge-to-edge, predictive back, layouts adaptativos e políticas da Play Store",
+    "es": "Apps Android con Material 3 Expressive: edge-to-edge, predictive back, layouts adaptativos y políticas de Google Play"
+  },
+  "mobile-architecture": {
+    "en": "Native or cross-platform, app architecture, offline sync, performance budgets, deep links, and releases",
+    "pt": "Nativo ou multiplataforma, arquitetura do app, sincronização offline, orçamento de performance, deep links e releases",
+    "es": "Nativo o multiplataforma, arquitectura de la app, sincronización sin conexión, presupuestos de rendimiento, deep links y releases"
+  }
+}
