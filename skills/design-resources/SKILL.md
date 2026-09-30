@@ -3,7 +3,7 @@ name: design-resources
 description: Use when picking or recommending design and UI resources, such as a component library, shadcn registry, icon set, animated icons, font source, inspiration gallery, motion snippets, AI design skill, DESIGN.md generator or library, design-engineering reading, or UX research sites. Covers a verified 2026 catalog with what each resource actually is, its stack, license notes, and when to use it (Base UI, Radix, shadcn/ui, coss ui, ReUI, ObsidianUI, Beautiful UI, React Flow, Lucide, Phosphor, Remix Icon, Hugeicons, Mobbin, Refero, Godly, Impeccable, Taste Skill, ui-skills, Refero Styles, getdesign.md, Laws of UX, NN/g, Baymard and more), plus a method for choosing between them. Also use when the user asks "which icon library should I use", "where can I find inspiration for X", "is there a component for Y", "what tools help agents design better", or pastes a design-tool URL and asks what it is. Not for deciding visual direction (use design-taste) or building a design system (use design-systems).
 license: MIT
 metadata:
-  version: "1.0.0"
+  version: "1.0.1"
   category: design
   related: "design-taste design-systems design-foundations motion-design ux-principles"
 ---

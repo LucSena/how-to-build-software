@@ -1,6 +1,6 @@
 # AGENTS.md — what to put in it, what to leave out
 
-`AGENTS.md` (agents.md) is "a simple, open format for guiding coding agents": a README written for agents, in a predictable place. ThoughtWorks Technology Radar Vol. 33 (Nov 2025) placed AGENTS.md in *Trial* and "curated shared instructions for software teams" in *Adopt*. The file is only as useful as it is **short, exact, and current**. An agent follows a stale command just as faithfully as a correct one.
+`AGENTS.md` (agents.md) is "a simple, open format for guiding coding agents": a README written for agents, in a predictable place. ThoughtWorks Technology Radar Vol. 33 (Nov 2025) placed AGENTS.md in *Trial* and "curated shared instructions for software teams" in *Adopt*. Vol. 34 (Apr 2026) did not repeat the AGENTS.md blip and put "context engineering" in *Adopt*. The file is only as useful as it is **short, exact, and current**. An agent follows a stale command just as faithfully as a correct one.
 
 ## Contents
 1. Where it lives

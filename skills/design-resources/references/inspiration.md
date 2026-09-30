@@ -8,12 +8,12 @@ Use these when the pattern must *work*: onboarding, checkout, settings, paywalls
 
 | Name | URL | What it is | Pricing (approx.) | When to use |
 |---|---|---|---|---|
-| Mobbin [V] | https://mobbin.com | The largest real-app library: 621,500+ screens and 142,200+ flows (iOS, Android, web). **Mobbin MCP** (May 2026) lets agents query it on paid plans | Pro about $10/mo (annual), Team about $16/member/mo; the free plan has no flows or MCP | How shipped apps solve a pattern; agent-queryable research |
-| Refero [V] | https://refero.design | Design research for people and AI: 142,000+ screens (web and iOS), 12,000+ flows, 400+ apps. Figma plugin; **Refero MCP** on paid plans. Also publishes Refero Styles (DESIGN.md) and a research-first design skill | Free (about 3% of the library), Pro about $10/mo, Team about $12/seat/mo | Web-app-focused research; a cheaper Mobbin alternative with MCP |
-| Page Flows [V] | https://pageflows.com | **Recorded video user flows** (4,000+ recordings, 79,000+ screens) plus lifecycle emails and UI elements | About $99/yr individual; team plans | Studying end-to-end flows as video (onboarding, checkout, cancellation) and email sequences |
+| Mobbin [V] | https://mobbin.com | The largest real-app library: 1,428 apps, 621,500+ screens, and 323,900 flows (iOS, Android, web; homepage counts on 2026-09-30). **Mobbin MCP** (May 2026) lets agents query it on paid plans | Pro (1 member) and Team (per member) plans, billed yearly or quarterly; MCP from Pro; prices shown in local currency, so check the pricing page | How shipped apps solve a pattern; agent-queryable research |
+| Refero [V] | https://refero.design | Design research for people and AI: real web and iOS screens and flows, now led by a "research mode" that takes a task description and returns analysis plus references (the homepage no longer publishes library counts, as of 2026-09). Figma plugin; **Refero MCP** on paid plans. Also publishes Refero Styles (DESIGN.md) and a research-first design skill | Free (about 3% of the library), Pro about $10/mo, Team about $12/seat/mo | Web-app-focused research; a cheaper Mobbin alternative with MCP |
+| Page Flows [V] | https://pageflows.com | **Recorded video user flows** plus lifecycle emails and UI elements | $99/yr or $39/quarter per user; team plan $199/yr for 3–10 users (2026-09) | Studying end-to-end flows as video (onboarding, checkout, cancellation) and email sequences |
 | Gummble [V] | https://gummble.com | 300,000+ screenshots, 21,000+ flows, 1,500+ apps; **MCP** for searching screens, flows, patterns, and microcopy | Free browse tier; paid about $9.99/mo | Budget pattern research with agent access |
-| ScreensDesign [V] | https://screensdesign.com | iOS "UI/UX intelligence": 1,500+ top apps (about 40 new each week) with video flow previews and **revenue, install, and conversion metrics**; focused on onboarding and **paywalls**; also an App Store screenshots section and an AI screen generator | Paid (tiers unverified) | Subscription-app onboarding and paywalls backed by revenue data (pair with `conversion-ux`) |
-| Appshots [V] | https://appshots.design | A curated mobile screenshot gallery (about 70,000+ screenshots, 1,000+ flows, 400+ apps) | Unverified | Quick mobile visual research |
+| ScreensDesign [V] | https://screensdesign.com | iOS "UI/UX intelligence": 2,730 top-chart apps with full session recordings (first screen → paywall → after purchase) and **monthly revenue signals**; focused on onboarding and **paywalls**; also an App Store screenshots section and an AI screen generator | Paid (tiers unverified) | Subscription-app onboarding and paywalls backed by revenue data (pair with `conversion-ux`) |
+| Appshots [V] | https://appshots.design | A curated mobile screenshot gallery: 120,000+ screens from 400+ apps, adding about 1.6K screens a week (2026-09) | Pricing not checked | Quick mobile visual research |
 
 ## 2. Visual direction and curation
 
@@ -21,7 +21,7 @@ Use these for *look and feel*. Most of what they show is marketing, not product 
 
 | Name | URL | What it is | When to use |
 |---|---|---|---|
-| Godly [V] | https://godly.website | "Astronomically good web design inspiration": 1,000+ hand-picked sites shown as **motion and interaction videos**, filterable by style. (`godly.design` resolves here) | Award-grade marketing sites and motion direction |
+| Godly [V] | https://godly.website | "A daily curation of exceptional design, websites and tools": a masonry feed filterable by Web, Interface, Branding, Product, Typography, Motion, and more, plus sections for websites, OG images, app screenshots, app icons, tools, and agent skills (2026-09). `godly.design` resolves here | Award-grade marketing sites, motion, and brand direction |
 | Inspora [V] | https://inspora.design | A curated archive of recent visual design posts pulled from X (web, branding, product, motion, 3D, print), updated hourly, with creator attribution and source links. Free | Scanning current visual trends. Remember that trends are what the slop list is made of |
 | Collect UI [V] | https://collectui.com | Daily hand-picked Dribbble shots (Daily UI and beyond), filterable by element | Component-level visual ideas. These are **concepts, not shipped products** |
 | Deck Gallery [P] | https://deck.gallery | Curated pitch decks, keynotes, and brand guidelines, slide by slide; also sells deck templates | Pitch-deck and presentation design |
@@ -37,7 +37,7 @@ Use these for *look and feel*. Most of what they show is marketing, not product 
 | HyperFrames (HeyGen) [V] | https://github.com/heygen-com/hyperframes | An Apache-2.0 framework and agent skills for authoring **video compositions** in HTML with animation runtimes (GSAP, Lottie, Three, WAAPI, CSS), with a motion doctrine, blueprints, and a render pipeline | Code-authored motion graphics and product videos |
 | snapcn [V] | https://snapcn.dev | A Remotion component registry for product-demo video, themed from shadcn tokens (see `components.md`) | Demo clips that match your UI |
 | Animos [V] | https://animos.app | **Not a gallery:** a browser tool that turns designs into motion showcases (30+ templates, 4K MP4/WebM export). Launched July 2026; freemium | Portfolio reels and product shots without code |
-| Backgrounds Supply [V] | https://backgrounds.supply | 1,167 handcrafted gradient and AI backgrounds in 24 collections at 6K, with the Midjourney prompts included. One-time purchase, commercial license | Slides, social, and occasional heroes. **Use sparingly:** gradient backgrounds are a leading AI-slop tell |
+| Backgrounds Supply | https://backgrounds.supply | Paid packs of gradient and AI-generated backgrounds. **The site did not load on 2026-09-30; re-check it before recommending** | Slides, social, and occasional heroes. **Use sparingly:** gradient backgrounds are a leading AI-slop tell |
 
 ## 4. Listed as design resources but something else
 

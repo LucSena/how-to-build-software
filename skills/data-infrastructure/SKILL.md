@@ -3,7 +3,7 @@ name: data-infrastructure
 description: Use when choosing, adding, or replacing a data component — which database (Postgres, MySQL, SQLite, MongoDB, DynamoDB, Cassandra, distributed SQL, ClickHouse/DuckDB/warehouse), which cache (Valkey, Redis, Memcached, in-process, CDN, Solid Cache), which queue or stream (Postgres job queues like River/pg-boss/Solid Queue, Sidekiq/BullMQ, SQS, RabbitMQ, Kafka, NATS, durable execution like Temporal), search engine (Postgres FTS, Meilisearch, Typesense, OpenSearch, Elasticsearch, Algolia), object storage (S3, R2, MinIO alternatives), or vector store (pgvector vs dedicated). Covers default stacks by stage, licenses, benchmarks, and exit plans. Also use when the user says "which database should I use?", "should we add Redis?", "do we need Kafka?", "Postgres or MongoDB?", "do I need a vector database?", or "where do I store uploads?". Not for schema design (use data-modeling), indexes, caching patterns, or the scaling ladder (use scalability), or running jobs in production (use deployment-and-infrastructure).
 license: MIT
 metadata:
-  version: "1.0.0"
+  version: "1.0.1"
   category: engineering
   related: "scalability data-modeling system-design tech-stack-selection deployment-and-infrastructure software-architecture"
 ---
@@ -23,7 +23,7 @@ If `.agents/project-context.md` exists (or `.claude/project-context.md`), read i
 3. **Choose by access pattern and consistency need, not by data "type".** JSON does not imply MongoDB, events do not imply Kafka, embeddings do not imply a vector database, relationships do not imply a graph database.
 4. **Treat every copy as derived data.** Caches, replicas, search and vector indexes, and warehouses need a named source of truth, a sync mechanism (outbox or CDC, never a dual write), a staleness budget, and a rebuild procedure.
 5. **Never run analytics on the OLTP primary.** Scans evict the working set, long transactions block vacuum, and reports compete with user traffic; use a replica, then a columnar store.
-6. **Distrust benchmarks, especially vendor benchmarks.** ClickBench's own README says it tests one flat table with sequential queries and no concurrency ("All Benchmarks Are Liars"); benchmark your workload on your data.
+6. **Distrust benchmarks, especially vendor benchmarks.** ClickBench's own README lists its limits (one flat table; the main run executes queries one after another and does not test system capacity) and sums them up as "All Benchmarks Are Liars"; benchmark your workload on your data.
 7. **License, governance, and ownership are part of the decision.** Redis, Elasticsearch, CockroachDB, and ScyllaDB changed licenses in 2021–2024, and MinIO's community edition was archived in 2026; check at adoption and at every major upgrade.
 8. **Plan the exit.** Prefer open protocols (Postgres wire, S3 API, Redis protocol, Kafka API, SQL) and managed services you can `pg_dump` or replicate out of.
 

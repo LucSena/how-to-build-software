@@ -3,7 +3,7 @@ name: code-review
 description: Use when reviewing code, a diff, a pull request, a branch, or AI-generated changes — including self-review before declaring your own work done. Covers the review order (intent, correctness, security, data and performance, design and maintainability, tests, style), severity levels (blocker, major, minor, nit), evidence discipline (observed vs inferred vs not checked), a checklist of AI-generated-code failure modes (hallucinated APIs and packages, over-abstraction, duplication, swallowed errors, N+1 and unbounded queries, secrets, injection, missing authorization, missing timeouts, dead code, tests that don't test), a security quick-scan, a performance quick-scan, and how to write specific, kind, actionable review comments. Also use when the user says "review this", "check my PR", "is this ready to merge", "LGTM?", "look over what the agent wrote", or "anything wrong with this diff". For UI and visual critique use design-review; for rewriting code yourself use clean-code.
 license: MIT
 metadata:
-  version: "1.0.0"
+  version: "1.0.1"
   category: engineering
   related: "clean-code testing-strategy design-patterns reliability api-design design-review"
 ---

@@ -107,4 +107,4 @@ Label rules:
 - Material Design 3, accessibility and touch targets: https://m3.material.io/foundations/designing/structure
 - React Native accessibility: https://reactnative.dev/docs/accessibility
 - Flutter accessibility: https://docs.flutter.dev/ui/accessibility-and-internationalization/accessibility
-- Emil Kowalski `apple-design` (reduce motion/transparency/contrast signals): https://github.com/emilkowalski/skill
+- Emil Kowalski `apple-design` (reduce motion/transparency/contrast signals): https://github.com/emilkowalski/skills

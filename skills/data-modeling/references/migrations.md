@@ -190,6 +190,6 @@ Use the linter always; adopt pgroll or gh-ost when migrations on large tables ar
 - gh-ost: https://github.com/github/gh-ost
 - PlanetScale, online schema change tools comparison: https://planetscale.com/docs/vitess/schema-changes/online-schema-change-tools-comparison
 - GitLab, postmortem of the January 31, 2017 database outage: https://about.gitlab.com/2017/02/10/postmortem-of-database-outage-of-january-31/
-- Travis CI, 2018 incident post-mortem: https://blog.travis-ci.com/2018-04-03-incident-post-mortem
-- Sentry, transaction ID wraparound in Postgres: https://blog.sentry.io/2015/07/23/transaction-id-wraparound-in-postgres
+- Travis CI, 2018 incident post-mortem: https://web.archive.org/web/20191218220440/https://blog.travis-ci.com/2018-04-03-incident-post-mortem
+- Sentry, transaction ID wraparound in Postgres: https://blog.sentry.io/transaction-id-wraparound-in-postgres/
 - Mailchimp, Mandrill outage: https://mailchimp.com/what-we-learned-from-the-recent-mandrill-outage/

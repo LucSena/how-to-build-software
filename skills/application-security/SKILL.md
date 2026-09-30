@@ -3,7 +3,7 @@ name: application-security
 description: Use when writing, reviewing, or hardening any server or web code that handles users, tenants, input, files, URLs, or secrets - authorization and permissions (RBAC, ABAC, ReBAC), IDOR/BOLA and tenant isolation, mass assignment, input validation, SQL and command injection, XSS and Content Security Policy, SSRF, CSRF, file uploads, security headers and CORS, secrets, security logging and alerting, fail-closed error handling, and threat modeling. Maps OWASP Top 10:2025 and ASVS 5.0 to concrete coding rules, with a secure-by-default checklist and real incident cases (Equifax, Capital One, Okta, Next.js middleware bypass). Also use when the user says "is this secure?", "add permissions", "users can see other users' data", "add roles", "set up CSP", "pen test found…", or "harden this app", even for one endpoint. For login, sign-up, MFA, and session UX use auth-flows; for API contracts and OAuth for third parties use api-design; for dependency and supply-chain policy use dependency-management.
 license: MIT
 metadata:
-  version: "1.0.0"
+  version: "1.1.0"
   category: engineering
   related: "auth-flows api-design dependency-management environments-and-config code-review ai-native-architecture"
 ---
@@ -193,6 +193,8 @@ Details: `references/headers-cors-csp.md`.
 - **Secrets in logs, URLs, and error pages.** Especially tokens in query strings and stack traces returned to clients.
 - **Treating unguessable IDs as access control.** They leak through URLs, logs, and referrers.
 - **Service-account permissions for user-triggered jobs or agents.** Act as the user, with their scope.
+- **A public key plus a table without row-level security.** With Supabase or Firebase, the anon key is public by design; only RLS or security rules protect the data. Test each table as an anonymous user and as a second signed-up user.
+- **Assuming nobody finds what you did not link.** `.env`, `.git/`, source maps, `/metrics`, and `staging.` subdomains are the first things recon tools request. Run the pass in `references/external-exposure.md`.
 - **"We'll patch later."** Equifax (2017): a Struts fix was available in March; attackers were in from May; about 147M people affected.
 
 ## Output format
@@ -218,6 +220,7 @@ Blocker = exploitable now (auth bypass, IDOR, injection, SSRF to internal, secre
 | `references/injection-xss-ssrf.md` | Writing queries or raw SQL, spawning processes, rendering HTML or Markdown, fetching user-supplied URLs, accepting webhooks, or handling file uploads |
 | `references/headers-cors-csp.md` | Setting security headers, rolling out CSP with nonces, configuring CORS, cookies, SRI, or caching of sensitive responses |
 | `references/threat-modeling.md` | Starting a feature with security impact, writing a design doc's security section, or setting up security testing in CI |
+| `references/external-exposure.md` | Before launch or after an infrastructure change: checking for leaked `.env`/`.git`/source maps, public metrics or actuators, BaaS tables without RLS, open sign-up, SSRF through image or preview fetchers, dangling DNS, and exposed staging |
 | `references/case-studies.md` | Explaining why a rule matters, or checking a design against real breaches (Equifax, Capital One, LastPass, CircleCI, Okta, Log4Shell, Next.js middleware, React2Shell) |
 
 ## Related skills

@@ -188,7 +188,7 @@ Branch by abstraction works the same way inside one codebase: introduce the inte
 ## Sources
 
 - dependency-cruiser rules reference: https://github.com/sverweij/dependency-cruiser/blob/main/doc/rules-reference.md
-- import-linter contract types: https://import-linter.readthedocs.io/en/stable/contract_types.html
+- import-linter contract types: https://import-linter.readthedocs.io/en/stable/contract_types/
 - Spring Modulith reference: https://docs.spring.io/spring-modulith/reference/
 - ArchUnit user guide: https://www.archunit.org/userguide/html/000_Index.html
 - Shopify, Packwerk: https://github.com/Shopify/packwerk

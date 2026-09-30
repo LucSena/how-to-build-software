@@ -3,7 +3,7 @@ name: motion-design
 description: Use when adding, tuning, or reviewing animation and transitions in a web or mobile UI — deciding whether something should animate at all, choosing easing curves and durations, springs, stagger and choreography, drag/swipe gestures, press feedback, reduced-motion behavior, and animation performance (jank, layout thrash). Covers CSS transitions vs WAAPI vs motion libraries, @starting-style, View Transitions, scroll-driven animations, and iOS/Material spring pointers. Also use when the user says "make it feel smoother", "add some polish", "this animation feels off/slow/janky", "animate this modal", or "it feels cheap". Not for choosing which feedback pattern to show (toast vs inline, modal vs sheet); use interaction-design. For full accessibility audits use accessibility.
 license: MIT
 metadata:
-  version: "1.0.0"
+  version: "1.0.1"
   category: design
   related: "interaction-design accessibility web-platform ios-design android-design design-review"
 ---

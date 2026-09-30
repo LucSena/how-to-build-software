@@ -14,8 +14,8 @@ Nothing here implies endorsement by the authors below.
 | [ibelick/ui-skills](https://github.com/ibelick/ui-skills) | MIT | MUST/SHOULD/NEVER rule format, evidence-cited findings, accessibility/motion/metadata fixing passes, DESIGN.md creation |
 | [coreyhaines31/marketingskills](https://github.com/coreyhaines31/marketingskills) | MIT | Shared context file pattern, skill anatomy, CRO/signup/onboarding/paywall practice |
 | [heygen-com/hyperframes](https://github.com/heygen-com/hyperframes) | Apache-2.0 | Motion doctrine (cause-and-effect chaining, spring defaults), router-skill and multi-agent packaging |
-| [uphiago/recon-skills](https://github.com/uphiago/recon-skills) | MIT | Section contract enforced by validator, Observed/Inferred/Not-checked evidence discipline, no template duplication |
-| [emilkowalski/skill](https://github.com/emilkowalski/skill) · [Sonner](https://github.com/emilkowalski/sonner) · [Vaul](https://github.com/emilkowalski/vaul) | — | Animation frequency rule, easing curves and durations, gesture and spring lessons |
+| [uphiago/recon-skills](https://github.com/uphiago/recon-skills) | MIT | Section contract enforced by validator, Observed/Inferred/Not-checked evidence discipline, no template duplication; its external recon checks, turned into the defensive pass in `application-security/references/external-exposure.md` |
+| [emilkowalski/skills](https://github.com/emilkowalski/skills) · [Sonner](https://github.com/emilkowalski/sonner) · [Vaul](https://github.com/emilkowalski/vaul) | MIT | Animation frequency rule, easing curves and durations, gesture and spring lessons |
 | [vercel-labs/web-interface-guidelines](https://github.com/vercel-labs/web-interface-guidelines) | MIT | Interaction, forms, focus, performance, and content rules for web UI |
 | [raunofreiberg/interfaces](https://github.com/raunofreiberg/interfaces) | — | Interaction-detail guidelines |
 | [samber/cc-skills](https://github.com/samber/cc-skills) | MIT | Frontend deslop practice |
@@ -86,3 +86,7 @@ Facts and links only; no text copied. [icco/postmortems](https://github.com/icco
 - [conorluddy/LiquidGlassReference](https://github.com/conorluddy/LiquidGlassReference) · [y-128/Apple-HIG-Design](https://github.com/y-128/Apple-HIG-Design) (HIG mirror)
 - impeccable (Apache-2.0) native references · emilkowalski/skill `mobile-native` · community Material 3 skill repos
 - [deceptive.design](https://www.deceptive.design/) — dark-pattern taxonomy
+
+## Engineering writing read at the source (2026-09 verification pass)
+
+Facts and ideas, rewritten in our own words: [Amazon Builders' Library](https://aws.amazon.com/builders-library/) (caching, load shedding, idempotent APIs) · Stripe engineering blog ([rate limiters](https://stripe.com/blog/rate-limiters), [idempotency](https://stripe.com/blog/idempotency)) · [Netflix Technology Blog](https://netflixtechblog.medium.com/performance-under-load-3e6fa9a60581) · [Discord](https://discord.com/blog/why-discord-is-switching-from-go-to-rust) · [Notion](https://www.notion.com/blog/the-great-re-shard) · [Shopify Engineering](https://shopify.engineering/deconstructing-monolith-designing-software-maximizes-developer-productivity) · [Slack Engineering](https://slack.engineering/slacks-incident-on-2-22-22/) · [Dan Luu](https://danluu.com/postmortem-lessons/) · [IBM Carbon](https://carbondesignsystem.com/) (Apache-2.0) · [GitHub Primer](https://primer.style/) (MIT) · [GOV.UK Design System](https://design-system.service.gov.uk/) (OGL v3.0) · [Impeccable slop catalog](https://impeccable.style/slop) · [Design with Intent](https://designwithintent.ai) (CC0).

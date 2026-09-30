@@ -3,7 +3,7 @@ name: interaction-design
 description: Use when building or fixing how UI behaves, not just how it looks — interaction states (hover, focus, active, disabled, loading, error), forms and validation, feedback (toasts, optimistic UI, undo vs confirm), loading, empty, and error states, overlays (modal, sheet, drawer, popover, tooltip), navigation patterns, keyboard shortcuts and command palettes, and microcopy/UX writing (button labels, error messages, empty-state copy). Also use when the user says "the form feels clunky", "add loading states", "what should this error say", "should this be a modal?", "add a toast", "make it feel responsive", or "handle the empty state", even for a single component. For principles and dark-pattern checks use ux-principles; for animation timing and easing use motion-design; for WCAG specifics use accessibility; for tables and dashboards use data-dense-ui.
 license: MIT
 metadata:
-  version: "1.0.0"
+  version: "1.0.1"
   category: design
   related: "ux-principles accessibility motion-design data-dense-ui ai-interface-design frontend-architecture"
 ---

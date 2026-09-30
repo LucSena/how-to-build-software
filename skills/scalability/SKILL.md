@@ -3,7 +3,7 @@ name: scalability
 description: Use when a system must handle more users, requests, or data, or is getting slow under load — capacity estimates and back-of-envelope math, the scaling ladder, caching and cache invalidation, database indexes, N+1 queries, pagination, connection pooling, read replicas, partitioning and sharding, background jobs and queues (Postgres queues, Kafka, durable execution), idempotent consumers, transactional outbox, sagas, consistency models, rate limiting, back-pressure and load shedding, multi-tenant SaaS data isolation (row-level security), and cloud cost. Also use when the user says "this endpoint is slow", "add caching", "will this scale?", "we're launching and expect 10x traffic", "the database is at 90% CPU", "should we add Redis or Kafka?", or "how many servers do we need?". Not for retries, timeouts, circuit breakers, SLOs, or deploy safety (use reliability), HTTP API shape (use api-design), choosing a database, cache, or queue product (use data-infrastructure), or schema design (use data-modeling).
 license: MIT
 metadata:
-  version: "1.1.0"
+  version: "1.1.1"
   category: engineering
   related: "system-design data-infrastructure data-modeling reliability software-architecture api-design"
 ---

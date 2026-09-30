@@ -3,7 +3,7 @@ name: system-design
 description: Use when designing a system, service, or large feature end to end, or writing or reviewing a design doc, RFC, or technical proposal — problem framing, requirements and non-goals, SLOs and downtime budgets, back-of-envelope and data-size estimates, access patterns and invariants, data model, API sketch, high-level architecture, deep dives, failure modes, trade-offs and alternatives considered, rollout and migration plans (dual-write, shadow reads, logical sharding, cells), and real case studies (Discord, Figma, Notion, Shopify, Stripe, Slack, GitHub, Segment, Prime Video). Also use when the user says "design X", "how would you architect this?", "write a design doc", "we need to move from A to B without downtime", or "review this design". Not for individual scaling techniques (use scalability), table-level schema design (use data-modeling), picking a database, cache, or queue product (use data-infrastructure), or module structure (use software-architecture).
 license: MIT
 metadata:
-  version: "1.0.0"
+  version: "1.0.1"
   category: engineering
   related: "data-modeling scalability data-infrastructure software-architecture reliability api-design"
 ---

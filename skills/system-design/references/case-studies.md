@@ -111,7 +111,7 @@ Fifteen published engineering cases, each reduced to what happened, the numbers 
 - **What happened.** Point-to-point pipelines between databases, search, Hadoop, and monitoring multiplied. LinkedIn built Kafka and made an append-only, ordered log the central integration point; every system subscribes to the changes it needs.
 - **Lesson.** One durable change stream replaces N × M custom integrations; derived data is rebuilt from the log.
 - **Rule.** *When many systems need the same changes, publish them once to a durable log (outbox or CDC into a stream) instead of building pairwise integrations.*
-- **Source.** https://engineering.linkedin.com/distributed-systems/log-what-every-software-engineer-should-know-about-real-time-datas-unifying
+- **Source.** https://web.archive.org/web/20240105095933/https://engineering.linkedin.com/distributed-systems/log-what-every-software-engineer-should-know-about-real-time-datas-unifying
 
 ## 14. Figma — multiplayer editing (2019)
 - **What happened.** Figma's collaboration is **server-authoritative**: a document is a tree of objects with properties, and conflicts are resolved per (object, property) by **last write to reach the server wins**. It borrows ideas from CRDTs without being a full CRDT, because a central server already exists.
@@ -139,6 +139,6 @@ Fifteen published engineering cases, each reduced to what happened, the numbers 
 - Prime Video: https://www.primevideotech.com/video-streaming/scaling-up-the-prime-video-audio-video-monitoring-service-and-reducing-costs-by-90 ; Adrian Cockcroft: https://adrianco.medium.com/so-many-bad-takes-what-is-there-to-learn-from-the-prime-video-microservices-to-monolith-story-4bd0970423d4
 - Stack Overflow: https://nickcraver.com/blog/2016/02/17/stack-overflow-the-architecture-2016-edition/
 - 37signals: https://www.theregister.com/2024/10/21/37signals_aws_savings/
-- LinkedIn: https://engineering.linkedin.com/distributed-systems/log-what-every-software-engineer-should-know-about-real-time-datas-unifying
+- LinkedIn: https://web.archive.org/web/20240105095933/https://engineering.linkedin.com/distributed-systems/log-what-every-software-engineer-should-know-about-real-time-datas-unifying
 - Linear: https://www.youtube.com/watch?v=VLgmjzERT08 ; https://github.com/wzhudev/reverse-linear-sync-engine
 - ByteByteGo system-design-101 case summaries: https://github.com/ByteByteGoHq/system-design-101

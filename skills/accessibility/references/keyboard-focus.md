@@ -159,6 +159,7 @@ Use when focus must stay on one element (a combobox input) while a highlight mov
 
 ## Sources
 
+- WebKit, "WebKit Features in Safari 16.4" (outline follows border-radius): https://webkit.org/blog/13966/webkit-features-in-safari-16-4/
 - WAI-ARIA Authoring Practices, keyboard interface and focus management: https://www.w3.org/WAI/ARIA/apg/practices/keyboard-interface/
 - WCAG 2.2 Understanding 2.4.7, 2.4.11, 2.4.13, 2.1.4: https://www.w3.org/WAI/WCAG22/Understanding/
 - Vercel Web Interface Guidelines (focus, keyboard): https://github.com/vercel-labs/web-interface-guidelines

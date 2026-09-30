@@ -116,6 +116,36 @@ Default: **TTL + delete on write, after commit**.
 **Do / Avoid.** Do: `dash:{tenantId}:{role}:{locale}:v3`. Avoid: `dashboard:summary`.
 **Why.** A shared key for authorized data leaks one user's data to another.
 
+### Load-test with the cache off
+**Rule.** Prove the service survives an empty or unavailable cache at peak load before you rely on the cache in production, and re-test after traffic grows.
+**Apply when.** A cache has made latency and cost look good for a while, and nobody has checked what happens without it.
+**Do / Avoid.** Do run a load test with caching disabled and confirm load shedding or request caps keep the database up. Avoid letting a cache silently become the only reason the database copes.
+**Why.** Amazon calls this a service "addicted to its cache": behavior differs by hit or miss (modal behavior), so a cold start, a fleet flush, or a traffic shift turns a latency optimization into an outage.
+
+### Do not fall back to the database at full rate when the cache dies
+**Rule.** When an external cache is unavailable, cap the rate of calls to the source (or keep a small in-process cache as a second tier) instead of sending every miss downstream.
+**Apply when.** Writing the error path around Redis, Valkey, or Memcached calls.
+**Do / Avoid.** Do fall back through a token bucket or concurrency limit and shed the excess with a clear error. Avoid `catch { return db.query(...) }` on every request during a cache outage.
+**Why.** An extended cache outage becomes a traffic spike on the dependency the cache was protecting, which then browns out too.
+
+### Use a soft TTL and a hard TTL
+**Rule.** Refresh an entry after its soft TTL, but keep serving it until a longer hard TTL if the refresh fails or the source signals back-pressure.
+**Apply when.** Data that may be slightly stale but must stay available during a downstream outage (config, permissions, catalog data).
+**Do / Avoid.** Do store `{value, softExpiry, hardExpiry}` and refresh in the background. Avoid a single TTL that turns a source outage into an immediate cache-miss storm.
+**Why.** The AWS IAM client uses this pattern; it lets the dependency recover while callers stay available.
+
+### Treat the cache format as persisted data
+**Rule.** Version serialized cache values and make new code read old formats and old code tolerate new ones; never throw on an unknown format.
+**Apply when.** Changing the shape of anything stored in an external cache, and during every rolling deploy.
+**Do / Avoid.** Do include a version in the key or value and ignore unknown fields. Avoid a mass "discard on mismatch" that refreshes the whole cache at once.
+**Why.** During a deploy both versions read the same cache; an unhandled format is a poison pill, and a mass refresh stampedes the source.
+
+### Size in-process caches for the fleet, not the host
+**Rule.** With per-instance (in-memory) caches, estimate downstream load as instances × miss rate, and emit hit, miss, and downstream-call metrics per instance.
+**Apply when.** Choosing between an in-process cache and a shared external cache.
+**Do / Avoid.** Do use request coalescing and a shared cache once the fleet grows. Avoid assuming a 90% hit rate on one warm host holds for 200 freshly deployed hosts.
+**Why.** In-process caches are incoherent across hosts, start empty on every deploy, and their downstream load grows with fleet size.
+
 ## Sources
 
 - ByteByteGo, system-design-101 (caching strategies, cache failure modes): https://github.com/ByteByteGoHq/system-design-101
@@ -124,3 +154,4 @@ Default: **TTL + delete on write, after commit**.
 - RFC 5861 stale-while-revalidate: https://www.rfc-editor.org/rfc/rfc5861.html
 - Redis eviction policies: https://redis.io/docs/latest/develop/reference/eviction/
 - Vattani et al., Optimal Probabilistic Cache Stampede Prevention (XFetch), VLDB 2015: https://www.vldb.org/pvldb/vol8/p886-vattani.pdf
+- Amazon Builders' Library, "Caching challenges and strategies" (cache addiction, soft/hard TTL, negative caching, fallback spikes, format versioning): https://aws.amazon.com/builders-library/caching-challenges-and-strategies/

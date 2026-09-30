@@ -115,7 +115,7 @@ When citing any of these to a user, keep the "as reported by <source>, <year>" q
 
 - Reforge, setup moment and aha moment: https://www.reforge.com/guides/define-your-setup-moment ; https://www.reforge.com/c/retention-series-eg/activation/aha-moment
 - Lenny Rachitsky, "What is a good activation rate": https://www.lennysnewsletter.com/p/what-is-a-good-activation-rate
-- Userpilot, onboarding checklist completion benchmarks: https://userpilot.com/blog/onboarding-checklist-completion-rate-benchmarks/
+- Userpilot, onboarding checklist completion benchmarks: https://web.archive.org/web/20260124235206/https://userpilot.com/blog/onboarding-checklist-completion-rate-benchmarks/
 - Chameleon benchmark reports: https://www.chameleon.io/benchmark-report-2023 ; https://www.chameleon.io/assets/chameleon-product-tour-benchmarks-report-2019.pdf
 - Pendo, 2019 Feature Adoption Report: https://www.pendo.io/resources/the-2019-feature-adoption-report/
 - RevenueCat, State of Subscription Apps: https://www.revenuecat.com/state-of-subscription-apps-2025 ; https://www.revenuecat.com/state-of-subscription-apps

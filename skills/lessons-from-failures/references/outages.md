@@ -6,7 +6,7 @@ Compact cases from public postmortems. Each: **What happened**, **Why** (contrib
 - Deletions and backups: 1 GitLab 2017 · 2 Atlassian 2022 · 3 UniSuper 2024 · 4 Tests and cleanup jobs that hit production
 - Tools with unbounded reach: 5 AWS S3 2017 · 6 Facebook 2021
 - Config and data pushed globally: 7 Cloudflare 2019 · 8 Cloudflare Nov 2025 · 9 Cloudflare Dec 2025 · 10 Google Cloud Jun 2025 · 11 CrowdStrike 2024 · 12 Azure Front Door 2025 · 13 Fastly 2021 · 14 AWS Seoul DNS
-- Races, failover, recovery storms: 15 AWS us-east-1 Oct 2025 · 16 GitHub 2018 · 17 Slack 2021 · 18 Roblox 2021
+- Races, failover, recovery storms: 15 AWS us-east-1 Oct 2025 · 16 GitHub 2018 · 17 Slack 2021 · 17b Slack 2022 · 18 Roblox 2021
 - Dead code and deploys: 19 Knight Capital 2012 · 20 CircleCI 2021 rollback
 - Unreviewed changes: 21 Datadog 2023 and Heroku 2025 · 22 GitHub 2026 cache TTL
 - Hidden limits and time: 23 INT32 and XID wraparound · 24 Certificates, leap days, leap seconds · 25 Shell variables and one-character bugs
@@ -38,7 +38,7 @@ Compact cases from public postmortems. Each: **What happened**, **Why** (contrib
 **What happened.** Travis CI 2018: an environment variable pointed a test run at production and the tests truncated production tables. Travis CI 2016: an age-based cleanup job deleted stable base VM images. Keepthescore 2020: the production database was deleted by accident; the provider's daily backup restored it with about seven hours of data lost.
 **Why.** Production credentials reachable from test contexts; cleanup rules that match by age instead of an explicit allow-list.
 **Rule.** Test setups refuse to run when the connection string matches a production pattern. Cleanup jobs target explicit labels and never delete the currently active version.
-**Sources.** https://blog.travis-ci.com/2018-04-03-incident-post-mortem ; https://blog.travis-ci.com/2016-09-30-the-day-we-deleted-our-vm-images/ ; https://keepthescore.co/blog/posts/deleting_the_production_database/
+**Sources.** https://web.archive.org/web/20191218220440/https://blog.travis-ci.com/2018-04-03-incident-post-mortem ; https://web.archive.org/web/20210121182225/https://blog.travis-ci.com/2016-09-30-the-day-we-deleted-our-vm-images/ ; https://keepthescore.co/blog/posts/deleting_the_production_database/
 
 ## Tools with unbounded reach
 
@@ -84,7 +84,7 @@ Compact cases from public postmortems. Each: **What happened**, **Why** (contrib
 **What happened.** A content update for the kernel-mode Windows sensor crashed about 8.5 million machines into boot loops. The update was reverted in 78 minutes, but many machines needed hands-on recovery.
 **Why.** A template type defined 21 input fields while the sensor supplied 20; earlier instances used wildcards so the mismatch stayed latent; the content validator had a bug; content was pushed to all sensors at once rather than staged like code, and customers could not delay it.
 **Rule.** Producer and consumer of a schema share one definition or a contract test (field count, types). Content and config follow the same ring deployment as binaries. Parsers in privileged code bounds-check.
-**Source.** https://www.crowdstrike.com/wp-content/uploads/2024/08/Channel-File-291-Incident-Root-Cause-Analysis-08.06.2024.pdf
+**Source.** https://www.crowdstrike.com/wp-content/uploads/2024/08/Channel-File-291-Incident-Root-Cause-Analysis-08.06.2024.pdf ; Microsoft's estimate of 8.5 million devices: https://blogs.microsoft.com/blog/2024/07/20/helping-our-customers-through-the-crowdstrike-outage/
 
 ### 12. Azure Front Door (29 Oct 2025) — pattern 2
 **What happened.** An inadvertent tenant configuration change put Front Door nodes into an invalid state; Microsoft 365, the Azure portal, and many customer sites had errors for more than eight hours. A software defect let the invalid config bypass the validations that should have blocked it.
@@ -123,6 +123,12 @@ Compact cases from public postmortems. Each: **What happened**, **Why** (contrib
 **Rule.** Scale in more slowly than you scale out, with a floor, never on CPU alone. Load-test the provisioning path itself.
 **Source.** https://slack.engineering/slacks-outage-on-january-4th-2021/
 
+### 17b. Slack (22 Feb 2022) — patterns 6, 7
+**What happened.** A routine, percentage-based Consul agent upgrade restarted agents across 25% of the fleet at the day's traffic peak (two earlier 25% steps had gone fine). Each restart briefly marked Memcached nodes unhealthy; the cache control plane (Mcrib) promptly swapped in spare nodes and flushed returning ones. Cache hit rates fell. One boot-time query, listing the members of group DMs, read from a keyspace sharded by *user*, so every cache miss became a scatter query across every shard. Database load rose superlinearly, queries timed out, the cache could not refill, and client retries added load. Slack throttled client boots so already-connected users kept working, raised the throttle in small steps after a too-large increase overloaded the database again, changed the query to fetch only the missing rows and to read immutable data from replicas, and later moved it to a table sharded by channel.
+**Why.** A latent inefficient scatter query hidden behind a long-TTL cache; a new, *faster* control plane that increased cache churn; a change rolled at peak; a metastable state that did not end when the trigger (the restarts) was paused.
+**Rule.** Inventory high-volume queries that only work because a cache is warm, and ask what each costs on a miss. Roll cache-affecting infrastructure changes off-peak and slowly. When overloaded, shed the most expensive entry point (here, client boot) to protect users already served, then raise limits in small steps.
+**Source.** https://slack.engineering/slacks-incident-on-2-22-22/
+
 ### 18. Roblox 73-hour outage (28–31 Oct 2021) — patterns 1, 6
 **What happened.** Consul, used for service discovery, health, and locking, became unhealthy and took scheduling and secrets with it. Contributing causes were a relatively new Consul streaming feature under very high load and a pathological BoltDB freelist behavior. The monitoring stack ran on the same Consul, so the team was partly blind.
 **Rule.** Enable new features in core infrastructure gradually with a documented off switch. Monitoring must not depend on what it monitors.
@@ -158,7 +164,7 @@ Compact cases from public postmortems. Each: **What happened**, **Why** (contrib
 ### 23. INT32 keys, transaction-ID wraparound, file-size caps — pattern 8
 **What happened.** GitHub (May 2021): a foreign key on a tokens table hit the INT32 maximum; Actions and Pages failed for 9 h 48 m while a migration to 64-bit ran. Sentry (2015) and Mandrill (2019): Postgres transaction-ID wraparound forced protective shutdown or read-only mode for most of a day or more. Instapaper (2017): a 2 TB per-file limit in managed MySQL took the service down for many hours.
 **Rule.** Use 64-bit keys by default. Alert on percent-to-limit for sequences, XID age, disk, quotas, and file sizes at 50% and 80%. List hard limits in the design doc.
-**Sources.** https://github.blog/news-insights/company-news/github-availability-report-may-2021/ ; https://blog.sentry.io/2015/07/23/transaction-id-wraparound-in-postgres ; https://mailchimp.com/what-we-learned-from-the-recent-mandrill-outage/ ; https://medium.com/making-instapaper/instapaper-outage-cause-recovery-3c32a7e9cc5f
+**Sources.** https://github.blog/news-insights/company-news/github-availability-report-may-2021/ ; https://blog.sentry.io/transaction-id-wraparound-in-postgres/ ; https://mailchimp.com/what-we-learned-from-the-recent-mandrill-outage/ ; https://medium.com/making-instapaper/instapaper-outage-cause-recovery-3c32a7e9cc5f
 
 ### 24. Certificates, leap days, leap seconds — pattern 8
 **What happened.** Mozilla (May 2019): an expired intermediate signing certificate disabled nearly all Firefox add-ons. Azure (29 Feb 2012): certificate code computed "one year later" by incrementing the year, producing 29 Feb 2013, and the invalid date cascaded into an outage. Cloudflare DNS (1 Jan 2017): a leap second made a wall-clock duration negative, and a random-number call panicked on it.

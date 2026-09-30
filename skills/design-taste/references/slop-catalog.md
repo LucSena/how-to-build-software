@@ -50,6 +50,9 @@ The fingerprint moves quickly. In 2024 the tells were purple gradients and Inter
 - `rounded-2xl` or larger on everything, one radius regardless of size.
 - The same soft `rgba(0,0,0,.1)` shadow under every card.
 - Emoji as icons; the unmodified default icon set defining the look.
+- Oversized icon tiles that out-weigh the feature they introduce.
+- Hand-coded SVG mascots or scenes, and "illustrations" assembled from circles and rounded blocks. Use a real illustration or photo, or nothing.
+- A photo under a near-opaque overlay (a 90%+ wash), so the image contributes nothing.
 - Pulsing "live" dots on things that are not changing; fake blinking carets; marquees.
 - Scroll cues ("Scroll to explore", bouncing chevron) and custom cursors.
 
@@ -88,6 +91,10 @@ These are not a matter of taste. They are simply broken.
 - Less than 8px padding inside bordered containers; body text touching the viewport edge.
 - Only resting states designed: no hover, focus-visible, active, disabled, loading, empty, or error.
 - Font-weight changes on hover or selection, which cause layout shift.
+- The same gap everywhere, so nothing reads as a group. Related items sit closer than separate groups.
+- An opening two-column section where one column runs far below the other.
+- Justified body text, all-caps paragraphs, and body text below about 16px.
+- A settings form or multi-column task crammed into a scrolling modal. Give it a page.
 - Popovers clipped by `overflow: hidden`; cards flush against one edge of a horizontal scroller.
 - Unintended horizontal scroll on mobile, "fixed" with `overflow-x: hidden` on `<main>`. That hides the bug and breaks `position: sticky`.
 - `h-screen` / `100vh` heroes that jump on mobile (use `dvh`/`svh`).
@@ -106,6 +113,10 @@ These are not a matter of taste. They are simply broken.
 - "Oops!" errors and exclamation marks on success messages.
 
 **The honesty rule:** demo data may be realistic, but it must be labeled synthetic to the user. Commercial claims (prices, customer names, benchmarks, testimonials, ratings, logos) are never invented.
+
+## 5b. What the deterministic detectors count
+
+Impeccable's public catalog (https://impeccable.style/slop, 2026-09) has 61 detector rules plus 6 judgment patterns in 9 groups: your design system (4: fonts, colors, sizes, and radii outside DESIGN.md), visual details (8), typography (11), color and contrast (7), layout and space (12), motion (6), copy (5), imagery (4), and general quality (10: JS errors on load, content stuck invisible, cramped padding, text at the viewport edge, skipped heading levels, tight leading, tiny body text, wide tracking). Rams (https://www.rams.ai) reviews against 348 rules in 9 categories. Treat a detector hit as a reason to look, not a verdict. When a project has a DESIGN.md, the most useful check is "outside the system": a value that is not in the documented tokens.
 
 ## 6. Detection hints (grep/CSS signatures)
 
@@ -147,7 +158,8 @@ Use these on source or built CSS to find candidates quickly. Every hit needs a h
 ## Sources
 
 - Anthropic `frontend-design` skill (the five 2026 clusters, "visual structure is information", writing rules): https://github.com/anthropics/skills/tree/main/skills/frontend-design ; blog https://claude.com/blog/improving-frontend-design-through-skills
-- Impeccable detector rules and craft floor (side-tab, icon-tile stack, overused fonts, hidden-at-rest, glow rules): https://github.com/pbakaus/impeccable
+- Impeccable detector rules and craft floor (side-tab, icon-tile stack, overused fonts, hidden-at-rest, glow rules): https://github.com/pbakaus/impeccable ; public catalog with counts: https://impeccable.style/slop
+- Rams rule engine (348 rules, 9 categories): https://www.rams.ai
 - Taste Skill (anti-slop lists, copy self-audit, content realism): https://github.com/Leonxlnx/taste-skill
 - ui-skills `baseline-ui` (gradient and glow rules): https://github.com/ibelick/ui-skills
 - samber/cc-skills `frontend-design-deslop` slop checklist: https://github.com/samber/cc-skills

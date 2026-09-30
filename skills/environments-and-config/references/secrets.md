@@ -125,7 +125,7 @@ Case — CircleCI, Dec 2022–Jan 2023: malware on an engineer's laptop stole an
 - Microsoft Code-With Engineering Playbook: secrets management, secrets rotation, credential scanning, GitOps secret management — https://github.com/microsoft/code-with-engineering-playbook/tree/main/docs/CI-CD
 - GitHub Docs, Secure use reference — https://docs.github.com/en/actions/reference/security/secure-use
 - Cloudflare R2 incident, 21 Mar 2025 — https://blog.cloudflare.com/cloudflare-incident-march-21-2025/
-- CISA alert on tj-actions/changed-files — https://www.cisa.gov/news-events/alerts/2025/03/18/supply-chain-compromise-third-party-tj-actionschanged-files-cve-2025-30066-and-reviewdogaction
+- CISA alert on tj-actions/changed-files — https://www.cisa.gov/news-events/alerts/2025/03/18/supply-chain-compromise-third-party-tj-actionschanged-files-cve-2025-30066-and-reviewdogaction ; StepSecurity (first report, "over 23,000 repositories"): https://www.stepsecurity.io/blog/harden-runner-detection-tj-actions-changed-files-action-is-compromised
 - Wiz on tj-actions — https://www.wiz.io/blog/github-action-tj-actions-changed-files-supply-chain-attack-cve-2025-30066
 - Wiz on Shai-Hulud — https://www.wiz.io/blog/shai-hulud-npm-supply-chain-attack , https://www.wiz.io/blog/shai-hulud-2-0-ongoing-supply-chain-attack
 - CircleCI security incident report — https://circleci.com/blog/jan-4-2023-incident-report/

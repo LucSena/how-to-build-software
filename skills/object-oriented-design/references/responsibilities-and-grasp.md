@@ -165,5 +165,5 @@ Fowler's own entry on the rule says he rarely uses it as such; what matters is c
 - Law of Demeter (hacker-laws): https://github.com/dwmkerr/hacker-laws#the-law-of-demeter
 - Steve Yegge, "Execution in the Kingdom of Nouns" (2006): https://steve-yegge.blogspot.com/2006/03/execution-in-kingdom-of-nouns.html
 - Kevlin Henney, "Seven Ineffective Coding Habits of Many Programmers": https://www.slideshare.net/Kevlin/seven-ineffective-coding-habits-of-many-programmers-45312038
-- Arlo Belshee, "Naming is a Process": https://arlobelshee.com/naming-is-a-process-part-7-intent-to-domain-abstraction/
+- Arlo Belshee, "Naming is a Process": https://web.archive.org/web/20210125104242/https://arlobelshee.com/naming-is-a-process-part-7-intent-to-domain-abstraction/
 - charlax, code antipatterns: https://github.com/charlax/professional-programming/blob/master/antipatterns/code-antipatterns.md

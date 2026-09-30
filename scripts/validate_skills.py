@@ -177,7 +177,8 @@ def main() -> int:
                 warn(f"{ref_file.name} is {ref_lines} lines (target ≤ 400)")
             if ref_file.name not in body:
                 warn(f"references/{ref_file.name} is never mentioned in SKILL.md")
-        for sub in (path.parent / "references").glob("*/"):
+        refs_dir = path.parent / "references"
+        for sub in (p for p in refs_dir.iterdir() if p.is_dir()) if refs_dir.is_dir() else ():
             err(f"nested reference folder '{sub.name}' (keep references one level deep)")
 
         for mentioned in set(re.findall(r"`([a-z0-9]+(?:-[a-z0-9]+)+)`", body.split("## Related skills")[-1])):

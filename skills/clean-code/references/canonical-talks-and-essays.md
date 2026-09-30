@@ -208,7 +208,7 @@ A living essay (CC BY 4.0) that reframes clean-code advice around working memory
 
 ## Sources
 
-- Rich Hickey, "Simple Made Easy" (Strange Loop 2011): https://www.infoq.com/presentations/Simple-Made-Easy
+- Rich Hickey, "Simple Made Easy" (Strange Loop 2011): https://www.infoq.com/presentations/Simple-Made-Easy · transcript: https://github.com/matthiasn/talk-transcripts/blob/master/Hickey_Rich/SimpleMadeEasy.md
 - Gary Bernhardt, "Boundaries" (SCNA 2012): https://www.destroyallsoftware.com/talks/boundaries · "Wat": https://www.destroyallsoftware.com/talks/wat
 - John Ousterhout and Robert C. Martin, "A Philosophy of Software Design vs Clean Code": https://github.com/johnousterhout/aposd-vs-clean-code
 - Kent Beck, *Tidy First?* (O'Reilly, 2023): https://www.oreilly.com/library/view/tidy-first/9781098151232/ · chapter notes: https://github.com/pkardas/notes/blob/master/books/tidy-first.md
@@ -218,7 +218,7 @@ A living essay (CC BY 4.0) that reframes clean-code advice around working memory
 - Casey Muratori, "Semantic Compression" (2014): https://caseymuratori.com/blog_0015 · Jeff Atwood, "Rule of Three": https://blog.codinghorror.com/rule-of-three/
 - Joel Spolsky, "Making Wrong Code Look Wrong" (2005): https://www.joelonsoftware.com/2005/05/11/making-wrong-code-look-wrong/
 - Kevlin Henney, "Seven Ineffective Coding Habits of Many Programmers": https://www.slideshare.net/Kevlin/seven-ineffective-coding-habits-of-many-programmers-45312038
-- Arlo Belshee, "Naming is a Process": https://arlobelshee.com/naming-is-a-process-part-7-intent-to-domain-abstraction/
+- Arlo Belshee, "Naming is a Process": https://web.archive.org/web/20210125104242/https://arlobelshee.com/naming-is-a-process-part-7-intent-to-domain-abstraction/
 - Artem Zakirullin, "Cognitive load is what matters" (CC BY 4.0; ideas adapted with attribution): https://github.com/zakirullin/cognitive-load
 - John Carmack, "On Inlined Code": http://number-none.com/blow/john_carmack_on_inlined_code.html
 - Carson Gross, "The Grug Brained Developer": https://grugbrain.dev

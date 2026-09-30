@@ -22,3 +22,4 @@ Important limitation: the environment these notes were written in blocked direct
 | M-onboarding-dashboards.md | Onboarding, activation, dashboards, app shell |
 | N-screen-patterns-ds-failures.md | SaaS screen patterns, building design systems, why design fails |
 | O-data-infrastructure.md | Choosing databases, caches, queues, search, storage, vectors |
+| P-source-review-2026-09.md | **Second pass with full web access**: the owner's references read on the live pages, the link check, the claim-verification method and its corrections, and the primary sources added |

@@ -21,7 +21,7 @@ Short, real incidents and the engineering rule each one teaches. Figures come fr
 
 **What happened.** Apache Struts CVE-2017-5638 was disclosed and fixed on 7 March 2017. Equifax's dispute portal was not patched; attackers were inside from about mid-May to the end of July and took data on about 147 million people. A traffic-inspection device had an expired certificate (for roughly 19 months), so the exfiltration went unseen. Patch notification relied on an email list, and a scan missed the vulnerable app.
 **Rule.** Keep an SBOM so "are we affected?" is a query; patch known-exploited vulnerabilities in days; monitor your monitoring (certificate expiry on security tools).
-**Source.** GAO-18-559: https://www.gao.gov/products/gao-18-559
+**Source.** GAO-18-559: https://www.gao.gov/products/gao-18-559 ; FTC settlement page (147 million people): https://www.ftc.gov/enforcement/refunds/equifax-data-breach-settlement
 
 ## 2. Capital One (2019) — SSRF to cloud metadata
 
@@ -75,13 +75,13 @@ Short, real incidents and the engineering rule each one teaches. Figures come fr
 
 **What happened.** An attacker obtained a bot token and re-pointed the action's version tags to a malicious commit that dumped runner memory, printing CI secrets into public workflow logs. Over 23,000 repositories used the action; workflows pinned to a commit SHA were not affected.
 **Rule.** Pin CI actions to full commit SHAs, set least-privilege workflow permissions, and don't expose secrets to steps that don't need them. Details: `deployment-and-infrastructure`, `dependency-management`.
-**Source.** https://www.cisa.gov/news-events/alerts/2025/03/18/supply-chain-compromise-third-party-tj-actionschanged-files-cve-2025-30066-and-reviewdogaction
+**Source.** https://www.cisa.gov/news-events/alerts/2025/03/18/supply-chain-compromise-third-party-tj-actionschanged-files-cve-2025-30066-and-reviewdogaction ; StepSecurity (first report, "over 23,000 repositories"): https://www.stepsecurity.io/blog/harden-runner-detection-tj-actions-changed-files-action-is-compromised
 
 ## 11. chalk/debug (2025) — TOTP phished in real time
 
-**What happened.** A maintainer received a fake "2FA reset" email from a look-alike npm domain; the phishing page captured the username, password, and a live TOTP code. The attacker published malicious versions of 18 popular packages (about 2.6 billion weekly downloads combined) that hijacked crypto-wallet transactions in browsers; they were pulled within hours.
+**What happened.** A maintainer received a fake "2FA reset" email from a look-alike npm domain; the phishing page captured the username, password, and a live TOTP code. The attacker published malicious versions of 18 popular packages (about more than 2 billion weekly downloads combined) that hijacked crypto-wallet transactions in browsers; they were pulled within hours.
 **Rule.** TOTP can be relayed; use phishing-resistant MFA (passkeys, security keys) for high-value accounts — admins, maintainers, finance — and apply install cooldowns for new dependency versions.
-**Source.** https://www.stepsecurity.io/blog/20-popular-npm-packages-compromised-chalk-debug-strip-ansi-color-convert-wrap-ansi
+**Source.** https://www.stepsecurity.io/blog/20-popular-npm-packages-compromised-chalk-debug-strip-ansi-color-convert-wrap-ansi ; https://www.aikido.dev/blog/npm-debug-and-chalk-packages-compromised
 
 ## 12. Prompt injection with real impact (2025)
 

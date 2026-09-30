@@ -3,7 +3,7 @@ name: auth-flows
 description: Use when building, fixing, or reviewing login, sign-in, sign-up, registration, or account-security screens and the code behind them - email and password, email codes (OTP), magic links, social login (Google, Apple, Microsoft), enterprise SSO (SAML, OIDC), passkeys, MFA and 2FA, recovery codes, password reset, account recovery, email verification, sessions and cookies, remember me, sign out everywhere, and mobile auth. Covers build vs buy, the identifier-first Continue flow, NIST 800-63B-4 password rules, autocomplete markup, enumeration-safe errors, throttling vs lockout, session timeouts and revocation, step-up re-authentication, WCAG 3.3.8, Sign in with Apple rules, and a copy library. Also use when the user says "add auth", "make a login page", "design the sign-up screen", "add Google login", or "users get locked out". For app-wide authorization, injection, and headers use application-security; for API tokens and OAuth for third parties use api-design; for signup conversion framing use conversion-ux.
 license: MIT
 metadata:
-  version: "1.0.0"
+  version: "1.0.1"
   category: design
   related: "application-security interaction-design accessibility api-design conversion-ux mobile-design"
 ---

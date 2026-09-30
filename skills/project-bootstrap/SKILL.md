@@ -3,7 +3,7 @@ name: project-bootstrap
 description: Use when starting a new project, repository, service, or app, or when an existing repo is missing basic engineering standards. Covers the walking skeleton and tracer bullets, deploying on day one, CI before features, the tiered day-one repository checklist (README, license, .editorconfig, formatter, linter, strict types, pre-commit hooks, secret scanning, CI, branch protection, Conventional Commits, CODEOWNERS, validated env, .env.example, error tracking, logging, health checks), one-command setup with standard task names, AGENTS.md, the first ADR, design doc vs RFC vs ADR, trunk-based development, small PRs, Definition of Done, SemVer vs CalVer, and changelogs. Also use when the user says "scaffold a new app", "set up the repo", "bootstrap this", or "our repo has no CI". Not for choosing the stack (use tech-stack-selection), folder structure (use codebase-organization), or pipeline, environment, and secrets depth (use deployment-and-infrastructure, environments-and-config).
 license: MIT
 metadata:
-  version: "1.0.0"
+  version: "1.0.1"
   category: engineering
   related: "tech-stack-selection codebase-organization software-architecture environments-and-config deployment-and-infrastructure testing-strategy"
 ---

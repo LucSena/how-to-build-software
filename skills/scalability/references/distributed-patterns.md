@@ -105,9 +105,21 @@ Rules:
 - **Bounded queues and buffers everywhere.** An unbounded in-memory queue converts overload into out-of-memory crashes and unbounded latency.
 - **Back-pressure**: signal upstream to slow down — TCP flow control, reactive-streams `request(n)`, pausing a Kafka consumer, returning 429/503 with `Retry-After`.
 - **Load shedding**: when saturated, reject cheaply and early (at the load balancer or first middleware) rather than accepting work that will time out anyway. Prioritize: health checks and critical flows (checkout, login, paid tier) last to be shed; background and best-effort features first.
-- **Concurrency limits** per instance (max in-flight requests) derived from Little's law; adaptive limiters (gradient/Vegas-style, e.g., Netflix concurrency-limits) adjust to measured latency and beat static guesses.
+- **Concurrency limits** per instance (max in-flight requests) derived from Little's law; adaptive limiters (gradient/Vegas-style, e.g., Netflix concurrency-limits) adjust to measured latency and beat static guesses. Netflix's gradient is `RTT_noload / RTT_actual`: 1 means no queue, so the limit may grow; below 1 means a queue formed, so it shrinks. Its default allowed queue is the square root of the current limit.
+- **Measure goodput, not throughput.** Goodput is the requests answered without error and fast enough to be useful. A healthy overload test shows goodput flattening at capacity while offered load keeps rising; goodput falling toward zero means you need more shedding (Amazon).
 - **Deadline awareness**: drop queued requests whose client deadline has already passed.
 - **Steady state**: everything that grows (logs, sessions, cache, temp files, job tables) has a bound and automatic cleanup.
+
+## 6b. Stripe's four limiters (in the order to adopt them)
+
+| Limiter | What it caps | How often it fires at Stripe (per the 2017 post) |
+|---|---|---|
+| Request rate limiter | N requests per second per user (token bucket in Redis), with a short burst allowance; same limits in test and live mode | Constantly: millions of rejections a month, mostly runaway scripts |
+| Concurrent request limiter | Requests *in flight* per user (e.g. 20), for CPU-heavy endpoints | Occasionally (about 12,000 a month) |
+| Fleet usage load shedder | Reserves a share of capacity (e.g. 20%) for critical methods such as creating charges; non-critical requests over their share get 503 | Rarely |
+| Worker utilization load shedder | Sheds lower-priority traffic (test mode first) when workers back up, escalating step by step | Only in major incidents |
+
+The first two are per-user rate limiting; the last two are load shedding, which decides from the state of the whole system, not the caller.
 
 ## 7. Rules catalog
 
@@ -135,6 +147,30 @@ Rules:
 **Do / Avoid.** Do: per-tenant token budget per minute for an LLM feature. Avoid: 100 requests/min where each request may cost 100k tokens.
 **Why.** Uniform request limits let a few expensive calls exhaust capacity or budget (OWASP API4: unrestricted resource consumption).
 
+### Reserve capacity for the requests that keep the business running
+**Rule.** Classify endpoints as critical or non-critical and shed non-critical traffic first; keep a fixed share of capacity that only critical work may use.
+**Apply when.** Any API where some calls earn money or protect data (checkout, payment, login) and others are convenience (listing, analytics, exports).
+**Do / Avoid.** Do tag routes with a priority and shed test-mode, batch, and analytics traffic before payments. Avoid one global limit that rejects a card payment and a CSV export with equal probability.
+**Why.** Stripe reserves part of its fleet for critical methods; during incidents this keeps the core flow up while the rest degrades.
+
+### Dark-launch every limiter, fail open, and keep a kill switch
+**Rule.** Ship a new limiter in log-only mode first, wrap it so its own bugs or a limiter-store outage let requests through, and put it behind a flag you can turn off.
+**Apply when.** Adding or tightening rate limits or load shedders on an existing API.
+**Do / Avoid.** Do log "would have blocked" with the caller and endpoint for a week, then tune. Avoid enabling a new limit on live traffic and learning about it from your largest customer.
+**Why.** A limiter is new code on every request path; if it fails closed, a Redis outage becomes an API outage.
+
+### Shed and restore load slowly
+**Rule.** Escalate shedding in steps and bring traffic back gradually.
+**Apply when.** Implementing automatic load shedding.
+**Do / Avoid.** Do shed in stages over minutes and ramp back the same way. Avoid dropping a class of traffic, recovering, and re-admitting it all at once.
+**Why.** Stripe reports that fast shed-and-restore makes the system flap between "fine" and "awful".
+
+### Test past the point of failure
+**Rule.** Load-test each service well beyond the load where client-side availability starts to drop, and check that goodput stays flat.
+**Apply when.** Before launch, before a big event, and after changes to timeouts, retries, or pools.
+**Do / Avoid.** Do plot goodput and client-observed latency against offered load, and make rejection as cheap as possible (no heavy logging on the reject path). Avoid stopping the test at "handles expected peak".
+**Why.** Amazon's rule: if you have not tested far past the failure point, assume the service fails in the least desirable way. Rejected work that still costs a lot eats the capacity you were saving.
+
 ## Sources
 
 - Transactional outbox (Conduktor): https://www.conduktor.io/glossary/outbox-pattern-for-reliable-event-publishing
@@ -146,3 +182,6 @@ Rules:
 - Redis rate limiting tutorials: https://redis.io/tutorials/howtos/ratelimiting/
 - Michael Nygard, Release It! 2nd ed. (steady state, back-pressure, load shedding)
 - OWASP API Security Top 10 2023, API4: https://owasp.org/API-Security/editions/2023/en/0xa4-unrestricted-resource-consumption/
+- Stripe, "Scaling your API with rate limiters" (four limiter types, token bucket in Redis, dark launch, fail open, kill switch): https://stripe.com/blog/rate-limiters
+- Amazon Builders' Library, "Using load shedding to avoid overload" (goodput, testing past failure, deadlines): https://aws.amazon.com/builders-library/using-load-shedding-to-avoid-overload/
+- Netflix Technology Blog, "Performance Under Load" (adaptive concurrency limits, gradient algorithm): https://netflixtechblog.medium.com/performance-under-load-3e6fa9a60581 ; library: https://github.com/Netflix/concurrency-limits

@@ -3,7 +3,7 @@ name: dependency-management
 description: Use when adding, choosing, auditing, updating, or removing a package or library, or before running npm/pnpm/yarn/bun/pip/uv/go/cargo install. Covers standard-library-first, a should-I-add-this checklist with hard stops, buy/borrow/build defaults, native replacements for common npm packages, verifying a package really exists (typosquatting, AI-hallucinated names), wrapping third-party code, lockfiles and pinning for apps vs libraries, updates with release-age cooldowns (npm, pnpm, Yarn, Bun, pip, Renovate, Dependabot), install-script risk, provenance, SBOMs, licenses (MIT, Apache, GPL, AGPL, source-available), dependency budgets, bundle cost, and supply-chain incidents from left-pad to the 2026 axios compromise. Also use when the user says "is there a library for this?", "just npm install X", "update all deps", "why is node_modules so big?", or "is this package safe?". Not for choosing a framework, database, or hosted vendor (use tech-stack-selection) or app-wide security (use application-security).
 license: MIT
 metadata:
-  version: "1.0.0"
+  version: "1.0.1"
   category: engineering
   related: "application-security lessons-from-failures tech-stack-selection deployment-and-infrastructure code-review web-platform"
 ---
@@ -111,7 +111,7 @@ The e18e `module-replacements` project maintains the JS mappings, and ESLint plu
 
 ## Verifying a package is real
 
-Agents are the main source of hallucinated package names, and "slopsquatting" means attackers pre-register them. Spracklen et al. (USENIX Security 2025) found 19.7% of 2.23 million generated package references pointed at packages that did not exist. Before any install:
+Agents are the main source of hallucinated package names, and "slopsquatting" means attackers pre-register them. Spracklen et al. (USENIX Security 2025) found 19.7% of 2.23 million generated package references pointed at packages that did not exist (5.2% for the commercial models tested, 21.7% for open-source ones). Before any install:
 
 1. Get the name from an authoritative source: the project's official docs or repository README, not memory.
 2. Query the registry: `npm view <name> name repository.url time.created maintainers dist-tags`, `https://pypi.org/pypi/<name>/json`, `go list -m -versions <module>`. Check that the repo URL matches, the creation date is not suspiciously recent, and downloads are plausible.

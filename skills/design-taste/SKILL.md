@@ -3,7 +3,7 @@ name: design-taste
 description: Use when choosing or judging the visual direction of any UI (a new landing page, app screen, portfolio, marketing site, or a redesign) and whenever the output risks looking generic or AI-generated. Covers grounding the design in its subject, surface modes, named visual directions with concrete values (editorial, technical, soft consumer, brutalist, luxury quiet, playful, institutional), color strategy, typeface selection, a dated anti-AI-slop catalog, one signature move and restraint, redesigning existing UIs, and screenshot self-critique. Also use when the user only says "make it look better", "less generic", "it looks like every AI site", "give it personality", "deslop", "make it premium", or "redesign this". Not for exact type, spacing, and color numbers (use design-foundations), tokens or DESIGN.md (use design-systems), or scored audits (use design-review).
 license: MIT
 metadata:
-  version: "1.0.0"
+  version: "1.0.1"
   category: design
   related: "design-foundations design-systems design-review design-resources motion-design conversion-ux"
 ---
@@ -133,6 +133,7 @@ First decide the mode. **Refine** keeps the current look and improves it. **Over
 
 ## Gotchas
 
+- **Imitating a real design system instead of using it.** When the brief names Material, Carbon, Polaris, Primer, GOV.UK, USWDS, or Fluent, install the official package and follow its guidance; a look-alike built from scratch misses the behavior, accessibility work, and updates. Say so when you can only approximate a look (for example a brand's marketing site).
 - **Replacing one default with the next.** Swapping Inter for Geist or Space Grotesk, or purple for cream + terracotta, is not a decision. Run the default check on the *new* plan too.
 - **Blanket bans instead of judgment.** Nothing in the catalog is illegal. A serif is right for a law firm's editorial site, and near-black is right when it is tokenized and chosen for the use scene. Justify the choice in one line.
 - **Eyebrows, numbered markers, and mono labels as decoration.** Use `01 / 02 / 03` only for a real sequence. Use an eyebrow only for a real category the heading does not already show. Never put one on every section.

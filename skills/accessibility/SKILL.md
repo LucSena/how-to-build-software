@@ -3,7 +3,7 @@ name: accessibility
 description: Use when building or reviewing any UI for accessibility — WCAG 2.2 AA conformance, semantic HTML and ARIA, keyboard navigation and focus management (focus rings, modals, skip links, roving tabindex), screen reader announcements and live regions, accessible forms and errors, color contrast (WCAG ratios, APCA as a secondary check), target sizes, reduced motion and vestibular safety, and mobile accessibility (VoiceOver, TalkBack, Dynamic Type, font scaling). Also covers how to test (axe, Lighthouse, keyboard pass, screen reader pass). Also use when the user says "is this accessible?", "add aria labels", "make it keyboard friendly", "screen reader support", "a11y audit", "EAA/ADA compliance", or builds a modal, menu, tabs, combobox, or custom control. Not for general UX critique; use design-review. For animation tuning use motion-design.
 license: MIT
 metadata:
-  version: "1.0.0"
+  version: "1.0.1"
   category: design
   related: "interaction-design motion-design web-platform design-review ios-design android-design"
 ---

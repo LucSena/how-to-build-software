@@ -3,7 +3,7 @@ name: clean-code
 description: Use when writing, refactoring, or cleaning up code, or when code is hard to read, name, change, or test. Covers naming, function size and shape, parameters, error handling (exceptions vs result types, parse-don't-validate, never swallowing errors), comments, immutability, deep vs shallow modules, duplication vs abstraction (DRY, rule of three, wrong abstraction), SOLID and its limits, code smells mapped to refactoring moves, safe refactoring of legacy code, and idioms for TypeScript, Python, Kotlin, Swift, and Go. Also use when the user says "clean this up", "refactor", "this is messy", "make it readable", "better names", "this function is too long", "god file", or "tidy before I add a feature". Not for choosing design patterns (use design-patterns), class and object design (use object-oriented-design), module or service boundaries (use software-architecture), or reviewing someone else's PR (use code-review).
 license: MIT
 metadata:
-  version: "1.1.0"
+  version: "1.1.1"
   category: engineering
   related: "design-patterns object-oriented-design testing-strategy code-review software-architecture dependency-management"
 ---

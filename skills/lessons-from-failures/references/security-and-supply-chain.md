@@ -52,7 +52,7 @@ Compact cases where trust in code, packages, build systems, or sessions failed. 
 ### xz-utils backdoor, CVE-2024-3094 (Mar 2024)
 **What happened.** Over about two years, a persona gained maintainer trust on a project with a single overworked maintainer, then planted a backdoor in liblzma that, on some distributions, let the holder of a specific key execute code through OpenSSH. The payload hid in build machinery and "test" files. An engineer found it while chasing about 500 ms of extra SSH login latency, before it reached most stable distributions.
 **Rule.** Build from source that matches the repository; treat binary test fixtures as potential payloads; performance anomalies are security signals; a burned-out sole maintainer is a supply-chain risk.
-**Source.** https://en.wikipedia.org/wiki/XZ_Utils_backdoor
+**Source.** https://en.wikipedia.org/wiki/XZ_Utils_backdoor ; discovery post (login time 0.299 s → 0.807 s): https://www.openwall.com/lists/oss-security/2024/03/29/4
 
 ### polyfill.io (Jun 2024)
 **What happened.** The domain and repository were sold; the CDN then served malicious redirects to more than 100,000 sites that embedded the script.
@@ -65,21 +65,21 @@ Compact cases where trust in code, packages, build systems, or sessions failed. 
 **Sources.** https://www.cisa.gov/news-events/alerts/2025/03/18/supply-chain-compromise-third-party-tj-actionschanged-files-cve-2025-30066-and-reviewdogaction ; https://www.wiz.io/blog/github-action-tj-actions-changed-files-supply-chain-attack-cve-2025-30066
 
 ### Nx "s1ngularity" (Aug 2025)
-**What happened.** Malicious Nx versions published with a stolen token ran a `postinstall` script that collected credentials and, for the first time at scale, invoked locally installed AI coding CLIs with permission-skipping flags to hunt for secrets. Results were pushed to public repositories in victims' own accounts; 2,349 distinct secrets leaked.
+**What happened.** Malicious Nx versions published with a stolen token ran a `postinstall` script that collected credentials and, for the first time at scale, invoked locally installed AI coding CLIs with permission-skipping flags to hunt for secrets. Results were pushed to public repositories in victims' own accounts; GitGuardian counted 2,349 distinct secrets across 1,346 such repositories.
 **Rule.** Disable install scripts by default and allow-list the few that need them. AI agents on developer machines are now an attack tool as well as a target: do not leave them in auto-approve modes.
-**Source.** https://nx.dev/blog/s1ngularity-postmortem
+**Sources.** https://nx.dev/blog/s1ngularity-postmortem ; GitGuardian's count: https://blog.gitguardian.com/the-nx-s1ngularity-attack-inside-the-credential-leak/
 
 ### chalk/debug hijack (Sep 2025) and Shai-Hulud (Sep and Nov 2025)
-**What happened.** A maintainer was phished by a fake "2FA reset" email that captured a live TOTP code; malicious versions of 18 packages with about 2.6 billion combined weekly downloads were published and pulled within hours. Weeks later, Shai-Hulud became the first self-propagating npm worm: it stole tokens during install and used each victim's npm token to publish infected versions of their packages; its second wave reached hundreds of packages and tens of thousands of GitHub repositories. The pattern continued into 2026 (a hijacked axios maintainer account, Mar 2026).
+**What happened.** A maintainer was phished by a fake "2FA reset" email that captured a live TOTP code; malicious versions of 18 packages with more than 2 billion combined weekly downloads (Aikido, which first reported it) were published and pulled within hours. Weeks later, Shai-Hulud became the first self-propagating npm worm: it stole tokens during install and used each victim's npm token to publish infected versions of their packages; its second wave reached hundreds of packages and tens of thousands of GitHub repositories. The pattern continued into 2026 (a hijacked axios maintainer account, Mar 2026).
 **Rule.** Maintainers use phishing-resistant 2FA (passkeys) and trusted publishing with provenance. Consumers set an install cooldown (a few days) and `ignore-scripts=true`, and watch for packages that suddenly lose provenance.
-**Sources.** https://www.stepsecurity.io/blog/20-popular-npm-packages-compromised-chalk-debug-strip-ansi-color-convert-wrap-ansi ; https://unit42.paloaltonetworks.com/npm-supply-chain-attack/ ; https://securitylabs.datadoghq.com/articles/shai-hulud-2.0-npm-worm/ ; https://github.com/lirantal/npm-security-best-practices
+**Sources.** https://www.stepsecurity.io/blog/20-popular-npm-packages-compromised-chalk-debug-strip-ansi-color-convert-wrap-ansi ; https://www.aikido.dev/blog/npm-debug-and-chalk-packages-compromised ; https://unit42.paloaltonetworks.com/npm-supply-chain-attack/ ; https://securitylabs.datadoghq.com/articles/shai-hulud-2.0-npm-worm/ ; https://github.com/lirantal/npm-security-best-practices
 
 ## 3. Breaches from unpatched software, SSRF, and stolen sessions
 
 ### Equifax (2017)
 **What happened.** An Apache Struts vulnerability was patched upstream in March; Equifax's dispute portal was not patched, and attackers took data on about 147 million people over the following months. An expired certificate on a traffic-inspection device meant the exfiltration went unseen.
 **Rule.** Keep an SBOM so "are we affected?" takes minutes; patch known-exploited vulnerabilities in days; monitor the expiry of certificates on security tooling too.
-**Source.** https://www.gao.gov/products/gao-18-559
+**Source.** https://www.gao.gov/products/gao-18-559 ; FTC settlement page (147 million people): https://www.ftc.gov/enforcement/refunds/equifax-data-breach-settlement
 
 ### Capital One (2019)
 **What happened.** A misconfigured WAF allowed server-side request forgery to the cloud instance metadata service, which returned credentials for an over-privileged role; those were used to copy storage buckets holding about 100 million US and 6 million Canadian records. A regulator fined the bank $80M.

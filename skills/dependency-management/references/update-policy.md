@@ -29,7 +29,7 @@ Cooldown rationale: OpenSSF recommends about 3 days for updates without known vu
 | Tool | Setting | Unit | Since |
 |---|---|---|---|
 | npm | `min-release-age` in `.npmrc` | days | 11.10 |
-| pnpm | `minimumReleaseAge` (+ `minimumReleaseAgeExclude`) in `pnpm-workspace.yaml` | minutes | 10.16; pnpm 11 reported to default to 1440 (one day) |
+| pnpm | `minimumReleaseAge` (+ `minimumReleaseAgeExclude`) in `pnpm-workspace.yaml` | minutes | 10.16; **default 1440 (one day) since pnpm 11**, 0 before |
 | Yarn | `npmMinimalAgeGate` (+ `npmPreapprovedPackages`) in `.yarnrc.yml` | duration string (`"3d"`) | 4.10 |
 | Bun | `minimumReleaseAge` (+ `minimumReleaseAgeExcludes`) under `[install]` in `bunfig.toml` | seconds | 1.3 |
 | pip | Dependency cooldowns reported in pip 26.1 (2026-05) — check `pip install --help` for the option name | — | 26.1 |
@@ -127,6 +127,7 @@ Anti-patterns: blind `npm update` or `npx npm-check-updates -u` across the whole
 
 ## Sources
 
+- pnpm, dependency-resolution settings (`minimumReleaseAge`: added in 10.16.0, default 1440 since v11): https://pnpm.io/settings/dependency-resolution
 - OpenSSF, "Concise Guide for Developing More Secure Software": https://best.openssf.org/Concise-Guide-for-Developing-More-Secure-Software
 - OpenSSF, "Simplifying Software Component Updates": https://best.openssf.org/Simplifying-Software-Component-Updates
 - OpenSSF, npm best practices (lockfiles, shrinkwrap, CI): https://github.com/ossf/package-manager-best-practices/blob/main/published/npm.md

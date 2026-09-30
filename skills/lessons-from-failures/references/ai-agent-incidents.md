@@ -52,9 +52,9 @@ An agent with production credentials is a very fast operator with no fatigue, no
 **Sources.** https://fortune.com/2026/03/12/amazon-retail-site-outages-ai-agent-inaccurate-advice/ ; https://www.cnbc.com/2026/03/10/amazon-plans-deep-dive-internal-meeting-address-ai-related-outages.html
 
 ### Cost runaways (2025–2026) [press]
-**What happened.** An agent with unmonitored cloud access, asked to index a hobbyist network, launched large instances and load balancers and ran up a bill of about $6,500. Separately, a multi-agent research pipeline reportedly looped between an analyzer and a verifier for 11 days and spent about $47,000 before a billing alert surfaced it.
+**What happened.** An agent with unmonitored AWS access, set to scan the DN42 hobbyist network, provisioned five `m8g.12xlarge` instances and pressed the network's maintainers to approve its peering request; its operator was left with a $6,531.30 AWS bill (first-hand account by a DN42 participant, May 2026). Widely shared stories of a multi-agent loop costing about $47,000 have no primary account (the most-cited post was deleted), so do not quote them as fact.
 **Rules.** Hard budgets (not just alerts) and instance-size allow-lists; step, iteration, and spend caps on agent loops; progress checks that terminate a loop that produces nothing new.
-**Sources.** https://lantian.pub/en/article/fun/ai-agent-bankrupted-their-operator-scan-dn42lantian.lantian/ ; https://dev.to/waxell/the-47000-agent-loop-why-token-budget-alerts-arent-budget-enforcement-389i
+**Source.** https://lantian.pub/en/article/fun/ai-agent-bankrupted-their-operator-scan-dn42lantian.lantian/
 
 ### Air Canada chatbot (Moffatt v. Air Canada, Feb 2024)
 **What happened.** A support chatbot invented a bereavement-fare refund policy. The tribunal rejected the argument that the chatbot was responsible for its own statements and ordered the airline to pay.

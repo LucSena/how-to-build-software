@@ -107,7 +107,10 @@ For POST (and PATCH) operations with side effects — payments, orders, sends, p
 5. Expire records after a retention window (Stripe uses 24 hours).
 6. Pass derived keys to downstream providers (`{key}:charge`) so their side effects are also deduplicated.
 
-Keys are scoped per principal/tenant; never derive them from timestamps. The header is an IETF draft (`draft-ietf-httpapi-idempotency-key-header`); Azure uses the OASIS `Repeatability-Request-ID` / `Repeatability-First-Sent` headers for the same purpose.
+7. Make your own SDK generate the key when the caller does not pass one, and reuse it on every automatic retry. The AWS SDKs and CLI do this with `ClientToken` on operations such as EC2 `RunInstances`.
+8. A retry that arrives late, after the created resource was already deleted, still gets the original (semantically equivalent) response, not a new resource. Amazon calls this the principle of least astonishment.
+
+Prefer an explicit caller-provided key to a hash of the request parameters: two identical legitimate requests (two identical $10 transfers) are not duplicates, and only the caller knows the intent. Keys are scoped per principal/tenant; never derive them from timestamps. The header is an IETF draft (`draft-ietf-httpapi-idempotency-key-header`); Azure uses the OASIS `Repeatability-Request-ID` / `Repeatability-First-Sent` headers for the same purpose.
 
 ## 8. Long-running operations
 
@@ -183,6 +186,8 @@ A BFF is a thin server owned by the frontend team that tailors APIs for one clie
 - Google API Improvement Proposals (resource names, custom methods): https://google.aip.dev/
 - IETF Idempotency-Key header draft: https://datatracker.ietf.org/doc/html/draft-ietf-httpapi-idempotency-key-header
 - Stripe API, Idempotent requests: https://docs.stripe.com/api/idempotent_requests
+- Stripe, "Designing robust and predictable APIs with idempotency" (ambiguous failures, keys, backoff with jitter): https://stripe.com/blog/idempotency
+- Amazon Builders' Library, "Making retries safe with idempotent APIs" (caller-provided request IDs, semantically equivalent responses, late-arriving retries, parameter mismatch): https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/
 - OASIS Repeatable Requests 1.0: https://docs.oasis-open.org/odata/repeatable-requests/v1.0/repeatable-requests-v1.0.html
 - OpenAPI Specification 3.1: https://spec.openapis.org/oas/v3.1.0
 - ByteByteGo, system-design-101 (API design guides): https://github.com/ByteByteGoHq/system-design-101

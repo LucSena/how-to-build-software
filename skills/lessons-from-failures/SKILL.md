@@ -3,7 +3,7 @@ name: lessons-from-failures
 description: Use when planning, running, or reviewing a risky change — a deploy, config or feature-flag push, schema migration, deletion or bulk script, dependency update, infrastructure change, an AI agent acting with production access, a rewrite, or a redesign — to check it against how real systems, projects, and products have failed. Covers the ten recurring failure patterns from public postmortems (GitLab, AWS, Cloudflare, CrowdStrike, Knight Capital, Atlassian), supply-chain and AI-agent incidents, project failures (HealthCare.gov, Netscape rewrite, 737 MAX, Therac-25), redesign failures (Sonos, Snapchat, Hawaii alert), and blameless postmortems with contributing factors. Also use when the user says "what could go wrong?", "is this safe to run?", "why do projects fail?", "we had an outage", or "write a postmortem". Not for implementing timeouts, retries, SLOs, or canaries (use reliability) or for vetting a package (use dependency-management).
 license: MIT
 metadata:
-  version: "1.0.0"
+  version: "1.0.1"
   category: engineering
   related: "reliability deployment-and-infrastructure dependency-management ai-native-architecture ux-principles code-review"
 ---
