@@ -114,6 +114,16 @@ Patterns outlive their reasons. When you find one with a single implementation, 
 - [ ] Keep tests green after each step; commit the removal separately from behavior changes.
 - [ ] Keep boundary adapters (vendor SDKs, clock, database) even with one implementation — they exist for isolation and tests.
 
+## Ask before introducing
+
+These change how the whole codebase is written; propose them with a reason and get agreement (or an ADR) instead of adding them inside a feature change:
+
+- A DI container, event bus/mediator, or plugin system
+- A new state-management, data-fetching, or effect library alongside an existing one
+- `Result`/`Either` types in a codebase that uses exceptions (or the reverse)
+- A base class or generic abstraction that other modules will be expected to extend
+- Code generation or metaprogramming (macros, decorators that rewrite classes, JS `Proxy` magic)
+
 ## Frontend patterns (summary)
 
 - **Composition over configuration:** `children`/slots and compound components (`<Tabs><Tabs.List/>…`) instead of one component with 20+ boolean props.
