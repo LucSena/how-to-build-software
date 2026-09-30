@@ -76,10 +76,10 @@ Typeface choice (as of 2026-09):
 | Token | Radius | Typical use |
 |---|---|---|
 | none | 0 | Full-bleed images, edge panes |
-| extraSmall | 4 dp | Small chips, snackbars, text field top corners |
-| small | 8 dp | Chips, menus |
+| extraSmall | 4 dp | Snackbars, text field top corners, menus (baseline) |
+| small | 8 dp | Chips |
 | medium | 12 dp | Cards, small FABs |
-| large | 16 dp | FAB, navigation drawer/rail items, sheets' inner surfaces |
+| large | 16 dp | FAB, larger cards |
 | **largeIncreased** | **20 dp** | Emphasized cards, pressed-state morphs |
 | extraLarge | 28 dp | Dialogs, bottom sheets (top corners), large FAB |
 | **extraLargeIncreased** | **32 dp** | Hero cards |
@@ -141,12 +141,12 @@ Spring tokens (damping ratio / stiffness):
 4. Replace hand-written `tween()` specs in shared components with motion scheme specs.
 5. Re-run screenshot tests in light/dark, dynamic color on/off, and 200% font scale.
 
-Views/MDC-Android also ships M3 Expressive styles (Material Components 1.13+ line); Flutter support is partial and moving to the `material_ui` package.
+Views/MDC-Android also has M3 Expressive styles (check the Material Components for Android release notes for your version); Flutter support is partial and moving to the `material_ui` package.
 
 ## Sources
 
 - androidx Compose Material3 source (androidx-main, Sept 2026): `tokens/TypeScaleTokens.kt`, `ShapeTokens.kt`, `MotionTokens.kt`, `StandardMotionTokens.kt`, `ExpressiveMotionTokens.kt`, button/FAB/navigation/floating-toolbar tokens, `MaterialShapes.kt`, `MaterialTheme.kt`, `MotionScheme.kt` — https://github.com/androidx/androidx/tree/androidx-main/compose/material3
-- Material Design 3 — M3 Expressive: https://m3.material.io/blog/building-with-m3-expressive , motion physics: https://m3.material.io/blog/m3-expressive-motion-theming , components: https://m3.material.io/components
+- Material Design 3 — motion physics: https://m3.material.io/blog/m3-expressive-motion-theming , components: https://m3.material.io/components
 - Compose Material 3 releases: https://developer.android.com/jetpack/androidx/releases/compose-material3
 - Android 16 behavior changes (elegantTextHeight): https://developer.android.com/about/versions/16/behavior-changes-16
 - Material skill repos consulted for component status mapping: material-design-skill and material-3-skill (community mirrors of m3.material.io)
