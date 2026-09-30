@@ -1,0 +1,54 @@
+{
+  "skill_name": "code-review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Review this PR diff an agent wrote for our Express + Postgres API:\n\n```ts\nimport { retryAsync } from 'express-retry-helpers';\n\nexport interface IInvoiceService { getInvoice(id: string): Promise<Invoice> }\nexport class InvoiceServiceImpl implements IInvoiceService {\n  async getInvoice(id: string) {\n    return db.query(`SELECT * FROM invoices WHERE id = '${id}'`);\n  }\n}\n\nrouter.get('/invoices/:id', async (req, res) => {\n  try {\n    const inv = await new InvoiceServiceImpl().getInvoice(req.params.id);\n    for (const line of inv.lines) { line.product = await db.query(`SELECT * FROM products WHERE id = ${line.productId}`); }\n    res.json(inv);\n  } catch (e) { console.log(e); res.json({}); }\n});\n```",
+      "expected_output": "Structured review with verdict Request changes. Blockers: SQL injection via string interpolation (both queries), missing object-level authorization (any user can read any invoice by ID). Major: N+1 query per invoice line, swallowed error returning 200 with empty body, unverified/likely hallucinated package 'express-retry-helpers' (must be checked on the registry and is unused). Minor: single-implementation interface IInvoiceService, SELECT * returning raw rows (data exposure). Findings labeled Observed/Inferred with line references and fix directions; Not checked section present.",
+      "files": [],
+      "expectations": [
+        "Flags SQL injection as a Blocker",
+        "Flags missing authorization/ownership check on the invoice ID as a Blocker",
+        "Flags the per-line product query as an N+1 problem",
+        "Flags the catch block that logs and returns an empty 200 response as swallowed error handling",
+        "Flags the unfamiliar 'express-retry-helpers' import as a dependency to verify (possible hallucinated package)",
+        "Labels findings with severity levels and Observed/Inferred evidence tags",
+        "Includes a Verdict and a Not checked section"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Can you review my PR? It renames `getUserData` to `fetchUserProfile` across 14 files and fixes a typo in the README. Tests pass locally.",
+      "expected_output": "Proportionate review: checks the rename is complete and consistent with codebase naming conventions (fetch vs get), looks for missed dynamic references and string usages, notes that the author's local test run is not the reviewer's observation. Produces an Approve or Approve with comments verdict with few findings; no invented issues or nit avalanche.",
+      "files": [],
+      "expectations": [
+        "Checks for missed references (dynamic/string usages, docs, mocks) of the old name",
+        "Considers whether the new name matches existing naming conventions in the codebase",
+        "Does not claim tests pass as Observed unless the reviewer ran them",
+        "Does not invent unrelated blockers; verdict is proportionate to a low-risk change"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Before you tell me you're done with the payment webhook handler you just wrote, do a self-review.",
+      "expected_output": "Runs the self-review with the same checklist: webhook signature verification over the raw body, timestamp tolerance, idempotency by event ID, timeouts on outbound calls, error handling, secrets not logged, tests that would fail when broken. Fixes Blockers and Majors before reporting, lists checks run and what was not checked.",
+      "files": [],
+      "expectations": [
+        "Checks webhook signature verification and replay protection",
+        "Checks idempotency/deduplication by event ID",
+        "Reports the checks actually run (tests, type check, lint) separately from what was not checked",
+        "Fixes or explicitly lists any Blocker/Major findings before declaring done"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Review the new pricing page design — does the layout and visual hierarchy work?",
+      "expected_output": "Near-miss: this is a UI/visual critique request. Routes to design-review (and conversion-ux) instead of running a code review procedure.",
+      "files": [],
+      "expectations": [
+        "Routes the request to design-review",
+        "Does not produce a code-review report with code severity findings about visual hierarchy"
+      ]
+    }
+  ]
+}
