@@ -23,12 +23,12 @@ CATEGORY_TITLES = {
     "meta": "Start here",
     "engineering": "Engineering — architecture, clean code, scalability",
     "design": "Design — product UI, UX, design systems (web-first)",
-    "mobile": "Mobile — iOS 26, Android 16, cross-platform",
+    "mobile": "Mobile — iOS 26–27, Android 16–17, cross-platform",
 }
 PLUGINS = {
     "engineering": "Architecture, design patterns, clean code, scalability, reliability, APIs, testing, and AI-native systems.",
     "design": "Product design for 2026: taste, foundations, design systems, UX laws, interaction, motion, accessibility, conversion, and AI interfaces.",
-    "mobile": "2026 mobile design and architecture: iOS 26 Liquid Glass, Material 3 Expressive, and cross-platform apps.",
+    "mobile": "2026 mobile design and architecture: Liquid Glass (iOS 26–27), Material 3 Expressive (Android 16–17), and cross-platform apps.",
 }
 
 

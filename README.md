@@ -2,7 +2,7 @@
 
 **Agent Skills for building software that is well-architected, clean, scalable, and designed to 2026 standards — on the web, iOS, and Android.**
 
-One place for the rules you keep pasting into your agent: architecture and design patterns, clean code, scalability and reliability, product design that doesn't look AI-generated, and native mobile design for iOS 26 and Android 16. The skills consolidate and verify guidance from the best existing skill collections, design references, and engineering literature. [Credits](CREDITS.md) lists every source.
+One place for the rules you keep pasting into your agent: architecture and design patterns, clean code, scalability and reliability, product design that doesn't look AI-generated, and native mobile design for iOS 26–27 (Liquid Glass) and Android 16–17 (Material 3 Expressive). The skills consolidate and verify guidance from the best existing skill collections, design references, and engineering literature. [Credits](CREDITS.md) lists every source.
 
 Skills follow the open [Agent Skills](https://agentskills.io/specification) format. They work in Claude Code, Codex, Cursor, Gemini CLI, GitHub Copilot, OpenCode, and any agent that reads `SKILL.md`.
 
@@ -70,7 +70,7 @@ cp -r how-to-build-software/skills/* .agents/skills/       # most other agents (
 - **Defaults, not menus.** Each skill picks a default and names the trigger for the alternative.
 - **Boring by default.** Modular monolith, managed Postgres, platform conventions, system components. Heavier options need a stated reason.
 - **Taste is a process, not a vibe.** Ground the design in the subject, plan tokens, compare against the generic default, spend boldness in one place, critique.
-- **Platform-true mobile.** iOS 26 Liquid Glass and Material 3 Expressive are used as designed, not imitated on the wrong platform.
+- **Platform-true mobile.** Liquid Glass (iOS 26+) and Material 3 Expressive are used as designed, not imitated on the wrong platform.
 - **Ethics floor.** No dark patterns, fabricated data, or fake social proof — ever.
 - **Dated and sourced.** Anything that ages (library versions, trendy fonts, Baseline status) is labeled with its date, and every reference file lists its sources.
 
