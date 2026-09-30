@@ -49,6 +49,19 @@
         "Identifies the question as architecture/module boundaries and points to software-architecture",
         "Does not produce a line-level refactoring plan or code smell list as the main answer"
       ]
+    },
+    {
+      "id": 5,
+      "prompt": "My tech lead wants every function under 5 lines because 'Clean Code says so', but after splitting our 40-line parseInvoice() into nine helpers nobody can follow it. Another dev says Ousterhout proved long functions are fine. Who is right, and what should I do with parseInvoice?",
+      "expected_output": "Uses the Ousterhout-vs-Martin material and tension map: both authors agree over-decomposition is possible; split only where a piece has a simple interface and reads on its own (no entanglement); recommends inlining the entangled helpers back ('one pile') and re-extracting only deep, independently understandable pieces; keeps linear steps chunked with blank lines or comments; treats line counts as smell prompts, not rules; suggests doing it as a separate tidying commit with tests green.",
+      "files": [],
+      "expectations": [
+        "Does not endorse a hard 5-line (or any fixed line-count) limit",
+        "States the extraction criterion: a simple interface and understandable without reading caller or callee (no entanglement)",
+        "Recommends inlining the entangled helpers back and re-extracting selectively",
+        "Mentions that Ousterhout and Martin agree over-decomposition is possible (or otherwise shows both sides rather than picking a camp)",
+        "Keeps the refactor behavior-preserving, with tests run, separate from behavior changes"
+      ]
     }
   ]
 }
