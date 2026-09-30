@@ -143,6 +143,7 @@ First decide the mode. **Refine** keeps the current look and improves it. **Over
 - **Motion everywhere.** Fade-up on every section and hover lift on every card is the default. Use one authored moment. Keyboard actions and actions repeated 100 times a day get no animation (see `motion-design`).
 - **Landing-page rules applied to product UI.** Huge display type, 160px sections, and scroll choreography inside an app hurt repeat use. Check the surface mode.
 - **Imitating a famous brand.** "Make it look like Linear/Stripe" should give you principles (restraint, one owned accent, crafted states), never their exact palette, logo-like marks, or copy.
+- **Persuasion by deception.** Fake countdowns, invented scarcity ("3 people viewing"), confirmshaming opt-outs, and a visually buried "reject" button are dark patterns, not bold design. Never build them. Persuade by removing friction and uncertainty (see `conversion-ux`).
 - **Unbounded polishing.** Endless screenshot loops burn time and drift the design. Two rounds, then ship and list the leftovers.
 
 ## Output format

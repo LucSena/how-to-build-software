@@ -1,0 +1,48 @@
+{
+  "skill_name": "design-resources",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Which icon library should I use for my new shadcn + Tailwind dashboard? I need selected states in the sidebar.",
+      "expected_output": "Checks what is installed, recommends one family (Lucide as shadcn default, or a Line/Fill-pair set like Remix Icon or Phosphor for selected states) with a runner-up, mentions license notes (Lucide ISC; Remix Icon's 2026 license change), and gives install and first checks.",
+      "files": [],
+      "expectations": [
+        "Recommends exactly one primary icon library and one runner-up",
+        "Addresses the selected-state need with filled/outline pairs or weights",
+        "Mentions a license detail for the recommended set",
+        "Advises against mixing icon families"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "What is atlas.attio.com? Can I use it as a component library?",
+      "expected_output": "States that atlas.attio.com is Attio's GTM Atlas, a go-to-market guide, not a design system or component library, and suggests fitting component alternatives (shadcn/ui, coss ui, ReUI).",
+      "files": [],
+      "expectations": [
+        "Identifies atlas.attio.com as a go-to-market guide, not a component library",
+        "Suggests at least one actual component library as an alternative"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "I want to copy components from coss.com/ui into my closed-source SaaS. Anything I should know?",
+      "expected_output": "Explains coss ui is Base UI-native and installed via the shadcn registry, and warns that apps/ui (and apps/origin) are MIT while the monorepo default is AGPL-3.0, so copy only from the MIT parts or get a license decision.",
+      "files": [],
+      "expectations": [
+        "Mentions that the monorepo default license is AGPL-3.0",
+        "States that the apps/ui component code is MIT",
+        "Recommends copying only from the MIT-licensed parts or checking licensing before shipping"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Our onboarding flow has a 60% drop-off at step 2. Fix the flow.",
+      "expected_output": "Near-miss: this is a UX/conversion problem, not a resource request; routes to conversion-ux or ux-principles, optionally mentioning pattern libraries (Mobbin, Page Flows) only as supporting research.",
+      "files": [],
+      "expectations": [
+        "Does not answer with only a list of tools or galleries",
+        "Routes to or applies conversion-ux or ux-principles reasoning for the flow problem"
+      ]
+    }
+  ]
+}

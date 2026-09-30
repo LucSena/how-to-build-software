@@ -63,6 +63,35 @@ Check what the project already uses (`package.json`, `components.json`, the icon
 | Fonts | **Google Fonts**, **Fontshare** (free) | Paid foundries for a distinctive voice (see `references/fonts.md`) |
 | UX principles | **Laws of UX**, **NN/g heuristics** | **Baymard** for checkout and forms; **growth.design** for psychology case studies |
 
+## Other stacks
+
+The catalog leans toward React because most of 2026's registries are React-first. For other stacks, apply the same layering (primitives → owned styled components → assets). These equivalents are well known but were not re-verified this session, so check their current status before installing:
+
+| Stack | Primitives / styled kit | Notes |
+|---|---|---|
+| Vue | Reka UI (formerly Radix Vue) · shadcn-vue | Same token conventions as shadcn |
+| Svelte | Bits UI · shadcn-svelte | Moving Icons for animated Lucide icons |
+| iOS (SwiftUI) | System components + SF Symbols | Prefer native controls; see `ios-design` |
+| Android (Compose) | Material 3 components + Material Symbols | Dynamic color with a static fallback; see `android-design` |
+| React Native / Expo, Flutter | Platform-adaptive components first | See `mobile-design`; avoid web-only kits |
+
+## License quick map
+
+| License seen | What it means for a closed-source product |
+|---|---|
+| MIT, ISC, Apache-2.0, OFL (fonts) | Use freely; keep notices (Apache: also the NOTICE file) |
+| AGPL-3.0 | Network use triggers source-sharing obligations. Avoid in closed SaaS without legal sign-off |
+| "Other", custom, source-available | Read it. Field-of-use restrictions (for example revenue-centric-design's no-gambling clause) travel with copies |
+| Free tier + Pro (Hugeicons, Iconsax, Iconly, snapcn) | Free assets are usable; Pro assets need a paid license per seat or project |
+| Platform-restricted (SF Symbols) | Only on that platform's apps |
+
+## Identifying an unknown URL
+
+When a user pastes a design-tool URL and asks what it is:
+1. Check it against the reference tables and the "Names that mislead" gotcha below.
+2. If it is not listed, read the page itself (title, about page, pricing, GitHub link, license) before describing it. Do not infer from the domain name.
+3. Report: what it actually is, who makes it, stack and license if known, whether it fits the user's goal, and a better-fitting alternative if not. Mark anything you could not confirm as unverified.
+
 ## Choosing within a category
 
 - **Component source:** use platform primitives first, then the existing library, then a copy-in registry, then a new runtime dependency. Copy-in (shadcn-style) means you own the code and the upgrades. A runtime dependency means someone else's release schedule.

@@ -1,0 +1,54 @@
+{
+  "skill_name": "design-systems",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Our Next.js + Tailwind v4 app has hex colors hardcoded in 200 components and dark mode is a mess. Set up proper design tokens.",
+      "expected_output": "Audits values and proposes a merge plan, defines primitives and a semantic tier with role names, wires light/dark via CSS variables and @theme inline, replaces raw values in components with semantic utilities, adds a lint rule against raw hex/arbitrary values, and reports inventory, tiers, modes, and verification.",
+      "files": [],
+      "expectations": [
+        "Starts with an inventory of existing color values and a merge plan",
+        "Defines separate primitive and semantic tiers with role-based names",
+        "Uses @theme inline (not plain @theme) for tokens that reference other CSS variables",
+        "Components reference semantic tokens, not primitives or raw hex",
+        "Dark mode remaps the same semantic names rather than adding a separate set of component overrides",
+        "Proposes an automated check that blocks new raw color values"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Write a DESIGN.md for this repo so Claude and Cursor stop inventing styles.",
+      "expected_output": "Extracts tokens from code without inventing values, writes YAML front matter plus sections in the Google spec order (Overview, Colors, Typography, Layout, Elevation & Depth, Shapes, Components, Do's and Don'ts), uses a specific reference in Overview, keeps Do's and Don'ts short, and runs npx @google/design.md lint.",
+      "files": [],
+      "expectations": [
+        "Sections appear in the order Overview, Colors, Typography, Layout, Elevation & Depth, Shapes, Components, Do's and Don'ts",
+        "Front matter defines colors.primary",
+        "Every token value is traceable to the codebase; no invented tokens",
+        "Includes or instructs running npx @google/design.md lint DESIGN.md",
+        "Overview uses a specific reference rather than only adjectives"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "We have a web app and are starting iOS and Android apps. How do we keep colors and spacing in sync?",
+      "expected_output": "Recommends DTCG 2025.10 JSON as the source of truth with a resolver for light/dark, a build tool that reads DTCG (e.g. Style Dictionary v4+ or Terrazzo) generating CSS, Swift, and Kotlin/Compose, with unit transforms (pt, dp, sp), color conversion, native type mapped to Dynamic Type and Material roles, and CI checks.",
+      "files": [],
+      "expectations": [
+        "Names W3C DTCG (2025.10) token JSON as the single source of truth",
+        "Describes generating platform outputs rather than hand-maintaining them",
+        "Maps native typography to platform text styles instead of copying web pixel sizes",
+        "Mentions light/dark modes being generated for every platform"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Which accent color should our meditation app use?",
+      "expected_output": "Near-miss: choosing a color is a direction/foundations decision; routes to design-taste (color strategy from subject) and design-foundations (ramp and contrast) rather than setting up token infrastructure.",
+      "files": [],
+      "expectations": [
+        "Does not start by building a token pipeline or DTCG files",
+        "Points to or applies design-taste or design-foundations reasoning for choosing the color"
+      ]
+    }
+  ]
+}

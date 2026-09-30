@@ -1,0 +1,56 @@
+{
+  "skill_name": "design-taste",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Build a landing page for Loamly, a soil-testing kit for home gardeners that mails results to an app. No brand yet. Make it not look like every other AI site.",
+      "expected_output": "States a one-line Design Read and a use-scene sentence, picks a named direction with a subject-derived reason and one signature move, writes a token plan (4-6 named OKLCH/hex colors with roles, typefaces with roles and a scale ratio, radius, motion budget, ASCII wireframe with alignment), runs an explicit default check that names what was changed, then builds without fabricated proof and lists placeholders.",
+      "files": [],
+      "expectations": [
+        "Output contains a Design Read line naming surface, audience, and job before any code",
+        "Output names exactly one signature move",
+        "Token plan lists between 4 and 6 named colors, each with a role",
+        "Output contains a default check that states what the reflex version would have been and what was changed",
+        "No accent hue in the indigo/violet band and no purple gradient unless justified in writing",
+        "Display font is not Inter, Geist, Space Grotesk, or Instrument Serif without a stated reason",
+        "No invented testimonials, customer logos, or metrics; any placeholders are listed for the user",
+        "Eyebrow labels or 01/02/03 markers appear only where content is a real category or sequence"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Our SaaS marketing site feels generic and dated. Here's the repo. Make it look premium but don't break anything.",
+      "expected_output": "Chooses Refine vs Overhaul explicitly (defaults to Refine or asks once), audits before changing (stack, brand assets, IA/URLs, SEO baseline, analytics IDs), applies levers in order typography, spacing, color, states, motion, lists anything on the never-change-silently list as needing approval, and reports before/after with screenshots or 'Not checked visually'.",
+      "files": [],
+      "expectations": [
+        "States the redesign mode (Refine or Overhaul) before editing",
+        "Produces an audit covering URLs/nav labels and SEO or analytics baseline before making changes",
+        "Does not change URLs, nav labels, form field names, logo, or legal copy without flagging them for approval",
+        "Changes are ordered starting with typography and spacing rather than block replacement",
+        "Final report separates Changed, Preserved, and Not checked"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Make it brutalist: black and white, huge Helvetica headlines, zero border radius, no animations. It's a poster archive for a design school.",
+      "expected_output": "Follows the explicit brief exactly (the brief's words win), uses the brutalist preset values, does not argue the user out of Helvetica or pure black/white, and still enforces contrast, focus visibility, and reading order.",
+      "files": [],
+      "expectations": [
+        "Uses Helvetica (or the requested face), radius 0, and no motion as requested",
+        "Does not replace the user's explicit choices with the skill's own preferences",
+        "Keeps visible keyboard focus and WCAG AA text contrast",
+        "Does not add decorative gradients, glows, or entrance animations"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "What's the right line-height and max width for body text in our docs site?",
+      "expected_output": "Near-miss: answers directly with numbers (line-height about 1.5-1.7, measure about 65ch) or defers to design-foundations; does not run the full direction workflow, token plan, or default check.",
+      "files": [],
+      "expectations": [
+        "Gives concrete values for line-height and measure",
+        "Does not produce a Design Read, direction preset, or signature move for this question"
+      ]
+    }
+  ]
+}

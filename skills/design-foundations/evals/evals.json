@@ -1,0 +1,51 @@
+{
+  "skill_name": "design-foundations",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Set up the type scale, spacing, and colors for our new B2B analytics app. Brand color is #0F766E. We need light and dark mode.",
+      "expected_output": "A compact foundations spec: 16px base (or justified 14px for dense views) with a 1.2-ish product ratio and 6-8 sizes, line-heights and measure, a 4px spacing scale with relationship tiers, a 12-step OKLCH ramp around the brand hue plus a tinted neutral ramp, semantic roles mapped for light and dark, dark surfaces around L 0.13-0.18 with lighter elevation, and a contrast table for every text/surface pair.",
+      "files": [],
+      "expectations": [
+        "Type scale states a base size and a ratio between 1.125 and 1.25 for app UI",
+        "Spacing scale is based on 4px",
+        "Colors are authored in OKLCH with semantic role names (e.g. bg, fg, fg-muted, accent, border)",
+        "Dark theme is defined as its own values rather than an inversion, with lighter surfaces for elevation",
+        "Includes a contrast check listing text/surface pairs against 4.5:1 and non-text against 3:1",
+        "Neutrals are tinted toward the brand hue rather than pure grey"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Our hero headline uses font-size: 6vw and it looks tiny on phones and huge on my ultrawide. Fix it.",
+      "expected_output": "Replaces pure vw with clamp() using rem min/max and a rem + vw preferred value, shows the slope/intercept calculation, keeps max <= 2.5x min, and explains the zoom (WCAG 1.4.4) issue.",
+      "files": [],
+      "expectations": [
+        "Uses clamp() with rem-based minimum and maximum",
+        "Preferred value includes a rem term plus a vw term",
+        "Maximum is no more than 2.5 times the minimum",
+        "Mentions that pure vw sizing fails browser zoom or WCAG 1.4.4"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Cards inside our modal have 20px radius and the images inside them have 20px radius too with 8px padding. Something looks off.",
+      "expected_output": "Identifies the nested-radius problem and applies inner = outer - padding (12px), optionally suggests a radius scale.",
+      "files": [],
+      "expectations": [
+        "States the rule inner radius = outer radius minus padding",
+        "Recommends 12px for the inner image radius"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Pick a visual style for my indie game's website. Something with personality.",
+      "expected_output": "Near-miss: this is an aesthetic-direction request; routes to design-taste (direction presets, signature move) rather than only giving scales and contrast numbers.",
+      "files": [],
+      "expectations": [
+        "Recommends or uses the design-taste workflow for choosing the direction",
+        "Does not answer only with type scales, spacing, and contrast values"
+      ]
+    }
+  ]
+}

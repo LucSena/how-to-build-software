@@ -122,6 +122,14 @@ Full rules, including SF Symbols and Material Symbols, are in `references/iconog
 - Detect input capability with `@media (hover: hover)` and `(pointer: coarse)`, not screen width. Respect `env(safe-area-inset-*)`.
 - **Must pass:** no horizontal scroll at 320 CSS px (WCAG 1.4.10 Reflow), usable at 200% zoom, and text survives WCAG 1.4.12 spacing overrides.
 
+## Hierarchy checks
+
+- **Squint test:** blur the screenshot. The primary element, 2–3 secondary elements, and the major groups should still read in that order.
+- **One primary action per view.** Show 1–2 secondary actions and move the rest to a menu. Keep ≤ 4 visible choices per decision point (Hick's law).
+- **Skeleton test:** replace the copy with grey bars. The structure alone should still communicate the page.
+- **Grayscale test:** remove color. If the hierarchy collapses, it was relying on hue alone.
+- **Alignment audit:** every edge lands on a grid line or on a sibling's edge. Accidental 2–3px offsets are the most common cause of "looks off". Nudge glyphs ±1px for optical balance *after* rendering.
+
 ## Gotchas
 
 - **Too many sizes.** Ten font sizes and fifteen gaps is a lack of system. Snap values to the scale before adding new ones.
