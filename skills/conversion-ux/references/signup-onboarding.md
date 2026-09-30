@@ -1,5 +1,7 @@
 # Signup and onboarding
 
+> **Scope note (conversion-ux 1.1.0).** This file keeps the conversion view of signup and early activation. For the full onboarding and activation design — activation metrics, setup/aha/habit moments, pattern selection, blueprints per product type (B2B SaaS, B2C mobile, developer tools, marketplaces, AI products), invited-teammate flows, permission timing, measurement, and re-onboarding — use the `onboarding-design` skill. For sign-up and login mechanics, passkeys, SSO, verification, and account recovery, use `auth-flows`. Where the two overlap, those skills are the source of truth.
+
 ## Contents
 - Signup: fields and methods
 - Signup: flow and errors
@@ -82,7 +84,7 @@ Never land a new user on a blank dashboard full of zeros.
 ## Checklists, tours, and hints
 
 - **Checklist**: 3–7 items ordered by value, first item a quick win, progress visible, items link directly to the action, dismissible, and removed when complete. Marking a step already completed at signup as done uses the endowed-progress effect (in Nunes and Drèze's 2006 study, a loyalty card with 2 of 10 stamps pre-filled was completed far more often than an equivalent 8-stamp card starting empty). Never add fake steps to make progress look closer.
-- **Product tour**: 3–5 steps max, skippable, triggered on first visit only, never repeated for returning users.
+- **Product tour**: optional, 3 steps or fewer (5 at most), skippable, never repeated for returning users; prefer contextual hints (`onboarding-design`).
 - **Contextual hints**: triggered by behavior (first time opening a feature), one at a time, dismissible, not repeated after dismissal.
 - **Onboarding video**: short, optional; welcomes and shows the outcome rather than teaching every control.
 - **Celebrate activation** once, briefly (a clear success state and the next step); no confetti on trivial actions.

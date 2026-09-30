@@ -1,0 +1,59 @@
+{
+  "skill_name": "system-design",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Design a URL-based file sharing feature for our B2B SaaS: users upload files up to 2 GB, share them with teammates or via expiring public links, and see download counts. We have ~3,000 tenants and a Rails monolith on Postgres. Write the design.",
+      "expected_output": "Follows the method in order: problem and non-goals, per-operation SLOs, labeled estimates (including largest tenant and storage growth), access patterns and invariants before any diagram, a data model with tenant scoping, API sketch with idempotent uploads and paginated lists, a minimal topology (existing monolith + Postgres + object storage with signed URLs + worker), deep dives on upload and download-count hot rows, a failure-mode table, alternatives including the smallest change, and a phased rollout with rollback.",
+      "files": [],
+      "expectations": [
+        "Lists access patterns and invariants before presenting a high-level diagram or component list",
+        "Labels numbers as Estimated or Measured and includes peak (not only average) and storage growth",
+        "Stores file bytes in object storage with signed/expiring URLs rather than in Postgres rows",
+        "Does not introduce microservices, Kafka, or sharding for this scale",
+        "Addresses download counting as a hot-row/counter problem (e.g., append-only events, slotted counters, or buffered increments)",
+        "Includes an alternatives-considered section that contains a 'do nothing / smallest change' or off-the-shelf option",
+        "Includes a rollout plan with phases and a rollback per phase"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Our Postgres primary for a multi-tenant project management app is at 80% CPU and 4 TB. The team wants to shard by tenant next quarter. Write the plan.",
+      "expected_output": "Checks cheaper levers first (query fixes, replicas, bigger instance, moving table groups to their own databases), requires the largest-tenant share, and if sharding is still justified proposes a data-access layer/proxy first, logical sharding before physical, many logical shards on few machines, dual-write or copy with shadow reads and comparison, cohort-based cutover, and rollback at every phase, citing precedents (Figma, Notion, GitHub).",
+      "files": [],
+      "expectations": [
+        "Asks for or checks evidence that query fixes, read replicas, vertical scaling, and vertical partitioning are exhausted before sharding",
+        "Asks for the largest tenant's share of data/traffic and addresses whale tenants",
+        "Proposes logical sharding (routing as if sharded) before moving data physically",
+        "Proposes a fixed, larger number of logical shards mapped to fewer physical databases",
+        "Includes verification by shadow/dark reads or comparison before switching reads",
+        "Gives a phased plan with a rollback for each phase",
+        "Cites at least one real precedent (e.g., Figma, Notion, GitHub, Slack)"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Write a design doc for replacing our homegrown cron-based email digest sender with a proper system. It's ~200k emails per day.",
+      "expected_output": "Uses the design-doc template sections (context, goals, non-goals, requirements, estimates, design, alternatives, cross-cutting concerns, failure modes, rollout, operations, open questions); estimates ~2.3/s average with bursts, keeps it simple (Postgres-backed queue or managed email provider batching), ensures idempotent sends, and plans a parallel-run or cohort rollout.",
+      "files": [],
+      "expectations": [
+        "Produces a document with Goals, Non-goals, Alternatives considered, Rollout, and Operations sections",
+        "Converts 200k/day to roughly 2–3 per second average and considers burst/peak",
+        "Makes email sending idempotent or deduplicated so retries do not send duplicates",
+        "Includes rollout with a cohort or parallel run and a rollback",
+        "Does not add a message broker such as Kafka without a stated trigger"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Our Postgres `orders` table has a slow query listing a customer's recent orders. What index should I add?",
+      "expected_output": "Recognizes this as a narrow query/index task rather than a system design: gives a direct answer (composite index on customer_id plus the sort column, created concurrently, verified with EXPLAIN ANALYZE) or defers to scalability/data-modeling, without producing a 13-step design doc.",
+      "files": [],
+      "expectations": [
+        "Does not produce a full design doc or the 13-step method for this request",
+        "Suggests a composite index with the equality column first and the sort column second",
+        "Mentions creating the index concurrently or verifying with EXPLAIN ANALYZE, or points to the scalability or data-modeling skill"
+      ]
+    }
+  ]
+}

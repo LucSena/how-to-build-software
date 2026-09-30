@@ -1,0 +1,56 @@
+{
+  "skill_name": "environments-and-config",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Our Next.js app reads process.env all over the place and last week prod started without STRIPE_WEBHOOK_SECRET and silently accepted unsigned webhooks. Set up proper config handling.",
+      "expected_output": "Creates a single typed env module (e.g., t3-env with Zod) that is the only reader of process.env, separates server and client (NEXT_PUBLIC_) variables, marks secrets as required with no defaults, parses booleans explicitly, validates at build and startup and fails listing invalid keys without values, adds .env.example and a CI key-sync check, replaces scattered process.env reads, and logs a config fingerprint without secret values.",
+      "files": [],
+      "expectations": [
+        "Creates one config module that is the only place reading process.env and replaces direct reads elsewhere",
+        "STRIPE_WEBHOOK_SECRET (and other secrets) are required with no default value",
+        "Validation runs at startup and/or build time and fails fast with the list of missing or invalid keys, without printing secret values",
+        "Keeps server secrets out of NEXT_PUBLIC_ variables and separates client from server schema",
+        "Adds or updates .env.example with placeholder values and keeps .env git-ignored",
+        "Does not use z.coerce.boolean() or Boolean(str) for boolean env vars"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "I accidentally pushed our production AWS access key and a SendGrid API key to a feature branch on GitHub about an hour ago. I already deleted the file in a new commit. What now?",
+      "expected_output": "Treats both keys as compromised: rotate/revoke immediately (before history cleanup), check CloudTrail and SendGrid activity for the exposure window, purge from history/logs as policy requires while noting rotation is the actual fix, record the incident, add pre-commit plus CI secret scanning and push protection, and replace the long-lived AWS key with OIDC/workload identity.",
+      "files": [],
+      "expectations": [
+        "States that deleting the file in a new commit does not remove the secret from history and the keys must be treated as compromised",
+        "Revokes or rotates both keys first, before any history rewrite",
+        "Checks provider access logs (e.g., CloudTrail, SendGrid activity) for use during the exposure window",
+        "Recommends layered secret scanning (pre-commit hook, CI, and platform push protection)",
+        "Recommends replacing the long-lived AWS access key with workload identity or OIDC federation"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "We want per-PR preview environments. Easiest is to snapshot the production Postgres into each preview so reviewers see real data. Can you set that up on Vercel + Neon?",
+      "expected_output": "Sets up per-PR previews with a database branch per preview, but refuses raw production copies because they contain PII; proposes anonymized branching (static masking) or a seeded/anonymized parent, runs migrations per preview, uses preview-scoped secrets and sandbox integrations, protects access and adds noindex, handles OAuth/webhooks without widening the prod OAuth app, and adds TTL/teardown on PR close.",
+      "files": [],
+      "expectations": [
+        "Does not copy raw production data containing PII into previews; proposes anonymized or seeded branches instead",
+        "Creates an isolated database branch per preview and runs migrations on it",
+        "Uses preview-scoped, low-value secrets and sandbox integrations rather than production secrets",
+        "Adds teardown/TTL for previews when the PR closes",
+        "Addresses access protection for preview URLs"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Write a GitHub Actions workflow that builds our Docker image, pushes it to ECR, and deploys to ECS with a canary.",
+      "expected_output": "Recognizes this as a pipeline/deployment task owned by deployment-and-infrastructure: routes there (or applies it), with only the config-related parts from this skill — OIDC instead of stored AWS keys and per-environment roles — rather than treating it as an environment-config task.",
+      "files": [],
+      "expectations": [
+        "Identifies deployment-and-infrastructure as the primary skill for the workflow, build, and canary deploy",
+        "Uses OIDC federation with an environment-scoped role instead of storing AWS access keys as secrets",
+        "Does not spend the answer on .env files, local dev setup, or config schema design"
+      ]
+    }
+  ]
+}

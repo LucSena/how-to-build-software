@@ -1,46 +1,22 @@
 # Dashboards and charts
 
+> **Scope note (data-dense-ui 1.1.0).** Dashboard types, KPI selection, layouts and wireframes, the nine widget states, date-range and comparison controls, filters in the URL, drill-down paths, refresh strategy, customization, per-widget performance, and the app shell now live in the `dashboard-design` skill. This file keeps what is about displaying data: KPI tiles, chart rules, chart color, chart interaction, chart states, chart accessibility, and large-series performance.
+
 ## Contents
-- Dashboard types
-- From questions to layout
+- Dashboard types and layout (moved)
 - KPI tiles
 - Chart rules
 - Color in charts
 - Interaction: tooltips, drill-down, cross-filtering
-- States for dashboards
+- States for chart tiles
 - Accessibility
 - Performance with large series
 
 ---
 
-## Dashboard types
+## Dashboard types and layout (moved)
 
-| Type | Users | Answers | Design emphasis |
-|---|---|---|---|
-| Operational | People acting today (support, ops, sales) | "What needs my attention now?" | Exceptions, queues, alerts, direct links to act; near-real-time freshness |
-| Analytical | Analysts, product, finance | "Why did it change?" | Filters, drill-down, comparisons, exports |
-| Strategic / executive | Leadership | "Are we on track?" | Few KPIs vs. targets, trends over quarters, plain-language annotations |
-
-Do not mix types in one screen; link between them instead.
-
-## From questions to layout
-
-1. List the questions (1 primary, ≤ 3 secondary) and the action each answer triggers.
-2. Pick the metric that answers each, with its comparison (target, previous period, same period last year) and good direction.
-3. Place by priority: primary answer top-left (F-pattern), headline KPIs in a row, trend charts next, breakdown tables last.
-4. Put global controls (date range, segment, compare-to) top-right, persisted in the URL.
-5. Remove anything that does not change a decision. Offer it in a linked report instead.
-
-Wireframe:
-
-```
-[ Title: the question ]                              [Date range ▾] [Compare ▾] [Segment ▾]
-[ North-star KPI (large) ] [ KPI ] [ KPI ] [ KPI ]
-[ Trend chart (2/3 width)                    ] [ Breakdown or alerts (1/3) ]
-[ Table of items needing action, sorted by urgency, with row actions        ]
-```
-
-Personalize by role (a sales rep sees their pipeline; a manager sees the team), not by letting everyone assemble widgets from scratch.
+Operational vs analytical vs strategic vs home dashboards, the four-question KPI test, the band layout (KPI row → trend → breakdowns → table), ASCII wireframes, and role-based defaults are in `dashboard-design` (`references/layouts.md` there). The short version: one primary question per dashboard, 3–5 headline KPIs, primary answer top-left, global controls in the URL, and role defaults instead of a blank widget builder.
 
 ## KPI tiles
 
@@ -81,7 +57,9 @@ Personalize by role (a sales rep sees their pipeline; a manager sees the team), 
 - Cross-filtering between charts must show clearly which filters are active and allow clearing them in one click.
 - Brushing (drag to select a time range) needs a keyboard/button alternative (date range inputs).
 
-## States for dashboards
+## States for chart tiles
+
+The complete nine-state list for dashboard widgets (including stale and no-permission) is in `dashboard-design`; the chart-specific treatment:
 
 | State | Treatment |
 |---|---|

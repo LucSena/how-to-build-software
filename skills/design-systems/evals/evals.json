@@ -49,6 +49,19 @@
         "Does not start by building a token pipeline or DTCG files",
         "Points to or applies design-taste or design-foundations reasoning for choosing the color"
       ]
+    },
+    {
+      "id": 5,
+      "prompt": "We're a 5-person startup with one Next.js app using shadcn/ui. Our CEO wants us to build 'a real design system like Airbnb's' before we hire more engineers. Where do we start?",
+      "expected_output": "Recommends the lowest sufficient tier (DESIGN.md + semantic tokens + owned shadcn components, maybe a pattern layer) instead of a dedicated design-system product, starts with an interface inventory (UI walk + code scan), orders work tokens then core components then patterns then docs, names the signals that would justify moving up a tier, and treats the system as a product without inventing adoption statistics.",
+      "files": [],
+      "expectations": [
+        "Recommends a tier-1 style setup (DESIGN.md, semantic tokens, owned component library) rather than a docs site, separate package, and dedicated team",
+        "Starts with an interface inventory covering both the UI and the codebase",
+        "Orders the work as tokens, then core components, then patterns, then documentation",
+        "Lists concrete signals for when to invest in a larger system (duplicated components, teams rebuilding patterns, recurring accessibility bugs, design-code drift)",
+        "Does not cite made-up statistics about design system ROI or adoption"
+      ]
     }
   ]
 }

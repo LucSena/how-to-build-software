@@ -1,0 +1,67 @@
+{
+  "skill_name": "onboarding-design",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "We're a B2B product analytics tool. New users sign up and land on an empty dashboard, then most never come back. Design our onboarding. We were thinking of a 7-step product tour on first login.",
+      "expected_output": "Starts from an activation event in 'action >= N within T days' form (e.g. tracking installed and first report viewed, plus a teammate for team plans) with setup/aha/habit moments; replaces the forced 7-step tour with contextual hints and an optional tour of at most 3 steps; fixes the empty dashboard with labeled, removable sample data and a 'connect your data' prerequisite step; places the invite after the first win and designs the invitee's landing; adds a short dismissible checklist; lists funnel events with an is_sample flag and names activation rate, time-to-activate, and W1/W4 retention as metrics.",
+      "files": [],
+      "expectations": [
+        "States an activation event that includes an action, a count or threshold, and a time window",
+        "Rejects or shortens the forced 7-step tour (optional, 3 steps or fewer, or replaced by contextual hints)",
+        "Empty dashboard gets sample data or a template that is explicitly labeled and removable",
+        "Invite step comes after the user's first real result, and the invited teammate lands on a shared object",
+        "Instrumentation excludes sample-data actions from activation (e.g. an is_sample property)",
+        "Success is measured by activation rate or retention, not tour completion"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Our iOS and Android meditation app shows a 5-slide intro carousel, then asks for notification and location permission, then makes you create an account before you can play anything. Retention is bad. Fix the first launch. We also want a paywall somewhere.",
+      "expected_output": "Reorders to: instant launch, one value-first welcome with 'I have an account', 1-3 goal questions that branch, a first session before the account, 'save your progress' account prompt with platform sign-in, an optional closable paywall with clear terms placed by experiment (citing RevenueCat data as vendor-reported), notification soft-ask after the first session with a user-chosen time, location only if a feature needs it. States the iOS single-button priming rule versus the Android 'Not now' rationale, and removes the carousel.",
+      "files": [],
+      "expectations": [
+        "Removes or replaces the 5-slide carousel",
+        "Moves the first session before account creation",
+        "Moves notification and location requests out of first launch to the moment of need",
+        "States that an iOS pre-permission screen may only have a single Continue/Next button, unlike Android's rationale",
+        "Paywall has a visible close or free option and clear trial terms",
+        "Any RevenueCat or other vendor figure is attributed to the vendor, not stated as universal fact"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Design the 'Get started' page for our email-sending API. Developers currently have to sign up, confirm email, find the API keys page, and read the docs to send anything.",
+      "expected_output": "Defines activation as first successful authenticated call within a window and TTFC as time-to-value; keeps docs public; injects the signed-in user's test key into copyable snippets with language tabs; sandbox/test mode by default and clearly marked; a listening state that confirms the first request and links to logs, with troubleshooting after a timeout; next steps (webhook, go-live checklist); event names like api_key_created, snippet_copied, first_request_received; does not promise an unmeasured time figure.",
+      "files": [],
+      "expectations": [
+        "Activation is a first successful API call (or equivalent) with a time window",
+        "Code snippets include the user's own test key or remove the separate key-copying step",
+        "Test/sandbox mode is the default and visibly labeled",
+        "The page confirms the first received request in the UI and offers troubleshooting when nothing arrives",
+        "Does not state an unsourced benchmark such as a best-in-class time-to-first-call number as fact"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "We're adding an AI assistant to our CRM. What should a new user see the first time they open it?",
+      "expected_output": "Avoids a blank prompt box; offers 3-ish starter prompts tied to the user's role or current data, states limits and data use honestly, defines activation as using an AI output in real work rather than sending a prompt, and introduces advanced capabilities progressively; hands off chat/streaming UI details to ai-interface-design.",
+      "files": [],
+      "expectations": [
+        "First screen offers starter prompts or a scoped task instead of an empty input only",
+        "States what the assistant can't do or what data it uses",
+        "Activation is defined as using or accepting an AI output, not merely sending a prompt"
+      ]
+    },
+    {
+      "id": 5,
+      "prompt": "Build our login page with Google SSO, magic link, and a forgot-password flow.",
+      "expected_output": "Near-miss: this is authentication UX and security, not onboarding; a good answer uses auth-flows guidance (methods, errors, recovery, session security) and does not add onboarding checklists, tours, personalization questions, or activation metrics to the login page.",
+      "files": [],
+      "expectations": [
+        "Does not add an onboarding checklist, tour, or personalization question to the login page",
+        "Focuses on sign-in methods, error states, and account recovery"
+      ]
+    }
+  ]
+}

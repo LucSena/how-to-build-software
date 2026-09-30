@@ -17,15 +17,15 @@
     },
     {
       "id": 2,
-      "prompt": "Our SaaS dashboard shows 12 same-size cards (MRR, ARR, churn, signups, DAU, MAU, NPS, tickets, uptime, CAC, LTV, ARPU). Nobody uses it. Redesign it.",
-      "expected_output": "Starts from the primary question and user role; establishes a KPI hierarchy with one north-star metric top-left and at most 3–5 headline KPIs; each KPI has comparison, period, and good-direction coding with icon plus color; moves remaining metrics to trends, tables, or linked reports; adds freshness and per-tile states.",
+      "prompt": "Our KPI cards show values like '$1234567.891' and '33.7% → 31.4% (-6.8%)', churn going up is shown in green because the arrow points up, and the conversion card says '+900%' when it went from 1 to 10. Fix the formatting of these cards in React.",
+      "expected_output": "Formats values with Intl and compact notation on cards (exact value on hover), tabular numerals, consistent decimals; expresses rate changes in percentage points ('-2.3 pts'); colors deltas by meaning (rising churn is bad/red) with icon and sign in addition to color; replaces '+900%' on a tiny base with an absolute change or 'new'; does not redesign the dashboard layout (that belongs to dashboard-design).",
       "files": [],
       "expectations": [
-        "Asks for or states the primary question/decision the dashboard serves",
-        "Reduces headline KPIs to at most 5 with one visually dominant metric",
-        "Each KPI shows a comparison (vs. target or previous period) and its period",
-        "Deltas are encoded with more than color (sign, arrow, or text)",
-        "Moves remaining metrics to secondary areas or linked views rather than keeping 12 equal tiles"
+        "Uses Intl.NumberFormat (or equivalent) with compact notation for the large currency value",
+        "Expresses the change between two rates in percentage points",
+        "Colors the churn increase as bad, with an icon or sign in addition to color",
+        "Replaces the +900% tiny-base change with an absolute change or a 'new' label",
+        "Applies tabular numerals to the numbers"
       ]
     },
     {

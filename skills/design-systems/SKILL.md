@@ -1,11 +1,11 @@
 ---
 name: design-systems
-description: Use when creating, cleaning up, or extending a design system. That includes design tokens, theming (light/dark, brands, density, high contrast), component APIs and variants, a DESIGN.md file, a component library, or syncing tokens to iOS and Android. Covers the W3C DTCG 2025.10 token format and resolver, primitive → semantic → component tiers and naming, Tailwind v4 @theme, shadcn-style semantic color pairs, CSS variable theming, component variant and prop rules, authoring and linting DESIGN.md (Google spec), the component and required-state checklist, Style Dictionary-style multi-platform pipelines, and versioning and governance. Also use when the user only says "set up tokens", "our colors are all over the place", "add dark mode properly", "write a DESIGN.md", "make a component library", or "keep web and app styles in sync". Not for choosing the visual direction (use design-taste) or deciding the values themselves (use design-foundations).
+description: Use when creating, cleaning up, or extending a design system. That includes design tokens, theming (light/dark, brands, density, contrast), component APIs and variants, DESIGN.md, a component library, or syncing tokens to iOS and Android. Covers the W3C DTCG 2025.10 token format and resolver, primitive → semantic → component tiers and naming, Tailwind v4 @theme, shadcn-style semantic color pairs, CSS variable theming, component variant and prop rules, authoring and linting DESIGN.md (Google spec), the component and required-state checklist, Style Dictionary-style multi-platform pipelines, governance, and building a system from zero (tier choice, interface inventory, component lifecycle, adoption). Also use when the user only says "set up tokens", "our colors are all over the place", "add dark mode properly", "write a DESIGN.md", "make a component library", or "keep web and app styles in sync". Not for choosing the visual direction (use design-taste) or deciding the values themselves (use design-foundations).
 license: MIT
 metadata:
-  version: "1.0.0"
+  version: "1.1.0"
   category: design
-  related: "design-foundations design-taste frontend-architecture accessibility ios-design android-design"
+  related: "design-foundations design-taste app-screen-patterns accessibility ios-design android-design"
 ---
 
 # Design Systems
@@ -30,6 +30,7 @@ Then find what already exists: `DESIGN.md`, `*.tokens.json`, a Tailwind `@theme`
 
 ## Workflow
 
+- [ ] **No system yet, or one nobody uses?** Choose the tier first (table below) and follow `references/build-from-zero.md` for the inventory, order of work, and lifecycle. Don't build a tier-3 system for one app.
 - [ ] **Audit**: list every color, size, radius, shadow, font, and z-index value in the code, and count the duplicates and near-duplicates. List components and their variants. Output: an inventory table and a merge plan (for example "23 greys → 12-step neutral ramp").
 - [ ] **Decide the source of truth** (table below) and the file layout.
 - [ ] **Primitives**: ramps, spacing, type, radius, shadows, durations, and easings, with values from `design-foundations`.
@@ -39,6 +40,17 @@ Then find what already exists: `DESIGN.md`, `*.tokens.json`, a Tailwind `@theme`
 - [ ] **Document**: write or update `DESIGN.md` (Google spec order) from `assets/DESIGN.template.md`. Validate with `npx @google/design.md lint DESIGN.md`.
 - [ ] **Govern**: add a version, a changelog, a deprecation policy, and visual regression on the component catalog.
 - [ ] **Verify**: switch themes and nothing breaks; `grep` finds no raw colors in components; lint passes; the visual diff shows only intended changes.
+
+## How much system you need
+
+| Tier | What | Enough when |
+|---|---|---|
+| 0 — Adopt | An existing system as-is (shadcn/ui defaults, Polaris for Shopify apps, Primer for GitHub apps) | Prototypes, internal tools, apps inside a host platform |
+| 1 — Own the basics | `DESIGN.md` + semantic tokens + a copied component library (shadcn/ui or similar) | **Default** for startups and single-product teams |
+| 2 — Shared patterns | Tier 1 + documented patterns published as reusable blocks (e.g. a private shadcn registry) | Several apps or repos, or agents generating UI across repos |
+| 3 — System as a product | Versioned packages, docs site, Figma linked to code, lifecycle labels, contribution process, adoption metrics, owners | Several product teams or platforms with a consistency mandate |
+
+Move up only on evidence: duplicated components in the inventory, teams rebuilding the same pattern, recurring accessibility bugs in the same widget, Figma and code disagreeing. Process for each tier: `references/build-from-zero.md`.
 
 ## Source of truth
 
@@ -149,6 +161,8 @@ Authoring procedure and lint rules: `references/design-md.md`. Template: `assets
 - **Missing non-color tokens.** Hard-coded z-indexes, durations, and breakpoints drift first.
 - **Variants for one-offs.** `variant="homepage-hero-blue"` belongs in the page, not in the system.
 - **Web type sizes forced onto native.** iOS and Android users expect Dynamic Type and `sp` scaling. Map to platform roles.
+- **Building a big system for a small product.** A docs site, Figma library, and contribution process for one app with three developers is overhead nobody maintains. Start at tier 1 and move up on evidence.
+- **Designing the system in isolation.** A system built without an inventory of real screens gets ignored. Extract from what exists and build with product teams.
 - **Breaking changes without notice.** Renaming a token in a patch release breaks consumers silently. Follow the deprecation policy.
 
 ## Output format
@@ -176,12 +190,14 @@ Verified: theme switch, no raw values in components (grep), visual diff · Not c
 | `references/component-checklist.md` | Building or reviewing components and their required states, anatomy, and API |
 | `references/multi-platform.md` | Generating tokens for iOS, Android, or Flutter, or setting up a token build pipeline and CI |
 | `references/governance.md` | Versioning, deprecating, contributing to, documenting, or measuring adoption of the system |
+| `references/build-from-zero.md` | Building a design system for a project that has none, or rescuing one nobody uses: choosing the tier, running an interface inventory, ordering the work, component lifecycle (Experimental → Removed), contribution and team models, adoption metrics, Figma ↔ code sync, and failure modes |
 | `assets/DESIGN.template.md` | Starting a new DESIGN.md |
 
 ## Related skills
 
 - `design-foundations` — the values themselves (scales, ramps, contrast, elevation).
 - `design-taste` — the direction the tokens encode; do it first for a new product.
+- `app-screen-patterns` — the product screen patterns (settings, billing, errors, destructive confirms) a pattern layer should encode.
 - `frontend-architecture` — where the component library lives in the repo or monorepo, and how it is consumed.
 - `accessibility` — deeper keyboard, ARIA, and screen-reader requirements for components.
 - `ios-design` / `android-design` — native theming (Liquid Glass materials, dynamic color, type roles).

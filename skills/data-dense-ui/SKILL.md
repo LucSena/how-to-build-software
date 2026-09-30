@@ -1,11 +1,11 @@
 ---
 name: data-dense-ui
-description: Use when building or improving dashboards, analytics views, data tables and grids, admin panels, back-office/CRUD screens, filters and saved views, bulk actions, or charts. Covers dashboard KPI hierarchy ("what should I do now?"), table alignment and tabular numerals, sticky headers, sorting, filtering, pagination vs virtualization, row and bulk actions, density modes, chart selection, number/date/currency formatting with Intl, empty/loading/partial states for data, and performance with large datasets. Also use when the user says "build an admin", "make this dashboard useful", "the table is hard to read", "add filters", "which chart should I use", "numbers look messy", or "the grid is slow", even for a single table or KPI card. For general component states and forms use interaction-design; for visual tokens and type scale use design-foundations; for backend query scaling use scalability.
+description: Use when building or improving data tables and grids, admin panels, back-office/CRUD screens, filters and saved views, bulk actions, charts, KPI tiles, or number formatting. Covers table alignment and tabular numerals, sticky headers, sorting, filtering, pagination vs virtualization, row and bulk actions, density modes, chart selection, number/date/currency formatting with Intl, empty/loading/partial states for data, and performance with large datasets. Also use when the user says "build an admin", "the table is hard to read", "add filters", "which chart should I use", "numbers look messy", or "the grid is slow", even for a single table or KPI card. For dashboard layout, KPI selection, widget states, date-range controls, and the app shell (sidebar, header, Cmd+K) use dashboard-design; for general component states and forms use interaction-design; for visual tokens and type scale use design-foundations; for backend query scaling use scalability.
 license: MIT
 metadata:
-  version: "1.0.0"
+  version: "1.1.0"
   category: design
-  related: "interaction-design design-foundations accessibility scalability frontend-architecture"
+  related: "dashboard-design interaction-design design-foundations accessibility scalability frontend-architecture"
 ---
 
 # Data-Dense UI
@@ -33,22 +33,19 @@ Establish three facts before designing: **who uses the view and how often**, **t
 - [ ] **Write the questions** the view must answer (1 primary, ≤ 3 secondary) and the action each answer leads to.
 - [ ] **Inventory the data**: fields, types, units, cardinality, row counts, freshness, and which fields users search, filter, and sort by.
 - [ ] **Choose the form**: KPI tiles, chart (use the selection table), table, or a combination; decide client vs. server operations from data size.
-- [ ] **Lay out** by priority: primary KPI/answer top-left, then trends, then breakdown tables; filters and date range top-right.
+- [ ] **Lay out** by priority: primary answer first, then trends, then tables. For a full dashboard (KPI selection, bands, widget states, controls) switch to `dashboard-design`.
 - [ ] **Specify the table**: columns in order, alignment, formats, sort defaults, row actions, bulk actions, density, empty/loading/error/partial states.
 - [ ] **Wire state**: URL params for filters/sort/page/view; saved views if users repeat configurations.
 - [ ] **Test with real volume and extremes**: 0 rows, 1 row, 10k+ rows, very long values, nulls, negative numbers, huge numbers, other locales. Fix and repeat.
 
-## Dashboards
+## KPI tiles inside dashboards
 
-- **One primary question per dashboard**, stated in its title or first tile ("Revenue health, this month"). Role-specific dashboards beat one dashboard for everyone.
-- **KPI hierarchy**: 1 north-star metric largest and top-left; 3–5 headline KPIs at most; everything else in trends and tables below. If every tile is the same size, nothing is primary.
+Dashboard types, KPI selection, layout, widget states, date ranges, drill-down, refresh, and the app shell live in `dashboard-design`. This skill keeps the parts that are about data display:
+
 - **KPI tile anatomy**: label · value (large, tabular numerals, compact notation when > 4 digits) · delta vs. comparison with direction icon **and** color (never color alone) · comparison period · optional sparkline. Make "good" direction explicit: a rising churn is red.
-- **Attach meaning and action**: "15% below monthly target" beats "85%"; put the fix next to the problem (a red "12 failed payments" links to the filtered list).
-- **Group by business question**, not by chart type.
-- **Global controls** (date range, segment, compare-to) top-right, persisted in the URL; every tile states its period if it differs.
-- **Freshness**: "Updated 5 min ago", partial-data and delayed-data indicators, time zone shown where it matters.
-- **Per-tile states**: skeleton per tile, empty period ("No orders in this range"), and error with Retry per tile; one failing query never blanks the dashboard.
-- **Less ink**: faint gridlines, no heavy borders or shadows around every tile, no decorative gradients or "hero metric" gimmicks.
+- **Attach meaning**: "15% below monthly target" beats "85%"; percentage points for changes in rates ("−2.3 pts"), not percent.
+- **Tiny bases**: show absolute change or "new" instead of "+900%".
+- **Charts in tiles** follow the chart selection table below; tables inside dashboards follow the table rules.
 
 ## Tables and data grids
 
@@ -158,7 +155,7 @@ Default flow: **list → detail (side sheet or page) → edit**, with create in 
 
 ## Gotchas
 
-- **The "everything dashboard".** Twelve equal tiles with no question behind them. Cut to the metrics that drive a decision and move the rest to reports.
+- **The "everything dashboard".** Twelve equal tiles with no question behind them. Cut to the metrics that drive a decision and move the rest to reports (`dashboard-design`).
 - **Proportional digits in numeric columns.** Decimals jitter and comparisons fail; always `tabular-nums` and right alignment.
 - **Color-only deltas and statuses.** Red/green without icon or text fails color-blind users and WCAG 1.4.1.
 - **Client-side sorting of a paginated server list.** It sorts only the current page and silently lies; sort on the server.
@@ -191,12 +188,13 @@ Tested with: <row counts, extremes, locales>
 | File | Read when |
 |---|---|
 | `references/tables.md` | Building or reviewing a table/grid: column specs, selection, bulk actions, virtualization, responsive tables, keyboard navigation, accessibility. |
-| `references/dashboards-and-charts.md` | Designing a dashboard layout, KPI tiles, picking or styling charts, chart accessibility, large-series performance. |
+| `references/dashboards-and-charts.md` | Styling KPI tiles, picking or styling charts, chart color, tooltips and drill-down on a chart, chart accessibility, large-series performance. (Dashboard layout and states: `dashboard-design`.) |
 | `references/formatting.md` | Formatting numbers, currency, percentages, dates, durations, units, nulls; locale and time-zone handling. |
 | `references/admin-crud.md` | Building admin/back-office screens: list/detail/edit flows, inline edit, permissions, audit logs, import/export, destructive and bulk operations. |
 
 ## Related skills
 
+- `dashboard-design` — dashboard types, KPI selection, layout, widget states, controls, and the app shell around data views.
 - `interaction-design` — states, forms, undo vs. confirm, overlays used inside data views.
 - `design-foundations` — type scale, color tokens, and chart palettes in light and dark mode.
 - `accessibility` — table semantics, grid keyboard patterns, chart alternatives.

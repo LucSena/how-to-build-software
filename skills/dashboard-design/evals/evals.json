@@ -1,0 +1,69 @@
+{
+  "skill_name": "dashboard-design",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Our SaaS home dashboard shows 12 same-size cards (MRR, ARR, churn, signups, DAU, MAU, NPS, tickets, uptime, CAC, LTV, ARPU). Nobody uses it. Redesign it.",
+      "expected_output": "Names the dashboard type (product home or strategic) and the one question it answers; applies the four-question KPI test and cuts to 3-5 headline KPIs with comparisons, targets, and definitions; pairs volume with quality; lays out KPI row, main trend, breakdowns/attention list, table with an ASCII wireframe; colors deltas by meaning (churn up is bad); moves the rest to reports; specifies per-widget states; global range in the URL.",
+      "files": [],
+      "expectations": [
+        "Reduces headline KPIs to between 3 and 5",
+        "Each kept KPI has a comparison period or target",
+        "Layout puts the most important KPI first/top-left and follows KPI row, trend, breakdown order",
+        "Delta color is tied to whether the change is good or bad, not to arrow direction",
+        "Specifies loading, empty, and error states per widget",
+        "Removed metrics are moved to a report or secondary view rather than deleted without explanation"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Build a live operations dashboard for our payments team to watch during incidents. Data updates every few seconds.",
+      "expected_output": "Operational type: status line with text, SLO/threshold marked on charts, small multiples by region, recent errors table linking to traces; visible 'updated Xs ago', Pause, stale state; batches UI updates (10-30 s) and throttles when the tab is hidden; no layout shift; polite live-region announcements only for status changes; color paired with text.",
+      "files": [],
+      "expectations": [
+        "Shows data freshness (e.g. 'updated Xs ago') and a stale state",
+        "Offers a way to pause live updates",
+        "Status is conveyed with text or icons in addition to color",
+        "Batches or throttles updates rather than re-rendering on every event",
+        "Thresholds or SLOs are shown against the metrics"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Set up the app shell for our Next.js B2B app: sidebar, header, user menu, and Cmd+K. It has Home, Inbox, Projects, Reports, Customers, Billing, and Settings.",
+      "expected_output": "Left sidebar (7 areas) ordered workspace switcher, search/palette, personal items, workspace sections, footer with settings and account menu; expanded ~240-280 px, icon rail with tooltips at tablet, drawer below 768 px; collapse state persisted without flash (cookie); header with breadcrumb, search, notifications; palette available everywhere with platform-correct hint (Ctrl+K on Windows), grouped results, shortcuts shown, accessible combobox; landmarks, skip link, aria-current; may reference shadcn Sidebar as a dated reference implementation.",
+      "files": [],
+      "expectations": [
+        "Uses a left sidebar rather than top nav or a desktop hamburger",
+        "Defines responsive behavior including a drawer on small screens",
+        "Persists sidebar collapse state across reloads without a layout flash",
+        "Command palette shows Ctrl+K on non-Mac platforms and lists shortcuts on commands",
+        "Account menu places sign out last",
+        "Includes aria-current on the active nav item or a skip link to main content"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Our analytics dashboard takes 12 seconds to show anything because one API call computes all 9 charts. How should we restructure it?",
+      "expected_output": "One query per widget loaded in parallel with its own skeleton, error, and timeout; stream shell and KPI row first; pre-aggregate rollups; cache keyed by tenant, query, filters, and range with visible freshness; bound cardinality and downsample; server-side tenant scoping.",
+      "files": [],
+      "expectations": [
+        "Splits the single call into per-widget queries loaded independently",
+        "Each widget gets its own loading and error state so one failure does not blank the page",
+        "Recommends pre-aggregation or caching with a visible freshness indicator",
+        "Cache keys or queries include the tenant so data cannot leak across accounts"
+      ]
+    },
+    {
+      "id": 5,
+      "prompt": "Build an orders table for our admin with sorting, pagination, and bulk refunds. About 80,000 orders.",
+      "expected_output": "Near-miss: this is a data table/admin CRUD task for data-dense-ui (server-side sort and pagination, alignment, bulk action safety), not a dashboard layout; a good answer does not add KPI rows, date-range comparison bars, or dashboard widget states.",
+      "files": [],
+      "expectations": [
+        "Does not wrap the table in a KPI dashboard layout",
+        "Uses server-side sorting and pagination for 80,000 rows",
+        "Bulk refund shows the selection count and scope before acting"
+      ]
+    }
+  ]
+}

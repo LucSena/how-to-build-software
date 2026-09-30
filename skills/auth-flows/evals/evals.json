@@ -1,0 +1,59 @@
+{
+  "skill_name": "auth-flows",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Design and build the login and sign-up screens for our B2B SaaS (Next.js + Postgres). We want Google login, email, and something modern. Keep it great-looking and secure.",
+      "expected_output": "A single identifier-first 'Continue' entry with Google and Microsoft buttons, email code for new/passwordless users, passkey offered after sign-in and via autofill, SSO domain discovery noted for enterprise; flow diagrams, screen layouts with states, exact markup with autocomplete tokens, session and throttling decisions, and a copy set.",
+      "files": [],
+      "expectations": [
+        "Uses one unified Continue/identifier-first screen instead of separate sign-in and sign-up tabs",
+        "Email field uses autocomplete=\"username webauthn\" and passkey conditional UI (mediation: \"conditional\") is included",
+        "One-time code input is a single field with autocomplete=\"one-time-code\", not six separate boxes",
+        "Recommends email codes over magic links or explains the link-scanner problem if links are used",
+        "Session is an opaque server-side session in an HttpOnly, Secure, SameSite=Lax cookie (no JWT in localStorage)",
+        "States an enumeration stance and applies it to sign-in, sign-up, and reset",
+        "Recommends a maintained library or provider rather than hand-rolled crypto, and lists defaults to change"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Our password policy is min 8 chars with 1 uppercase, 1 number, 1 symbol, rotated every 90 days, and we lock accounts after 5 failed attempts. Users complain. What should we change?",
+      "expected_output": "Replaces composition and rotation rules with NIST 800-63B-4 rules (15 characters if password-only, 8 with mandatory MFA, allow at least 64, blocklist and breached check, paste allowed), replaces hard lockout with per-account throttling plus per-IP limits and an alternate sign-in path, and suggests passkeys/MFA.",
+      "files": [],
+      "expectations": [
+        "Removes composition rules and periodic rotation, citing NIST 800-63B-4",
+        "Sets minimum length to 15 for single-factor passwords (8 only if MFA is mandatory) and a maximum of at least 64",
+        "Adds a breached/common password blocklist check",
+        "Replaces permanent lockout with throttling (token bucket or rising delays) and keeps an alternate path such as an email code",
+        "Mentions allowing paste and password managers"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Add 'Sign in with Google' to our React Native iOS and Android app. Can we just open Google's login page in a WebView so users stay in the app?",
+      "expected_output": "Rejects the embedded WebView; uses ASWebAuthenticationSession on iOS and Custom Tabs/Auth Tab or Credential Manager on Android with authorization code + PKCE; notes App Review 4.8 requires an equivalent private login (usually Sign in with Apple) on iOS and in-app account deletion; tokens in Keychain/Keystore.",
+      "files": [],
+      "expectations": [
+        "Says not to use an embedded WebView for Google sign-in and explains why",
+        "Uses the system browser session APIs (ASWebAuthenticationSession / Custom Tabs or Credential Manager) with PKCE",
+        "Mentions App Store Guideline 4.8 equivalent login (e.g., Sign in with Apple) for the iOS app",
+        "Stores tokens in Keychain/Keystore-backed storage, not AsyncStorage",
+        "Does not embed a client secret in the app"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Users of our API report they can read other customers' invoices by changing the invoice ID in GET /invoices/:id. How do we fix it?",
+      "expected_output": "Near-miss: this is an authorization (IDOR/BOLA) problem, not a login-flow problem. A good answer scopes the query by the caller's tenant/owner, returns 404 on a miss, adds cross-tenant tests, and routes to application-security (and api-design) rather than redesigning sign-in screens.",
+      "files": [],
+      "expectations": [
+        "Identifies the issue as object-level authorization (IDOR/BOLA), not authentication",
+        "Fix scopes the lookup by the session's tenant or owner server-side",
+        "Adds tests where one user/tenant tries to access another's objects",
+        "Does not propose redesigning login or sign-up screens as the fix",
+        "Points to application-security or api-design for the authorization guidance"
+      ]
+    }
+  ]
+}

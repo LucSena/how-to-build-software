@@ -50,6 +50,19 @@
         "Does not propose retries or circuit breakers as the fix for the CPU problem",
         "Focuses on measuring the query (EXPLAIN) and fixing indexes/query shape, or defers to the scalability skill"
       ]
+    },
+    {
+      "id": 5,
+      "prompt": "Our edge service reloads a feature-flag JSON file from S3 every minute on all 40 nodes. Yesterday a malformed file made every node crash-loop. How do we stop this happening again?",
+      "expected_output": "Treats the flag file as a deploy and as untrusted input: validate schema, size, and cardinality on load; on invalid input keep the last-known-good file, emit a metric/alert, and never crash; stage file changes (one node or cell, then more) with health gates and automatic halt; test the reject path and any kill switch in CI; add a contract test or shared schema between the file producer and the consumer; and write a blameless postmortem with contributing factors. May cite Cloudflare Nov 2025 or CrowdStrike 2024.",
+      "files": [],
+      "expectations": [
+        "Requires validating the file on load and keeping the last-known-good version instead of crashing",
+        "Requires alerting or a metric when a file is rejected",
+        "Requires staged propagation of file changes rather than all nodes at once",
+        "Requires a test of the invalid-file path",
+        "Recommends a contract test or shared schema between producer and consumer"
+      ]
     }
   ]
 }

@@ -1,0 +1,65 @@
+{
+  "skill_name": "project-bootstrap",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I'm starting a new invoicing SaaS with Next.js, TypeScript and Postgres. Set up the repo properly before we write features.",
+      "expected_output": "A bootstrap plan in the skill's output format: Tier 1 items in the first PR (README, .gitignore with .env ignored, .env.example, .editorconfig, pinned Node version, lockfile, formatter, linter, strict tsconfig, pre-commit hooks, secret scanning, validated env module, standard task names with a check task, CI running check, branch protection, AGENTS.md, ADR-0001), a walking skeleton deployed by CI with /healthz and one smoke test, and Tier 2/3 items listed as TODOs.",
+      "files": [],
+      "expectations": [
+        "CI is part of the first PR and runs the same check task developers run locally",
+        "tsconfig uses strict mode (strict: true)",
+        "Environment variables are validated in a single config module at startup and .env is not committed",
+        "A walking skeleton (route to API to DB, deployed by CI) comes before feature work",
+        "AGENTS.md and a first ADR are created",
+        "Tier 2 items such as error tracking and backups are listed as TODOs rather than silently skipped",
+        "Does not propose microservices or Kubernetes"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Our Django repo has no CI, no formatter, and people push straight to main. What should we fix first?",
+      "expected_output": "An audit table (item, present?, evidence, action) followed by a tier-ordered plan: CI running format check, lint, typecheck and tests with Ruff and a type checker; branch protection requiring PRs and passing checks; fast pre-commit hooks; secret scanning; validated settings; then Tier 2 items. Keeps the existing Django layout rather than re-scaffolding.",
+      "files": [],
+      "expectations": [
+        "Starts from an audit of what exists rather than re-scaffolding the project",
+        "Recommends branch protection with required status checks on main",
+        "Recommends Ruff for formatting and linting and a type checker such as mypy or pyright",
+        "Keeps pre-commit hooks to fast checks and runs the test suite in CI",
+        "Orders the work by tier (day-one items before first-user and first-teammate items)"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "We need an app with auth, projects, billing, notifications, reports and an admin panel. Scaffold all the modules, services and folders up front so the structure is ready.",
+      "expected_output": "Pushes back on big-bang scaffolding: builds one feature end to end as a walking skeleton, deploys it through CI, then adds the next slice. Creates folders only for the first slice and keeps one deployable.",
+      "files": [],
+      "expectations": [
+        "Recommends building one vertical slice end to end and deploying it before scaffolding other features",
+        "Does not create empty folders or services for features that are not being built yet",
+        "Keeps a single deployable (no microservices) for the new product",
+        "Explains the reason (walking skeleton, Gall's law, or cost of gold-plating)"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Should our new backend API be written in Go or Rust?",
+      "expected_output": "Near-miss: this is a stack decision, so it defers to tech-stack-selection (team skill, deployment target, criteria matrix) instead of producing a repo bootstrap checklist.",
+      "files": [],
+      "expectations": [
+        "Does not produce the day-one repository checklist as the main answer",
+        "Frames the answer around stack-selection criteria such as team skill and requirements, or points to tech-stack-selection"
+      ]
+    },
+    {
+      "id": 5,
+      "prompt": "Set up preview environments per PR and a staging environment with separate secrets for our existing app.",
+      "expected_output": "Near-miss: environments and secrets depth belongs to environments-and-config and deployment-and-infrastructure; the answer defers or loads those skills rather than restating the bootstrap checklist.",
+      "files": [],
+      "expectations": [
+        "Points to or uses environments-and-config or deployment-and-infrastructure for the environment and secrets design",
+        "Does not re-scaffold the repository or restart the bootstrap workflow"
+      ]
+    }
+  ]
+}

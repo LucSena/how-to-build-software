@@ -1,0 +1,16 @@
+{
+  "name": "how-to-build-software-site",
+  "private": true,
+  "type": "module",
+  "description": "Static site for the How to Build Software skills collection, generated from skills/*/SKILL.md.",
+  "scripts": {
+    "build": "node build.mjs",
+    "check": "node check.mjs"
+  },
+  "dependencies": {
+    "marked": "18.0.14"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

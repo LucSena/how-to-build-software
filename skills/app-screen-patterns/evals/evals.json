@@ -1,0 +1,82 @@
+{
+  "skill_name": "app-screen-patterns",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Build the workspace settings page for our Next.js SaaS: workspace name and URL fields, a few feature toggles (like 'Allow guests'), and a way to delete the workspace.",
+      "expected_output": "A settings page with the name/URL fields in one explicitly saved form with a single always-enabled Save button, toggles that auto-save with inline feedback in a separate section, a visually separate danger zone at the bottom whose delete flow uses type-to-confirm with the workspace name, lists concrete consequences, and names the button 'Delete workspace'. Covers loading, error, read-only-for-non-admins states and a deep link per section.",
+      "files": [],
+      "expectations": [
+        "Text fields use explicit save with one Save button per form; the toggles auto-save and are not in the same form as the text fields",
+        "The Save button is never disabled for invalid or unchanged forms; validation happens on submit",
+        "Delete workspace lives in a separate danger zone at the bottom of the page",
+        "The delete confirmation requires typing the workspace name and states concrete consequences (what is deleted, whether it can be restored)",
+        "The destructive button uses a specific verb such as 'Delete workspace', never 'OK' or 'Yes'",
+        "Non-admin users get read-only settings with who can change them, rather than disabled controls with tooltips"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Add an API keys page to our developer settings so customers can create keys for our REST API.",
+      "expected_output": "A keys list showing name, prefix/last characters, scopes, environment, created, last used, expires, and status; a create flow ordered name → access/resources → expiration with a default and a warning for no expiration; a reveal step that shows the secret once with Copy and a clear warning; revoke with a confirm naming the impact; roll/regenerate; expiry emails.",
+      "files": [],
+      "expectations": [
+        "The full secret is shown only once at creation, with a Copy button and a warning that it cannot be viewed again",
+        "The list never shows the full key; it shows a prefix or last characters",
+        "Expiration has a default value and choosing no expiration triggers a warning",
+        "Scopes or permissions default to least privilege rather than full access",
+        "The list includes a last-used column or equivalent",
+        "Revoke asks for confirmation that names the key and the impact"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Our iOS and Android app lets people sign up. Apple rejected our update because of account deletion. Right now users can only deactivate their account from the web. Fix the flow.",
+      "expected_output": "An in-app deletion path in account settings that deletes the full account and associated data (deactivate may remain as an extra option), a direct web link for Google Play, re-authentication and confirmation allowed but no phone/email requirement, explanation of what is deleted and retained, subscription billing notice for in-app purchases, timeline and completion confirmation, Sign in with Apple token revocation if used, optional data export first.",
+      "files": [],
+      "expectations": [
+        "Deletion can be initiated inside the app, typically from account settings",
+        "The flow deletes the account record and associated data; deactivation alone is described as insufficient",
+        "Provides a web deletion link that works without reinstalling the app (Google Play requirement)",
+        "Does not require a phone call, email, or support ticket to delete",
+        "Tells users how long deletion takes and confirms when it is done",
+        "Mentions handling in-app subscriptions (billing continues until cancelled) and Sign in with Apple token revocation where relevant"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "When our projects API times out, the projects page says 'No projects yet — create your first project'. Users are panicking. What should it do?",
+      "expected_output": "Explains that a failed fetch of user-owned data must never render a first-use empty state; replace with an error/unavailable state with Retry and optional status link, keep the shell and navigation, hide uncomputable counts, separate primary vs secondary failure handling.",
+      "files": [],
+      "expectations": [
+        "States that a first-use empty state must not be shown when the fetch failed",
+        "Proposes an 'unavailable'/error state with a Retry action and plain copy",
+        "Distinguishes primary content failure (error state) from secondary content failure (render the page without it)",
+        "Does not disable unrelated controls because of the outage and keeps navigation visible"
+      ]
+    },
+    {
+      "id": 5,
+      "prompt": "Design the left sidebar, workspace switcher, and the home dashboard with KPIs for our B2B analytics app.",
+      "expected_output": "Near-miss: the app shell, sidebar, and dashboards belong to dashboard-design (with data-dense-ui for charts). The response routes there instead of producing settings, billing, or error-page patterns; at most it notes where settings, notifications, and help entry points link from the shell.",
+      "files": [],
+      "expectations": [
+        "Routes the sidebar, workspace switcher, and KPI dashboard work to dashboard-design (and/or data-dense-ui)",
+        "Does not produce a settings, billing, or error-page specification as the main answer"
+      ]
+    },
+    {
+      "id": 6,
+      "prompt": "Add 'Invite teammates' to our per-seat SaaS. Admins should be able to invite several people at once.",
+      "expected_output": "Invite dialog accepting multiple emails with a role picker that describes each role, showing seats used and cost before sending, offering Add seats when out of seats, invites that expire with Resend/Revoke, per-address results after sending, pending tab in the members list, and no silent seat charges.",
+      "files": [],
+      "expectations": [
+        "Shows seat usage (and cost when a new seat is needed) before invites are sent",
+        "Invites have an expiry and can be resent and revoked",
+        "The role picker explains what each role can do",
+        "Reports per-address results (sent, already a member, failed)",
+        "Does not add paid seats silently on acceptance"
+      ]
+    }
+  ]
+}

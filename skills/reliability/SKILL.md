@@ -3,9 +3,9 @@ name: reliability
 description: Use when a system must keep working when things go wrong — calling external services, APIs, databases, or LLMs; adding timeouts, retries with backoff and jitter, circuit breakers, bulkheads, fallbacks, or graceful degradation; health checks and graceful shutdown; observability with OpenTelemetry, structured logs, metrics, and traces; SLIs, SLOs, error budgets, and burn-rate alerts; safe deploys with feature flags, canaries, and rollbacks; zero-downtime database migrations (expand/contract); incident response, blameless postmortems, and backup/restore drills. Also use when the user says "this keeps breaking in production", "the service hangs when X is down", "add retries", "set up monitoring/alerts", "we had an outage", "how do we deploy safely?", or "rename this column without downtime". Not for capacity, caching, queues, or data scaling (use scalability), or for the HTTP contract of errors and idempotency keys (use api-design).
 license: MIT
 metadata:
-  version: "1.0.0"
+  version: "1.1.0"
   category: engineering
-  related: "scalability software-architecture api-design testing-strategy"
+  related: "scalability software-architecture api-design testing-strategy lessons-from-failures"
 ---
 
 # Reliability
@@ -159,6 +159,12 @@ Step-by-step recipes and flag/canary details: `references/safe-change.md`.
 - **Disabling safety mechanisms to make it work** (tests, alerts, rate limits, validation). Never; fix the cause or ask.
 - **Big-bang releases.** One large diff with no flag and no canary is the riskiest change you can ship.
 - **"Root cause: human error".** It ends learning; list contributing factors and systemic fixes.
+- **Config, flags, and data pushed globally at once.** Stage them like code and keep serving on last-known-good when a new file is invalid (Cloudflare 2019 and Nov 2025, CrowdStrike 2024).
+- **Untested error handlers and kill switches.** Most catastrophic failures come from mishandled, explicitly signaled errors (Yuan et al., OSDI 2014); test every error branch and emergency lever in CI.
+- **Status page, monitoring, or incident tooling on the infrastructure it watches.** Host them outside the failure domain (AWS S3 2017, Roblox 2021, Heroku 2025).
+- **Planning the fix but not the recovery.** Retries, reconnects, and cold caches keep a system down after the trigger is gone (metastable failure); ramp traffic back gradually with jitter.
+- **Hidden hard limits.** `int` IDs, Postgres XID age, file-size caps, quotas, and certificate expiry; use 64-bit keys and alert on percent-to-limit.
+- **Tools that let one command do unbounded damage.** Dry run, per-run cap, minimum-capacity floor, one identifier type, soft delete (AWS S3 2017, Atlassian 2022).
 
 ## Output format
 
@@ -173,7 +179,7 @@ SLOs & alerts: <SLI definition, target, burn-rate alerts, runbook link>
 Rollout: <flag, canary stages, rollback trigger, migration steps>
 ```
 
-For an incident: use the postmortem template in `references/safe-change.md`.
+For an incident: use the postmortem template in `references/safe-change.md` (or the fuller one in `lessons-from-failures`).
 
 ## References
 
@@ -183,6 +189,7 @@ For an incident: use the postmortem template in `references/safe-change.md`.
 | `references/observability-slos.md` | setting up OpenTelemetry, logs, metrics, tracing, SLIs/SLOs, or burn-rate alerts |
 | `references/safe-change.md` | planning a deploy, feature flags, canary, a schema migration, an incident, a postmortem, or backup/restore drills |
 | `references/complex-systems.md` | explaining why a failure happened, writing a postmortem, or reviewing operational design against Cook's 18 points |
+| `references/postmortem-rules.md` | pushing config, flags, or generated data; writing error handlers or kill switches; placing monitoring and the status page; planning recovery after an outage; sizing IDs and limits; or building ops tools that delete or remove capacity |
 
 ## Related skills
 
@@ -190,3 +197,4 @@ For an incident: use the postmortem template in `references/safe-change.md`.
 - `software-architecture` — when isolation needs a new boundary or service.
 - `api-design` — for error payloads, `Retry-After`, and `Idempotency-Key` on your own API.
 - `testing-strategy` — for contract tests, fault-injection tests, and migration tests.
+- `lessons-from-failures` — for the catalog of real outages behind these rules, a pre-flight check for risky changes, and rules for AI agents with production access.

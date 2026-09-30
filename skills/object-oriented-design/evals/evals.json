@@ -1,0 +1,52 @@
+{
+  "skill_name": "object-oriented-design",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Our TypeScript backend has UserManager, UserService, UserHelper and UserValidator classes, plus an IUserRepository interface with a single UserRepositoryImpl. OrderService.calculateTotal(order) loops over order.getLines(). Redesign this so it's cleaner.",
+      "expected_output": "Starts from the messages and invariants, moves total calculation to the order (Information Expert) or a pure function beside the Order type, collapses Manager/Helper/Service layers into functions or deletes them, removes the single-implementation interface unless it is a real I/O boundary that needs a fake, wires dependencies in a composition root, and reports in the Design/Objects/Rejected output format.",
+      "files": [],
+      "expectations": [
+        "Moves the total calculation next to the order data (order.total() or a pure function over the Order type) and names Information Expert or feature envy as the reason",
+        "Recommends merging or deleting the Manager/Helper/Service classes rather than adding new layers",
+        "Treats IUserRepository as justified only if it is an I/O boundary that needs a fake, otherwise removes it",
+        "Does not introduce a DI container, base class, or new interface with a single implementation",
+        "Output lists each remaining class with the invariant, role, or resource it owns"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "We have class Notification with subclasses EmailNotification, SmsNotification, and now product wants urgent and digest versions of each (UrgentEmailNotification, DigestSmsNotification...). Should I keep adding subclasses?",
+      "expected_output": "Identifies combinatorial subclass explosion from two independent axes of variation (channel and delivery policy), recommends composition: a channel role and a delivery/formatting role injected into one Notification sender, with channel as an interface because providers are an I/O boundary, and shows a short sketch.",
+      "files": [],
+      "expectations": [
+        "Names the problem as two independently varying aspects causing subclass explosion",
+        "Recommends composition (inject channel and policy roles) instead of more subclasses",
+        "Keeps inheritance depth at most one or removes the hierarchy",
+        "Includes a code sketch in which a new combination needs no new class"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Our Kotlin pricing code has a sealed interface Product with 4 variants and a when() in each of price(), tax(), shippingWeight() and render(). A reviewer says 'replace conditionals with polymorphism' and wants a class per product type with those four methods. We add new operations roughly monthly and a new product type about once a year. Who's right?",
+      "expected_output": "Applies the expression-problem rule: operations change faster than types and the variant set is closed and owned, so the sealed interface with exhaustive when is the better design; polymorphism would force touching every class for each new operation. Mentions the Martin-Muratori axis and that the compiler checks exhaustiveness.",
+      "files": [],
+      "expectations": [
+        "Recommends keeping the sealed interface with exhaustive when expressions",
+        "Justifies it by operations changing faster than types (expression problem)",
+        "Notes that Kotlin's when over a sealed type is checked for exhaustiveness",
+        "States when polymorphism would become the better choice (open set of variants added by others, stable operations)"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Should our orders module and billing module be separate microservices that talk over events?",
+      "expected_output": "Near-miss: this is a service/module boundary question, not object design. Points to software-architecture (and possibly system-design) rather than producing class diagrams or GRASP analysis.",
+      "files": [],
+      "expectations": [
+        "Identifies the question as architecture or service boundaries and routes to software-architecture",
+        "Does not answer with class-level design, GRASP, or inheritance advice as the main content"
+      ]
+    }
+  ]
+}

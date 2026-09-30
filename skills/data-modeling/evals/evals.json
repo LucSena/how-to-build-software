@@ -1,0 +1,59 @@
+{
+  "skill_name": "data-modeling",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Design the Postgres schema for a multi-tenant appointment booking SaaS: businesses (tenants) have staff, services with prices, customers, and bookings. Customers book a staff member for a service at a local time. No double-booking allowed.",
+      "expected_output": "Lists access patterns and invariants first, then DDL with bigint identity keys (plus a non-sequential public ID), tenant_id on every tenant-owned table with composite foreign keys, prices as integer minor units plus currency, booking times modeled with timestamptz ranges plus the business's IANA time zone, an exclusion constraint preventing overlapping bookings per staff member, case-insensitive tenant-scoped unique email, FK indexes, and RLS as defense in depth.",
+      "files": [],
+      "expectations": [
+        "Lists access patterns and/or invariants before or alongside the DDL",
+        "Prevents double-booking with a database exclusion constraint (EXCLUDE USING gist with a range and &&), not only application checks",
+        "Stores money as integer minor units or numeric together with a currency code, never float",
+        "Uses timestamptz (or a tstzrange) for booking instants and stores an IANA time zone for the business or booking",
+        "Puts tenant_id on tenant-owned tables and uses it in unique constraints or composite foreign keys",
+        "Uses bigint identity or UUIDv7 keys (not serial/int or UUIDv4 as the main PK)",
+        "Adds indexes on foreign-key columns or explicitly notes Postgres does not create them"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "I need to add a NOT NULL `region_id` column with a foreign key to our `orders` table in Postgres. It has 300 million rows and gets constant writes. Write the migration.",
+      "expected_output": "An expand/contract plan: set lock_timeout; add the column nullable; add the FK as NOT VALID; deploy code writing the column; backfill in resumable, throttled keyset batches as a job; VALIDATE CONSTRAINT; add a CHECK (region_id IS NOT NULL) NOT VALID, validate, then SET NOT NULL and drop the check; create the index concurrently; rollback per step.",
+      "files": [],
+      "expectations": [
+        "Sets lock_timeout (or explains why and retries) before DDL",
+        "Adds the column as nullable first rather than NOT NULL with a backfill in one step",
+        "Adds the foreign key with NOT VALID and validates it in a separate statement",
+        "Backfills in batches (keyset or id ranges) rather than one UPDATE over all rows",
+        "Uses the CHECK ... NOT VALID → VALIDATE → SET NOT NULL sequence (or equivalent) to avoid a long exclusive-lock scan",
+        "Creates the supporting index with CREATE INDEX CONCURRENTLY",
+        "Splits schema changes and code changes into separate deploys"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Our Rails app has comments that can belong to posts, photos, or videos using commentable_type/commentable_id, and a settings table with (user_id, key, value) rows for everything. Is this OK? Suggest a better schema.",
+      "expected_output": "Identifies polymorphic associations and EAV as anti-patterns (no FK enforcement, orphans, untyped values), proposes an exclusive arc with a num_nonnulls CHECK or per-parent join tables or a supertype, and replaces EAV with real columns for known settings or a validated JSONB column, with a migration path.",
+      "files": [],
+      "expectations": [
+        "States that the polymorphic association cannot be enforced by a foreign key",
+        "Proposes at least one enforceable alternative (exclusive arc with CHECK, per-parent join tables, or a common supertype table)",
+        "Identifies the settings table as EAV and explains lost typing/constraints",
+        "Proposes real columns and/or a JSONB column with validation for settings",
+        "Gives an incremental migration path rather than a drop-and-recreate"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "We're building a new analytics feature and need to decide between Postgres, ClickHouse, and BigQuery for event data. Which should we pick?",
+      "expected_output": "Recognizes that choosing a database product is the data-infrastructure skill's job and defers or routes there, while possibly noting modeling implications (keep OLTP normalized, feed analytics via CDC, declare fact-table grain) without producing a full product comparison from this skill.",
+      "files": [],
+      "expectations": [
+        "Points to or uses the data-infrastructure skill for the product choice",
+        "Does not treat the question as a schema-design task requiring DDL for all three options",
+        "If it adds modeling advice, recommends keeping analytics off the OLTP primary (replica or CDC/ELT)"
+      ]
+    }
+  ]
+}

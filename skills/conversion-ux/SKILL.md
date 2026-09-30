@@ -1,11 +1,11 @@
 ---
 name: conversion-ux
-description: Use when building or improving the screens that turn visitors into users and users into customers — landing pages and heroes, CTAs, social proof, signup and login forms, onboarding and activation, empty states for new accounts, pricing pages, paywalls and upgrade prompts, trials, checkout, and cancellation flows — and when planning A/B tests for them. Covers awareness-level messaging, field costs, time-to-value, checklists, plan tables, Baymard checkout findings, easy-cancel legal requirements, sample sizes, and a hard ethics floor against dark patterns. Also use when the user says "nobody signs up", "improve conversion", "my landing page isn't working", "people drop off in onboarding", "design our pricing page", "add a paywall", "reduce checkout abandonment", or "build a cancel flow", even for one section. For visual direction use design-taste; for general form mechanics use interaction-design; for the psychology and dark-pattern law in depth use ux-principles.
+description: Use when building or improving the screens that turn visitors into users and users into customers — landing pages and heroes, CTAs, social proof, signup forms as a conversion step, pricing pages, paywalls and upgrade prompts, trials, checkout, and cancellation flows — and when planning A/B tests for them. Covers awareness-level messaging, field costs, plan tables, Baymard checkout findings, easy-cancel legal requirements, sample sizes, and a hard ethics floor against dark patterns. Also use when the user says "nobody signs up", "improve conversion", "my landing page isn't working", "design our pricing page", "add a paywall", "reduce checkout abandonment", or "build a cancel flow", even for one section. For onboarding, activation, and first-run empty states use onboarding-design; for login, sign-up mechanics, and account security use auth-flows; for visual direction use design-taste; for form mechanics use interaction-design; for psychology and dark-pattern law in depth use ux-principles.
 license: MIT
 metadata:
-  version: "1.0.0"
+  version: "1.1.0"
   category: design
-  related: "ux-principles interaction-design design-taste web-platform design-foundations"
+  related: "onboarding-design auth-flows ux-principles interaction-design design-taste web-platform"
 ---
 
 # Conversion UX
@@ -103,19 +103,15 @@ Most home pages serve a mix; lead for the dominant traffic and let sections serv
 - **Qualification**: long forms are justified only for high-touch sales (demo requests), and even then 5–8 fields is the ceiling.
 - **Errors** that route: "This email already has an account. Sign in?" with the link.
 - **Verification**: let users continue into the product and verify later when risk allows; say where the email went, offer resend and change-email.
-- Form mechanics (labels, validation timing, autocomplete): `interaction-design`. Signup specifics: `references/signup-onboarding.md`.
+- Form mechanics (labels, validation timing, autocomplete): `interaction-design`. Authentication methods, verification, recovery, and sessions: `auth-flows`. Signup field costs: `references/signup-onboarding.md`.
 
 ## Onboarding and activation
 
-- **Define activation empirically**: the earliest action that separates retained users from churned ones (e.g. "created a project and invited a teammate"). Optimize the path to it, not tour completion.
-- **Shorten time to value**: list every step between signup and activation; each is guilty until proven necessary. Move setup after the first win when possible.
-- **Declare, don't administer**: a short "What do you want to do first?" question that personalizes the path is worth keeping; data collection that does not change the path is not.
-- **First screen = one action**: never a blank dashboard. Use an empty state with one primary action, a template, or clearly labeled sample data.
-- **Checklists**: 3–7 items ordered by value, quick win first, progress visible, dismissible, and gone when done. A step completed at signup can count as done (endowed progress; Nunes and Drèze, 2006).
-- **Tours**: ≤ 3–5 steps, skippable, never repeated for returning users; prefer contextual hints triggered by behavior.
-- **Permissions and notifications**: ask in context after value, with a pre-prompt explaining the benefit; never on first launch.
-- **Celebrate the real activation moment** (peak-end rule), briefly, and show the next step.
-- **Measure**: activation rate, time to activation, and D1/D7/D30 retention by cohort and signup source.
+Onboarding and activation now live in `onboarding-design`: activation metrics (`action ≥ N within T days`), setup/aha/habit moments, empty states and sample data, checklists, tours, personalization, team invites, permission timing, and blueprints per product type. What stays here is the conversion view:
+
+- **Judge signup changes by activation, not signups.** A change that adds signups but lowers activation or raises refunds is a loss.
+- **Never paywall or upsell before the first win** in trial and freemium products; upgrade prompts belong at a real limit or moment of value (below).
+- **Tie trial reminders to value received** ("You sent 12 invoices this trial"), not only to the calendar.
 
 ## Pricing pages and paywalls
 
@@ -174,7 +170,7 @@ Baymard's research puts average documented cart abandonment around 70%, and find
 - **Generic headlines.** "Supercharge your workflow" says nothing; name the outcome and the audience.
 - **Two primary CTAs** ("Start trial" and "Book demo" at equal weight). Pick the primary for the dominant visitor.
 - **Asking for everything at signup.** Role, company size, phone, and use case belong in onboarding, if anywhere.
-- **Blank first-run dashboards.** Always an empty state with one action, a template, or labeled sample data.
+- **Blank first-run dashboards.** Always an empty state with one action, a template, or labeled sample data (`onboarding-design`).
 - **Paywall mid-task or during onboarding.** Wait for value or a real limit, and always include a visible way out.
 - **Hiding the annual total or renewal terms.** Show the real amount charged and when; it is required in many jurisdictions and reduces refunds.
 - **Retention "offers" that block cancellation.** One offer, beside a prominent cancel button, is the ceiling.
@@ -203,7 +199,7 @@ For audits, group findings as **Fix now** (broken or blocking), **High impact**,
 | File | Read when |
 |---|---|
 | `references/landing-pages.md` | Writing or restructuring a landing or home page: hero variants, section patterns, copy formulas per awareness level, proof placement, landing-page test ideas. |
-| `references/signup-onboarding.md` | Designing signup/login, verification, first-run experience, activation metrics, checklists, empty states for new accounts, trial onboarding. |
+| `references/signup-onboarding.md` | Reviewing signup field costs, trial models (freemium, card upfront, reverse trial), or trial reminders from the conversion angle; for full onboarding design go to `onboarding-design`, for auth flows to `auth-flows`. |
 | `references/pricing-paywalls.md` | Designing a pricing page, plan table, trial terms, upgrade prompts, usage limits, paywalls, or a cancel flow. |
 | `references/checkout.md` | Building or auditing a cart or checkout: fields, payment, shipping, errors, trust, mobile checkout. |
 | `references/psychology.md` | Using or reviewing a persuasion mechanism (anchoring, defaults, social proof, loss aversion, goal-gradient) and checking where honest use ends; companion skill recommendations. |
@@ -212,6 +208,8 @@ Companion skills from other repositories, for marketing work beyond product UX: 
 
 ## Related skills
 
+- `onboarding-design` — everything after signup: activation, first run, empty states, checklists, invites, permission timing.
+- `auth-flows` — login, sign-up mechanics, passkeys, SSO, verification, and account recovery.
 - `ux-principles` — the laws, heuristics, and the full dark-pattern and legal reference.
 - `interaction-design` — form mechanics, validation, states, and microcopy used in every flow here.
 - `design-taste` — a distinctive visual direction so the page does not look like a template.
