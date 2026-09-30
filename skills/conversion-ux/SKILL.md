@@ -22,7 +22,7 @@ Get four facts before designing: **who the buyer is** (role, trigger that brings
 
 Never build these, regardless of the metric: confirmshaming; hidden or drip pricing; pre-ticked consent or add-ons; fake scarcity, countdowns, or activity; fabricated testimonials, logos, ratings, or metrics; forced registration where the task does not need an account; nagging without a real "no"; cancellation harder than signup; free trials that silently convert without clear upfront terms and a reminder.
 
-Legal backstops as of 2026-09 (not legal advice): EU DSA Art. 25 bans manipulative interface design on online platforms; California's Automatic Renewal Law (AB 2863, July 2025) requires online, at-will cancellation and clear renewal terms before billing; the US FTC enforces subscription and cancellation traps under ROSCA and Section 5 (its 2024 click-to-cancel rule was vacated in July 2025 and rulemaking restarted in 2026) and bans fake reviews (2024 rule); pre-ticked boxes are not GDPR consent. Details: `ux-principles` → `references/humane-design.md`.
+Legal backstops as of 2026-09 (not legal advice): EU DSA Art. 25 bans manipulative interface design on online platforms; California's Automatic Renewal Law (AB 2863, July 2025) requires online, at-will cancellation and clear renewal terms before billing; the US FTC enforces subscription and cancellation traps under ROSCA and Section 5 (its 2024 click-to-cancel rule was vacated in July 2025 and rulemaking restarted in 2026) and bans fake reviews (2024 rule); pre-ticked boxes are not GDPR consent. Details and sources: the humane-design reference in `ux-principles`.
 
 The test: **would this still work if the user fully understood it?** If not, remove it.
 

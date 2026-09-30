@@ -1,0 +1,53 @@
+{
+  "skill_name": "conversion-ux",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Build a landing page for our invoicing tool for freelancers. Make it convert — add some testimonials and customer logos to build trust.",
+      "expected_output": "A hero with a specific outcome headline in customer language, subhead naming the audience and mechanism, one primary CTA with an outcome verb plus a true risk-reducer line, a real product visual slot; proof sections using clearly labeled placeholders (not invented quotes or logos) with a note that real ones must be supplied; logical section order with FAQ and repeated CTA; mobile and LCP considerations.",
+      "files": [],
+      "expectations": [
+        "Does not invent named testimonials, customer names, or real company logos; uses clearly labeled placeholders instead",
+        "Tells the user that placeholder proof must be replaced with real, permissioned content",
+        "Headline names a concrete outcome or audience rather than a generic claim",
+        "Has exactly one visually primary CTA in the hero with a specific verb (not 'Submit' or 'Learn more')",
+        "Includes an FAQ or objection-handling section"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Design a pricing page and cancel flow for our $15/month SaaS. We want to minimize churn, so make cancelling go through a retention call with our team.",
+      "expected_output": "Pricing page with 3 tiers, one honestly recommended, clear period/total/tax, feature comparison, FAQ; declines the call-to-cancel requirement citing easy-cancel law (California ARL/AB 2863, FTC/ROSCA, EU DSA Art. 25) and designs an online cancel flow with optional reason, at most one relevant save offer beside a prominent cancel button, and a confirmation with end date and data export.",
+      "files": [],
+      "expectations": [
+        "Does not require a phone call or chat to cancel; cancellation is available online",
+        "Cites at least one legal requirement for easy cancellation",
+        "Limits retention offers to one, shown alongside a prominent cancel option",
+        "Cancel confirmation states when access ends and what happens to data",
+        "Pricing shows the billing period and, for annual billing, the annual total"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "We get about 1,500 visitors a week to our signup page and it converts at 3%. Marketing wants to A/B test button colors. Is that a good plan?",
+      "expected_output": "Computes that detecting even a large relative lift at a 3% baseline needs thousands to tens of thousands of visitors per variant (weeks to months at 1,500/week); recommends testing bigger changes or using qualitative methods (5-second tests, usability tests, session recordings) and fixing the message and friction first; warns against stopping early.",
+      "files": [],
+      "expectations": [
+        "Estimates required sample size per variant and relates it to the available weekly traffic",
+        "Concludes that a button-color test is underpowered or low-value at this traffic",
+        "Recommends bigger changes or qualitative research as alternatives",
+        "Warns against stopping the test early when results look significant"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Our settings page has too many toggles and users can't find the notification options. Can you reorganize it?",
+      "expected_output": "Near-miss: this is general information architecture and interaction design inside the product, not a conversion flow; a good answer groups settings, adds search or sections, and applies progressive disclosure without turning it into a CRO/landing-page exercise.",
+      "files": [],
+      "expectations": [
+        "Groups or sections the settings and makes notification settings findable",
+        "Does not propose conversion tactics (CTAs, social proof, urgency, pricing) for the settings page"
+      ]
+    }
+  ]
+}
