@@ -1,0 +1,39 @@
+{
+  "skill_name": "project-context",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Set up context for this repo so you stop asking me the same questions.",
+      "expected_output": "Scans manifests and configs first, drafts all template sections with (inferred) marks, asks at most 6 gap questions, writes .agents/project-context.md with version and changelog.",
+      "files": [],
+      "expectations": [
+        "Reads package manifests or configs before asking questions",
+        "Writes the file to .agents/project-context.md",
+        "Asks no more than 6 questions",
+        "File contains Version, Last updated, and Changelog",
+        "No secrets or connection strings are recorded"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "We just moved from Heroku to Fly.io and added an Android app. Update the context file.",
+      "expected_output": "Edits only Stack/Platforms sections of the existing file, bumps version, adds a changelog entry; does not regenerate the file.",
+      "files": [],
+      "expectations": [
+        "Existing content outside the changed sections is preserved",
+        "Version is incremented",
+        "Changelog entry names the sections touched and the reason"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "What does our DESIGN.md say about button radius?",
+      "expected_output": "Near-miss: answers from DESIGN.md directly; does not start the context-setup workflow.",
+      "files": [],
+      "expectations": [
+        "Does not create or rewrite .agents/project-context.md",
+        "Answers the question from DESIGN.md"
+      ]
+    }
+  ]
+}

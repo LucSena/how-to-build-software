@@ -1,0 +1,24 @@
+name: Validate skills
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Validate skills against spec and STYLE.md
+        run: python3 scripts/validate_skills.py --strict
+      - name: Check README index and marketplace manifest are in sync
+        run: python3 scripts/sync.py --check
+      - name: Check JSON files parse
+        run: |
+          for f in .claude-plugin/*.json skills/*/evals/evals.json; do
+            python3 -m json.tool "$f" > /dev/null || { echo "invalid JSON: $f"; exit 1; }
+          done

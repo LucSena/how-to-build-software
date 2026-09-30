@@ -1,0 +1,38 @@
+{
+  "skill_name": "how-to-build-software",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I want to build a B2B SaaS for dental clinics to manage appointments, with a web dashboard and an iPhone app for patients. Where do we start?",
+      "expected_output": "A short plan that routes to project-context, software-architecture, frontend-architecture, mobile-architecture, design-taste/design-foundations and ios-design in decision order, names one-way-door decisions, and states verification.",
+      "files": [],
+      "expectations": [
+        "Output contains a Plan block with Goal, Skills, Key decisions, Verification",
+        "Recommends a modular monolith or similarly simple default rather than microservices",
+        "Mentions project-context before implementation skills",
+        "Includes both web and iOS skills"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "This checkout page converts badly and looks dated. Fix it.",
+      "expected_output": "Routes to conversion-ux first, then design-taste and design-foundations, then web-platform; plans verification.",
+      "files": [],
+      "expectations": [
+        "conversion-ux is listed before visual design skills",
+        "Mentions the universal quality bar or accessibility checks",
+        "Does not recommend dark patterns such as fake urgency"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Rename the variable `x` to `total` in utils.ts.",
+      "expected_output": "Near-miss: a trivial single-step edit. The agent does the rename directly without producing a multi-skill plan.",
+      "files": [],
+      "expectations": [
+        "Does not produce a multi-skill routing plan",
+        "Performs or describes the rename directly"
+      ]
+    }
+  ]
+}
