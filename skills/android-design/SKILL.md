@@ -69,8 +69,8 @@ Default: `MotionScheme.expressive()` for consumer apps with hero moments; `Motio
 |---|---|---|
 | Top-level nav, compact | Navigation bar (`ShortNavigationBar` in M3E; 3–5 items) | 64 dp flexible bar in M3E (classic bar 80 dp) |
 | Top-level nav, medium+ | Navigation rail (`WideNavigationRail`; collapsed ~96 dp, expanded 220–360 dp) | Expanded rail supersedes the navigation drawer |
-| Screen's main action | FAB (56 dp; Medium 80; Large 96) or `FloatingActionButtonMenu` for 2–6 related actions | One per screen, bottom-trailing |
-| Contextual action set | Floating toolbar (`HorizontalFloatingToolbar`, 64 dp, 16 dp from edges) or docked toolbar | Replaces the bottom app bar in M3E |
+| Screen's main action | FAB (56 dp; Medium 80; Large 96) or `FloatingActionButtonMenu` for a few closely related create actions | One per screen, bottom-trailing |
+| Contextual action set | Floating toolbar (`HorizontalFloatingToolbar`, 64 dp, 16 dp from edges) or docked toolbar | M3E's preferred home for a bottom action set; flexible bottom app bar for legacy layouts |
 | Segmented choice | Connected `ButtonGroup` | Replaces segmented buttons |
 | Primary + variants | `SplitButton` | e.g. Send / schedule send |
 | Buttons | XS/S/M/L/XL heights 32/40/56/96/136 dp; round or square | Pressed state morphs corner radius |
