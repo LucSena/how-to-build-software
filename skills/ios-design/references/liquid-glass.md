@@ -49,7 +49,7 @@ Small glass elements (bars, buttons) flip between light and dark looks based on 
 **Why.** Glass cannot sample other glass; stacked glass looks muddy and costs GPU time.
 
 ### Choose the variant by background
-**Rule.** `.regular` by default; `.clear` only over visually rich media with bold, bright foreground content and a dimming layer (about 35% black) when the media is bright; `.identity` to disable conditionally.
+**Rule.** `.regular` by default; `.clear` only over visually rich media with bold, bright foreground content and a dimming layer under it (Apple's WWDC25 "Meet Liquid Glass" requires one but gives no percentage; for small elements, dim locally so the media keeps its vibrancy); `.identity` to disable conditionally.
 **Apply when.** Custom glass over photos, video, maps, or plain surfaces.
 **Why.** `.clear` is highly translucent; over plain or busy text backgrounds it loses legibility.
 
@@ -176,7 +176,7 @@ Use standard materials as the fallback; don't simulate glass with gradients and 
 
 - Apple HIG — Materials, Color, Toolbars, Tab bars, Scroll views, Sheets (developer.apple.com/design/human-interface-guidelines; June 2026 revision)
 - Apple developer documentation: `glassEffect(_:in:)`, `Glass`, `GlassEffectContainer`, `glassEffectID(_:in:)`, `glassEffectUnion(id:namespace:)`, `ToolbarSpacer`, `tabBarMinimizeBehavior(_:)`, `tabViewBottomAccessory`, `TabViewBottomAccessoryPlacement`, `backgroundExtensionEffect()`, `scrollEdgeEffectStyle(_:for:)`, `ConcentricRectangle`, `UIGlassEffect`, `UIButton.Configuration.glass()`, `UIDesignRequiresCompatibility` — https://developer.apple.com/documentation/swiftui
-- WWDC25 sessions: "Meet Liquid Glass", "Get to know the new design system", "Build a SwiftUI app with the new design" — https://developer.apple.com/videos/wwdc2025/
+- WWDC25 sessions: "Meet Liquid Glass", "Get to know the new design system", "Build a SwiftUI app with the new design" — https://developer.apple.com/videos/wwdc2025/ · "Meet Liquid Glass" (Regular vs Clear, the three conditions for Clear, dimming): https://developer.apple.com/videos/play/wwdc2025/219/
 - WWDC26 SwiftUI guide (toolbar APIs): https://developer.apple.com/wwdc26/guides/swiftui/
 - iOS 27 Liquid Glass changes (secondary reporting): https://www.macrumors.com/2026/06/10/how-liquid-glass-is-changing-in-ios-27/
 - Community reference: https://github.com/conorluddy/LiquidGlassReference

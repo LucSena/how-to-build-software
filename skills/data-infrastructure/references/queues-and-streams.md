@@ -26,7 +26,7 @@ A job queue retries the whole job; durable execution records each step and retri
 |---|---|---|
 | Go | River | Transactional enqueue, unique jobs, periodic jobs, snoozing, web UI |
 | Node.js | pg-boss | Enqueue inside an existing transaction (adapters for Drizzle, Knex, Kysely, Prisma), cron and RRULE scheduling, priorities, retries with exponential backoff, dead-letter queues with redrive, optional `LISTEN/NOTIFY` wake-ups; Postgres 13+ |
-| Node.js | Graphile Worker | Low latency via `LISTEN/NOTIFY`; the project publishes high throughput numbers under "optimal conditions" and says plainly it is not meant to replace dedicated queues at Facebook scale |
+| Node.js | Graphile Worker | Low latency via `LISTEN/NOTIFY`. Its own performance statement reports under 5 ms from enqueue to execution and roughly 172k jobs/s queued or 196k jobs/s processed on a well-specced server (4 workers × concurrency 24), and says plainly it "is not intended to replace extremely high performance dedicated job queues for Facebook scale" |
 | Ruby / Rails | Solid Queue (Rails 8 default), GoodJob | Solid Queue: delayed and recurring jobs, concurrency controls, pausing, priorities, bulk enqueue; MySQL, Postgres, or SQLite; can use a separate queue database. 37signals: 20M jobs/day for HEY |
 | Elixir | Oban | Mature Postgres-backed queue |
 | Python | Procrastinate, PgQueuer | Listed in postgres_for_everything |
@@ -76,7 +76,7 @@ Google Cloud Tasks is an HTTP-target task queue with rate limiting and schedulin
 - Many independent consumers need the same event stream, each with its own offset.
 - **Replay** matters: reprocessing, backfilling a new service, rebuilding read models.
 - High sustained throughput, per-key ordering, stream processing (Kafka Streams, Flink), CDC pipelines (Debezium).
-- Data is exchanged across many teams. Gunnar Morling calls Postgres a "definitive no-go" there "for architectural reasons rather than performance".
+- Data is exchanged across many teams or organizations. Conduktor's comparison calls Postgres "a definitive no-go" there, "for architectural reasons rather than performance". Gunnar Morling's argument is related but different: even at small scale you may need Kafka's log semantics (replay, retention, compaction), consumer groups, and automatic failover, and a Postgres queue under long-running consumer transactions can suffer MVCC bloat and WAL pile-up, so load-test it for hours, not minutes.
 
 **Probably not needed when** one producer app feeds one consumer pool (that is a job queue), throughput is below a few thousand messages per second, nobody needs replay, and the team is small. Even managed Kafka costs engineering time: partitions, consumer-group rebalances, retention, schema registry, monitoring, upgrades. Aiven, itself a Kafka vendor, argues Kafka is overkill for most use cases.
 
@@ -119,8 +119,9 @@ Defaults: DBOS (in your Postgres), Inngest, or Restate for small teams; Temporal
 
 ## Sources
 
+- Conduktor, "Kafka vs Postgres": https://www.conduktor.io/glossary/kafka-vs-postgres
 - River — https://github.com/riverqueue/river ; transactional enqueueing — https://riverqueue.com/docs/transactional-enqueueing
-- pg-boss — https://github.com/timgit/pg-boss ; Graphile Worker — https://github.com/graphile/worker ; Solid Queue — https://github.com/rails/solid_queue ; pgmq — https://github.com/pgmq/pgmq
+- pg-boss — https://github.com/timgit/pg-boss ; Graphile Worker — https://github.com/graphile/worker ; performance statement: https://worker.graphile.org/docs/performance ; Solid Queue — https://github.com/rails/solid_queue ; pgmq — https://github.com/pgmq/pgmq
 - postgres_for_everything — https://github.com/Olshansk/postgres_for_everything
 - SKIP LOCKED explainer — https://www.2ndquadrant.com/en/blog/what-is-select-skip-locked-for-in-postgresql-9-5/
 - Rails 8 (HEY 20M jobs/day) — https://rubyonrails.org/2024/9/27/rails-8-beta1-no-paas-required

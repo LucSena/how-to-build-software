@@ -77,6 +77,7 @@ Merging back is also a legitimate move. When two services always change and depl
 
 | Case | What happened | Lesson |
 |---|---|---|
+| Shopify, "Deconstructing the Monolith" (2019) | By 2016 the Rails monolith (1,000+ developers) was fragile: a change to tax code could break shipping tests, and newcomers needed context from everywhere. After surveying its developers, Shopify chose a **modular monolith** over microservices. Step 1 changed no behavior: it labeled about 6,000 Ruby classes by business domain in a spreadsheet and moved them into domain folders (orders, shipping, billing). Step 2 gave each component a public API and exclusive ownership of its data, and a CI tool (Wedge) traced call graphs to score boundary violations | Reorganize by domain before extracting anything; measure boundary violations continuously; a monolith with enforced boundaries delivers most of the benefit of services without the network |
 | Shopify, Packwerk and its retrospective | Built Packwerk to modularize a very large Rails monolith. Later wrote that "todo" violation files piled up and that privacy rules conflicted with Rails conventions; privacy checks moved to an extension | Tools record violations; boundaries come from design work. Work with framework conventions |
 | Segment, "Goodbye Microservices" (2018) | Split delivery into 140+ per-destination services and repos; shared-library versions drifted, each change had to be deployed many times, and a few engineers spent most of their time keeping things running. It merged them back into one service, and productivity recovered | Services without matching team boundaries add coordination cost without autonomy; split only on real triggers |
 | Amazon Prime Video monitoring (2023) | Consolidated a distributed serverless pipeline into a single process and reported about a 90% infrastructure cost reduction | Distribution is a cost to justify, not a default |
@@ -110,6 +111,7 @@ Merging back is also a legitimate move. When two services always change and depl
 - hacker-laws — Conway's law, Brooks's law, Gall's law: https://github.com/dwmkerr/hacker-laws
 - zakirullin, "Cognitive load is what matters": https://minds.md/zakirullin/cognitive
 - Potvin and Levenberg, "Why Google Stores Billions of Lines of Code in a Single Repository" (CACM 59(7), 2016): https://cacm.acm.org/research/why-google-stores-billions-of-lines-of-code-in-a-single-repository/
+- Shopify, "Deconstructing the Monolith" (2019): https://shopify.engineering/deconstructing-monolith-designing-software-maximizes-developer-productivity
 - Shopify, "A Packwerk Retrospective": https://shopify.engineering/a-packwerk-retrospective · Packwerk: https://github.com/Shopify/packwerk
 - Segment (Alexandra Noonan), "Goodbye Microservices": https://www.twilio.com/en-us/blog/developers/best-practices/goodbye-microservices
 - Amazon Prime Video tech blog (2023), monitoring service consolidation: https://www.primevideotech.com/video-streaming/scaling-up-the-prime-video-audio-video-monitoring-service-and-reducing-costs-by-90

@@ -3,7 +3,7 @@ name: software-architecture
 description: Use when deciding how a codebase or system should be structured — starting a new product or service, drawing module or service boundaries, choosing between layered, hexagonal/clean, vertical slice, modular monolith, microservices, serverless, or event-driven/CQRS/event sourcing, applying DDD (bounded contexts, aggregates, domain events), splitting or strangling a monolith, laying out a monorepo, writing an ADR, drawing C4 diagrams, or adding architecture fitness functions. Also use when the user asks "should this be a microservice?", "where should this code live?", "how should I organize this project?", "this is a big ball of mud", or "modules keep importing each other". Not for code-level naming and refactoring (use clean-code), single patterns such as strategy or repository (use design-patterns), load and data growth (use scalability), or UI folder structure and rendering (use frontend-architecture).
 license: MIT
 metadata:
-  version: "1.1.0"
+  version: "1.1.1"
   category: engineering
   related: "system-design design-patterns scalability data-infrastructure reliability api-design"
 ---

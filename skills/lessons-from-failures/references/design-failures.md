@@ -16,20 +16,20 @@ Product and UI failures follow the same logic as outages: a change removed somet
 ## 1. Interfaces that let one action do unbounded damage
 
 ### Hawaii false ballistic missile alert (13 Jan 2018)
-**What happened.** During an unannounced drill, a warning officer sent a live "BALLISTIC MISSILE THREAT INBOUND TO HAWAII … THIS IS NOT A DRILL" alert to phones and broadcast systems. The officer picked the live template from a drop-down list that mixed live and test templates, then confirmed a generic "Are you sure you want to send this Alert?" prompt; the officer later said they believed the attack was real. A correction took 38 minutes to go out.
+**What happened.** During an unannounced drill, a warning officer sent a live "BALLISTIC MISSILE THREAT INBOUND TO HAWAII … THIS IS NOT A DRILL" alert to phones and broadcast systems. The officer picked the live template from a drop-down list that mixed live and test templates, then confirmed a generic "Are you sure that you want to send this Alert?" prompt, identical for tests and live alerts and without the message text; the officer later said they believed the attack was real. A correction took 38 minutes to go out.
 **Why (FCC).** Live and test actions sat side by side and looked alike; the same confirmation appeared for drill and live, so it confirmed nothing; no second-person check; no prepared correction path; ambiguous drill procedures.
 **Rule.** Separate test and live structurally (different screens, colors, environments), not by list position. Confirmations restate the specific consequence ("Send a LIVE alert to every phone in the state?"). Mass or irreversible actions need two-person approval, and the correction or undo path is built at the same time as the action.
 **Source.** https://docs.fcc.gov/public/attachments/DOC-350119A1.pdf
 
 ### Palm Beach "butterfly ballot" (Nov 2000)
-**What happened.** Candidate names on two facing pages shared one central column of punch holes, so the second hole did not belong to the second name on the left page. A peer-reviewed analysis (Wand et al., *American Political Science Review*, 2001) estimated that more than 2,000 voters who intended to vote for Gore voted for Buchanan; the certified statewide margin was 537 votes.
+**What happened.** Candidate names on two facing pages shared one central column of punch holes, so the second hole did not belong to the second name on the left page. A peer-reviewed analysis (Wand et al., *American Political Science Review*, Dec 2001) found that the ballot caused more than 2,000 Democratic voters to vote by mistake for Buchanan; the certified statewide margin was 537 votes.
 **Rule.** Alignment and proximity carry meaning: labels sit next to their controls. Usability-test high-stakes forms with representative users, including older and first-time users.
-**Source.** https://en.wikipedia.org/wiki/Palm_Beach_County_butterfly_ballot
+**Sources.** Wand et al., "The Butterfly Did It", *APSR* 95(4), Dec 2001: https://websites.umich.edu/~wmebane/butterfly.pdf ; https://en.wikipedia.org/wiki/2000_United_States_presidential_election_in_Florida
 
 ## 2. Redesigns and rewrites users rejected
 
 ### Sonos app (May 2024)
-**What happened.** Sonos shipped a rebuilt app that dropped features people used daily — sleep timers, alarms, queue editing, local library search, and some accessibility features — and added connectivity problems on existing systems. The company committed an estimated $20–30M to fixes; CEO Patrick Spence stepped down in Jan 2025, and the interim CEO called it "a profound mistake".
+**What happened.** Sonos shipped a rebuilt app that dropped features people used daily — sleep timers, alarms, queue editing, local library search, and some accessibility features — and added connectivity problems on existing systems. The company committed an estimated $20–30M to fixes; CEO Patrick Spence stepped down in Jan 2025, and his successor, Tom Conrad, called it "a profound mistake".
 **Why.** A rewrite with no feature-parity gate, shipped on a date rather than when ready, with no way back to the old app, on a hardware product where the app *is* the product.
 **Rule.** Parity inventory (every feature, setting, and accessibility capability) blocks release until each item is shipped or explicitly retired with notice. Old and new side by side, opt-in beta, and a rollback.
 **Sources.** https://www.cnbc.com/2025/01/13/sonos-ceo-patrick-spence-steps-down-after-app-update-debacle.html ; https://www.digitaltrends.com/home-theater/a-profound-mistake-sonos-ceo-talks-about-its-broken-app-and-why-its-been-so-hard-to-fix/

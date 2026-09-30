@@ -186,7 +186,7 @@ Shopify's "A Packwerk Retrospective" is the cautionary tale. Dependency violatio
 - eslint-plugin-boundaries: https://github.com/javierbrea/eslint-plugin-boundaries · https://www.jsboundaries.dev
 - dependency-cruiser: https://github.com/sverweij/dependency-cruiser
 - Nx, Enforce module boundaries: https://nx.dev/features/enforce-module-boundaries
-- import-linter: https://github.com/seddonym/import-linter · contract types: https://import-linter.readthedocs.io/en/stable/contract_types.html
+- import-linter: https://github.com/seddonym/import-linter · contract types: https://import-linter.readthedocs.io/en/stable/contract_types/
 - Go, Organizing a Go module (`internal`): https://go.dev/doc/modules/layout
 - Packwerk: https://github.com/Shopify/packwerk · "A Packwerk Retrospective": https://shopify.engineering/a-packwerk-retrospective
 - Spring Modulith fundamentals: https://docs.spring.io/spring-modulith/reference/fundamentals.html · ArchUnit: https://github.com/TNG/ArchUnit

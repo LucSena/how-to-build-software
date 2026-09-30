@@ -3,7 +3,7 @@ name: mobile-architecture
 description: Use when choosing a mobile stack or structuring or shipping a mobile app. Covers native (SwiftUI, Compose) vs React Native/Expo vs Flutter vs Kotlin/Compose Multiplatform, app architecture (UDF, MVVM, UI/domain/data layers, @Observable, StateFlow), modularization, offline-first sync and conflict resolution, networking (timeouts, retries, pagination), performance budgets (startup, frame time, memory, size), deep links (Universal Links, App Links), push infrastructure, background work, security (Keychain, Keystore, secrets, certificate pinning), releases (phased rollout, OTA updates and store rules, feature flags, forced update), testing, and crash/ANR monitoring. Also use when the user says "Flutter or React Native?", "how should I structure my app", "make it work offline", "app is slow to start", "deep links don't open the app", or "how do we ship hotfixes". For screen-level UX use mobile-design; for platform visuals use ios-design or android-design; for backend APIs use api-design.
 license: MIT
 metadata:
-  version: "1.0.0"
+  version: "1.0.1"
   category: mobile
   related: "mobile-design ios-design android-design software-architecture testing-strategy reliability"
 ---

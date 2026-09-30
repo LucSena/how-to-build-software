@@ -105,7 +105,7 @@ Use this to audit existing animations or a PR that touches motion. Report every 
 
 ## Sources
 
-- Emil Kowalski, `review-animations` skill and standards: https://github.com/emilkowalski/skill
+- Emil Kowalski, `review-animations` skill and standards: https://github.com/emilkowalski/skills
 - ibelick ui-skills `fixing-motion-performance`: https://github.com/ibelick/ui-skills
 - impeccable `audit` and `animate` references: https://github.com/pbakaus/impeccable
 - Vercel Web Interface Guidelines (animation section, anti-patterns): https://github.com/vercel-labs/web-interface-guidelines

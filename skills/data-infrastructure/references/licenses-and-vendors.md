@@ -92,7 +92,7 @@ Write the exit into the decision record before adopting:
 - Oxide RFD 508 — https://rfd.shared.oxide.computer/rfd/0508
 - Redis AGPL and history — https://lwn.net/Articles/1019686/ , https://securityboulevard.com/2025/05/redis-returns-to-open-source-with-agplv3-license-key-insights/
 - Valkey — https://github.com/valkey-io/valkey , https://www.linuxfoundation.org/press/valkey-8-0
-- CockroachDB license — https://siliconangle.com/2024/08/15/cockroach-labs-changes-its-self-hosting-license-single-enterprise-model/
+- CockroachDB license — https://siliconangle.com/2024/08/15/cockroach-labs-changes-self-hosting-license-single-enterprise-model/
 - Elasticsearch AGPL — https://simonwillison.net/2024/Aug/29/elasticsearch-is-open-source-again/ ; OpenSearch — https://en.wikipedia.org/wiki/OpenSearch_(software)
 - ScyllaDB license — https://www.scylladb.com/2024/12/18/why-were-moving-to-a-source-available-license/
 - Kafka 4.0 — https://blog.2minutestreaming.com/p/apache-kafka-4-0-release

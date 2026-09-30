@@ -147,6 +147,7 @@ Heights above are starting points; tune to the density of the product, and keep 
 
 ## Sources
 
+- IBM Carbon, Dashboards (presentation vs exploration, F-pattern priority, consistent colors and legends, mirrored filters): https://carbondesignsystem.com/data-visualization/dashboards/
 - Ben Shneiderman, "The Eyes Have It" (1996): https://www.cs.umd.edu/~ben/papers/Shneiderman1996eyes.pdf
 - Stephen Few, Common Pitfalls in Dashboard Design; bullet graph: https://www.perceptualedge.com/articles/Whitepapers/Common_Pitfalls.pdf ; https://en.wikipedia.org/wiki/Bullet_graph
 - Edward Tufte, sparklines and small multiples: https://www.edwardtufte.com/notebook/sparkline-theory-and-practice-edward-tufte/

@@ -3,7 +3,7 @@ name: ios-design
 description: Use when designing or building an iPhone or iPad app UI, in SwiftUI, UIKit, or a cross-platform stack targeting iOS, or when adopting or reviewing the iOS 26/27 Liquid Glass design. Covers Liquid Glass rules and SwiftUI glass APIs, iOS 27 changes, tab bars, toolbars, navigation stacks and split views, sheets and detents, search placement, Dynamic Type and SF Pro, SF Symbols, semantic colors and materials, layout with safe areas and size classes, app icons (Icon Composer; light, dark, clear, tinted), haptics, VoiceOver and accessibility settings, iPad multitasking, iPhone Duo, and App Store Review pitfalls (Sign in with Apple, account deletion, purpose strings, subscriptions, minimum functionality). Also use when the user says "make it feel like a real iOS app", "update for iOS 26", "adopt Liquid Glass", "our app got rejected", or "why does our tab bar look old". For cross-platform mobile UX (permissions, onboarding, forms, offline) use mobile-design; for Android use android-design.
 license: MIT
 metadata:
-  version: "1.0.0"
+  version: "1.0.1"
   category: mobile
   related: "mobile-design android-design mobile-architecture accessibility motion-design"
 ---
@@ -47,7 +47,7 @@ Rules (Apple HIG Materials, Color, Tab bars, Toolbars):
 - **Never in the content layer.** Use standard materials (ultra-thin, thin, regular, thick) for content-layer separation. Exception: transient interactive controls like sliders and toggles take on glass while being touched.
 - **Use sparingly on custom controls**; system components already have it. Limit to the most important functional elements.
 - **Never glass on glass.** Glass cannot sample other glass; group nearby glass elements in one `GlassEffectContainer`.
-- **Variants:** `.regular` (default; adapts to any background, use when text is significant); `.clear` only over visually rich media (photos, video), with bold bright foreground and a dimming layer (~35% dark) when the media is bright; `.identity` to turn the effect off conditionally.
+- **Variants:** `.regular` (default; adapts to any background, use when text is significant); `.clear` only over visually rich media (photos, video), with bold bright foreground and a dimming layer under it (Apple gives no percentage; tune it until symbols and labels pass contrast, or dim locally behind small controls); `.identity` to turn the effect off conditionally.
 - **Tint only for meaning** (the primary action, a status), not decoration. Prefer monochrome bars when content is colorful; don't color bar labels like the content behind them.
 - **Controls float; content scrolls under.** Replace opaque bar backgrounds with the system scroll edge effect (automatic by default; `.scrollEdgeEffectStyle(.hard, for: .top)` only where needed, one style per view).
 - **Concentric shapes:** nest control corners inside their container and device corners (`ConcentricRectangle`, capsule, or fixed radii).

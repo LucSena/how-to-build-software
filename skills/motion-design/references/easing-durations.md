@@ -135,7 +135,7 @@ Tailwind v4 generates utilities from `--ease-*` and `--animate-*` theme variable
 
 ## Sources
 
-- Emil Kowalski, animation standards (emilkowalski/skill, `review-animations/STANDARDS.md`): https://github.com/emilkowalski/skill
+- Emil Kowalski, animation standards (`skills/review-animations/STANDARDS.md`): https://github.com/emilkowalski/skills/blob/main/skills/review-animations/STANDARDS.md
 - Emil Kowalski, "You Don't Need Animations": https://emilkowal.ski/ui/you-dont-need-animations
 - Vercel Web Interface Guidelines (animation, loading-state timing): https://github.com/vercel-labs/web-interface-guidelines
 - impeccable `animate` reference (duration bands): https://github.com/pbakaus/impeccable

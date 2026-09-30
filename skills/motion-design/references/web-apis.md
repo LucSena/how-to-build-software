@@ -184,4 +184,4 @@ Enhancement (limited): `:root { interpolate-size: allow-keywords; }` lets `heigh
 - web-features explorer, scroll-driven animations: https://web-platform-dx.github.io/web-features-explorer/features/scroll-driven-animations/
 - Interop 2026: https://web.dev/blog/interop-2026
 - ibelick ui-skills `fixing-motion-performance`: https://github.com/ibelick/ui-skills
-- Emil Kowalski, animation standards (WAAPI, @starting-style): https://github.com/emilkowalski/skill
+- Emil Kowalski, animation standards (WAAPI, @starting-style): https://github.com/emilkowalski/skills

@@ -3,7 +3,7 @@ name: onboarding-design
 description: Use when designing, building, or fixing what a new user experiences between sign-up and real value — first run, activation, aha moment, time-to-value, empty accounts, welcome screens, setup wizards, checklists, product tours, tooltips, personalization questions, sample data and templates, team invites and the invited teammate's first run, mobile first launch and permission timing, paywall placement in onboarding, lifecycle nudges, re-onboarding, and feature announcements. Covers activation metrics, setup/aha/habit moments, pattern selection, blueprints for B2B SaaS, B2C mobile, developer tools/APIs, marketplaces, and AI products, and event naming. Also use when the user says "users sign up but never come back", "add a product tour", "the dashboard is empty for new users", "activation is low", or "announce this feature". For sign-up and login forms use auth-flows; for pricing and paywall design use conversion-ux; for permission APIs use mobile-design.
 license: MIT
 metadata:
-  version: "1.0.0"
+  version: "1.0.1"
   category: design
   related: "conversion-ux auth-flows interaction-design ux-principles mobile-design dashboard-design"
 ---

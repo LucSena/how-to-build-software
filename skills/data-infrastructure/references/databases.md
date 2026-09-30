@@ -175,7 +175,7 @@ Move data with CDC (Debezium, Sequin, Fivetran/Airbyte, cloud zero-ETL) or batch
 - DynamoDB single-table (DeBrie) — https://www.alexdebrie.com/posts/dynamodb-single-table/ ; price cut — https://www.amazonaws.cn/en/new/2024/amazon-dynamodb-reduces-prices-for-on-demand-throughput-and-global-tables/
 - Discord — https://discord.com/blog/how-discord-stores-trillions-of-messages
 - Cassandra 5.0 SAI — https://cassandra.apache.org/_/blog/Apache-Cassandra-5.0-Features-Storage-Attached-Indexes.html ; ScyllaDB license — https://www.scylladb.com/2024/12/18/why-were-moving-to-a-source-available-license/
-- CockroachDB license — https://siliconangle.com/2024/08/15/cockroach-labs-changes-its-self-hosting-license-single-enterprise-model/ ; Oxide RFD 508 — https://rfd.shared.oxide.computer/rfd/0508
+- CockroachDB license — https://siliconangle.com/2024/08/15/cockroach-labs-changes-self-hosting-license-single-enterprise-model/ ; Oxide RFD 508 — https://rfd.shared.oxide.computer/rfd/0508
 - Aurora DSQL GA — https://aws.amazon.com/about-aws/whats-new/2025/05/amazon-aurora-dsql-generally-available/ ; compatibility — https://docs.aws.amazon.com/aurora-dsql/latest/userguide/working-with-postgresql-compatibility-migration-guide.html
 - Redis persistence — https://redis.io/docs/latest/operate/oss_and_stack/management/persistence/
 - Timescale licenses — https://www.tigerdata.com/legal/licenses ; InfluxDB 3 Core — https://www.influxdata.com/blog/influxdb3-open-source-public-alpha/

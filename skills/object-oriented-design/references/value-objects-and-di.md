@@ -132,7 +132,7 @@ Default style: classicist — real objects plus in-memory fakes at I/O boundarie
 - Rich Hickey, "Simple Made Easy" (Strange Loop 2011): https://www.infoq.com/presentations/Simple-Made-Easy
 - Gary Bernhardt, "Boundaries" (SCNA 2012): https://www.destroyallsoftware.com/talks/boundaries
 - Mark Seemann, "Composition Root": https://blog.ploeh.dk/2011/07/28/CompositionRoot/ · "Service Locator is an Anti-Pattern": https://blog.ploeh.dk/2010/02/03/ServiceLocatorisanAnti-Pattern/
-- Miško Hevery, "Singletons are Pathological Liars" (2008): http://misko.hevery.com/2008/08/17/singletons-are-pathological-liars/
+- Miško Hevery, "Singletons are Pathological Liars" (2008): https://web.archive.org/web/20230710141238/http://misko.hevery.com/2008/08/17/singletons-are-pathological-liars/
 - Go Code Review Comments, Interfaces: https://go.dev/wiki/CodeReviewComments#interfaces
 - Sandi Metz, "The Magic Tricks of Testing" (RailsConf 2013): https://speakerdeck.com/skmetz/magic-tricks-of-testing-railsconf
 - Steve Freeman and Nat Pryce, *Growing Object-Oriented Software, Guided by Tests* (2009): http://www.growing-object-oriented-software.com/

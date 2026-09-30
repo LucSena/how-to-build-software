@@ -19,7 +19,7 @@ Cite sparingly; these justify the checks, they are not review comments.
 - **Security:** Veracode's 2025 GenAI Code Security Report tested 100+ models on 80 tasks: about 45% of outputs introduced an OWASP Top 10 vulnerability; cross-site scripting and log injection tasks failed in the large majority of cases; larger models were not materially safer.
 - **Maintainability:** GitClear's analysis of hundreds of millions of changed lines found copy/pasted code exceeding moved (refactored) code for the first time, with refactoring declining and duplicated blocks rising.
 - **Smells:** a 2025 study (arXiv 2510.03029) found LLM-generated code carried substantially more code smells than human reference solutions, worse on complex and object-oriented tasks.
-- **Packages:** a USENIX Security 2025 study found about 20% of package names suggested across 16 models were hallucinated, with many repeated across runs — an attack surface ("slopsquatting"). Later evaluations of frontier models report lower but non-zero rates.
+- **Packages:** a USENIX Security 2025 study found 19.7% of package names suggested across 16 models were hallucinated (5.2% for commercial models, 21.7% for open-source ones), with many repeated across runs — an attack surface ("slopsquatting"). Later evaluations of frontier models report lower but non-zero rates.
 - **Delivery:** DORA's 2025 report found AI adoption raises throughput but is associated with more delivery instability; AI amplifies existing practices, good or bad.
 
 ## 2. Supply chain

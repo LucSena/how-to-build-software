@@ -3,7 +3,7 @@ name: dashboard-design
 description: Use when designing or building a dashboard, home screen, analytics overview, live operations view, or executive KPI page, or the app shell around a product — sidebar, header, breadcrumbs, command palette (Cmd/Ctrl+K), workspace switcher, account menu, notifications entry, and responsive shell. Covers dashboard types (operational, analytical, strategic, home), KPI selection, layouts with wireframes, widget anatomy and states (loading, not set up, no data, filtered out, partial, stale, error, no permission), date ranges and comparisons, filters in the URL, drill-down, refresh and real-time, templates and customization, per-widget performance and caching, chart accessibility, density, and shortcuts. Also use when the user says "nobody looks at our dashboard", "make this dashboard useful", "add a sidebar", "what should the home page show", or "add Cmd+K". For tables, grids, chart-by-chart rules, and number formatting use data-dense-ui; for new users' empty dashboards use onboarding-design.
 license: MIT
 metadata:
-  version: "1.0.0"
+  version: "1.0.1"
   category: design
   related: "data-dense-ui onboarding-design interaction-design accessibility design-foundations app-screen-patterns"
 ---
@@ -214,6 +214,8 @@ Full anatomy, responsive rules, and reference implementations: `references/app-s
 - **Designing tiles before the question.** Write the question and the action first; otherwise the result is a wall of charts.
 - **Percent vs percentage points.** 33.7% → 31.4% is "−2.3 pts", not "−6.8%". Label which one you mean.
 - **Coloring deltas by direction instead of meaning.** Churn, latency, and cost going up are bad; flip the mapping per metric.
+- **A series changing color from chart to chart.** One data set keeps one color across every chart on the dashboard, and legends sit in the same place relative to each chart; never mix unit systems on one screen (Carbon).
+- **Filters that update only one chart.** On an analytical dashboard, a filter, brush, or zoom on one chart updates every chart showing related data; state which charts a filter applies to.
 - **Percent change on tiny bases.** 1 → 10 is not "+900%"; show the absolute change or "new".
 - **One mega-query for the page.** One failure blanks everything; one query per widget.
 - **Current partial period drawn like complete ones.** Today's half-day dip reads as an outage; mark or exclude it.

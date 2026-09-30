@@ -3,7 +3,7 @@ name: tech-stack-selection
 description: Use when choosing or changing a programming language, framework, database, hosting platform, or third-party service for a new or existing product — including "what stack should I use", "Next.js or Django?", "Go or Rust?", "where should we host this?", or "should we build our own auth?". Covers boring technology and innovation tokens, a weighted decision matrix (team skill, hiring, ecosystem, performance, type safety, AI-assistance quality, deployment target, longevity, license, lock-in, cost), 2026 default stacks by product type (web SaaS, content site, API, data/ML, CLI, mobile, real-time, AI product), language profiles, framework defaults, Postgres as the default database, PaaS vs containers vs serverless vs VM, buy vs build for auth, payments, email, search, analytics, and feature flags, and recording the decision in an ADR. Not for choosing among databases, caches, or queues in depth (use data-infrastructure), mobile frameworks (use mobile-architecture), or repo setup (use project-bootstrap).
 license: MIT
 metadata:
-  version: "1.0.0"
+  version: "1.0.1"
   category: engineering
   related: "project-bootstrap software-architecture data-infrastructure deployment-and-infrastructure mobile-architecture codebase-organization"
 ---

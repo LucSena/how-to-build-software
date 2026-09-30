@@ -142,7 +142,7 @@ Then add contextual hints for the 2–3 features that support tickets show peopl
 - Nunes and Drèze, "The Endowed Progress Effect", Journal of Consumer Research, 2006: https://doi.org/10.1086/500480
 - Laws of UX (Hick's law, goal-gradient, peak-end, paradox of the active user): https://lawsofux.com/
 - Wes Bush, bowling-alley onboarding framework: https://productled.com/blog/user-onboarding-framework
-- Userpilot checklist completion benchmark (vendor): https://userpilot.com/blog/onboarding-checklist-completion-rate-benchmarks/
+- Userpilot checklist completion benchmark (vendor): https://web.archive.org/web/20260124235206/https://userpilot.com/blog/onboarding-checklist-completion-rate-benchmarks/
 - Chameleon product-tour benchmarks (vendor): https://www.chameleon.io/benchmark-report-2023
 - Notion personalization: https://www.candu.ai/blog/how-notion-crafts-a-personalized-onboarding-experience-6-lessons-to-guide-new-users
 - Linear demo workspace: https://www.candu.ai/blog/linear-onboarding-teardown

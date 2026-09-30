@@ -3,7 +3,7 @@ name: data-modeling
 description: Use when designing or changing a database schema — tables, primary keys (bigint identity, UUIDv7, ULID, Snowflake), constraints (NOT NULL, CHECK, UNIQUE, foreign keys, EXCLUDE), enums vs lookup tables, money, timestamps and time zones, names, addresses, emails and phones, soft delete vs archive, audit and history tables, multi-tenant schemas (tenant_id, composite foreign keys, row-level security), JSONB, many-to-many, trees, hot-row counters, optimistic locking, idempotency and outbox tables, zero-downtime migrations and backfills, indexing, naming, DynamoDB single-table design, event-sourcing storage, PII retention, analytics via CDC, and SQLite in production. Also use when the user says "design the schema", "UUID or auto-increment?", "how do I store money or time zones?", "add a column to a big table", or "review this migration". Not for choosing a database product (use data-infrastructure), slow-query triage or sharding (use scalability), or the end-to-end design method (use system-design).
 license: MIT
 metadata:
-  version: "1.0.0"
+  version: "1.0.1"
   category: engineering
   related: "system-design scalability data-infrastructure api-design application-security reliability"
 ---

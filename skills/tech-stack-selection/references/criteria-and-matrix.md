@@ -119,6 +119,8 @@ From the MS trade-study template: narrow to 2–3 options, "design experiments t
 - Valid triggers: a measured requirement the current stack cannot meet after reasonable optimization, an ecosystem that is dying or unmaintained, a license change that blocks your use, or a hiring market that has evaporated.
 - Change incrementally: strangle one component behind a stable interface, measure, then continue. Big-bang rewrites fail more often than incremental migrations (see `lessons-from-failures`).
 
+**Worked example: Discord's Read States service, Go → Rust (Feb 2020).** One small, self-contained service tracked which messages each user had read, behind an in-memory LRU cache holding tens of millions of entries. The Go version showed latency and CPU spikes roughly every two minutes. The cause was the runtime, not the code: Go forces a garbage collection at least every two minutes, and each collection scanned the whole cache. Shrinking the cache reduced the spikes but raised p99 latency through more database loads. The team rewrote only that service in Rust (they already used Rust elsewhere), load-tested it, shipped it to one canary node, then to the fleet, and could then *grow* the cache. What made this a valid switch: a measured tail-latency requirement the runtime could not meet after tuning, a small component behind a stable interface, existing team skill, and a canary rollout. Go 1.19 (2022) later added a soft memory limit (`GOMEMLIMIT`), so re-measure on a current runtime before copying the conclusion.
+
 ## 9. Rules catalog
 
 ### Score only against stated requirements
@@ -141,6 +143,8 @@ From the MS trade-study template: narrow to 2–3 options, "design experiments t
 
 ## Sources
 
+- Discord, "Why Discord is switching from Go to Rust" (Feb 2020): https://discord.com/blog/why-discord-is-switching-from-go-to-rust
+- Go, "A Guide to the Go Garbage Collector" (GOGC, memory limit since Go 1.19): https://go.dev/doc/gc-guide
 - Dan McKinley, "Choose Boring Technology": https://mcfunley.com/choose-boring-technology · https://boringtechnology.club
 - Charity Majors, "Choose Boring Technology Culture": https://charity.wtf/2023/05/01/choose-boring-technology-culture/
 - create-t3-app, "T3 axioms" (bleed responsibly, solve problems, typesafety isn't optional): https://create.t3.gg/en/introduction

@@ -39,6 +39,8 @@ Timing: show-delay ~150–300 ms; once shown, keep visible for at least ~300–5
 
 After first load, never replace the page with a spinner. Refetches keep the old content visible (optionally dimmed) with a small refresh indicator.
 
+GitHub's Primer uses the same idea with coarser bands, which is a useful cross-check: under 1 s, no loading state; 1–3 s, indeterminate (a spinner or skeleton, since a percentage cannot be read that fast); 3–10 s, determinate if you can; over 10 s, determinate and run it as a background task so the rest of the page stays usable. It also asks you to show each item of a collection as soon as it loads and to load the most important data first.
+
 ## Optimistic updates
 
 Use when the action is likely to succeed and cheap to reverse: toggles, likes, renames, reorders, moving items, sending a message.
@@ -99,6 +101,12 @@ Design these for every list, table, feed, grid, search, and dashboard widget.
 | **No permission** | Who can grant access; request path | "You need Editor access to change billing. Ask an admin or **Request access**." |
 | **Too much** | Pagination, "Load more", or virtualization; a count | "Showing 50 of 12,304 · Load more" |
 
+Empty-state details the design systems agree on (Carbon, Primer):
+- Write the title as the next step when you can ("Start by adding data sources") rather than as a lack ("You have no data sources").
+- One primary action. Instead of a button, you can point at the real control ("Use **New** in the top bar"), which teaches where it lives.
+- An **error** empty state is never playful: no mascot or delight illustration, an alert icon, a plain summary ("Repositories could not be loaded"), and a way forward (retry, status page, help). Avoid both "There was a problem" and internal detail such as cluster names.
+- Save rich education (templates, sample data, walkthroughs) for first use of a primary feature; keep secondary features' empty states to a line and an action.
+
 Isolate failures: wrap each independent region in its own error boundary so one failed widget shows its error state while the rest of the page works.
 
 Test content extremes: very long names, empty strings, emoji, RTL text, missing images (fallback initials), 0, 1, and 10,000 items.
@@ -129,6 +137,8 @@ Test content extremes: very long names, empty strings, emoji, RTL text, missing 
 
 - NN/g, "Response Times: The 3 Important Limits": https://www.nngroup.com/articles/response-times-3-important-limits/
 - NN/g, "Designing Empty States in Complex Applications": https://www.nngroup.com/articles/empty-state-interface-design/
+- GitHub Primer, Loading and Empty states patterns: https://primer.style/ui-patterns/loading ; https://primer.style/ui-patterns/empty-states
+- IBM Carbon, Empty states pattern: https://carbondesignsystem.com/patterns/empty-states-pattern/
 - NN/g, "Button States: Communicate Interaction": https://www.nngroup.com/articles/button-states-communicate-interaction/
 - Vercel Web Interface Guidelines (loading duration, optimistic updates, stable skeletons, all states designed): https://github.com/vercel-labs/web-interface-guidelines
 - Design System Checklist (toast, button, skeleton, loading indicator criteria): https://www.designsystemchecklist.com/

@@ -3,7 +3,7 @@ name: api-design
 description: Use when designing, changing, or reviewing an API contract — REST/HTTP JSON endpoints, GraphQL schemas, gRPC/Protobuf services, tRPC routers, server actions exposed to clients, or webhooks. Covers REST vs GraphQL vs gRPC vs tRPC, resource naming, HTTP methods and status codes, RFC 9457 problem-details errors, cursor pagination, filtering and sorting, versioning, deprecation/Sunset headers, backward compatibility, Idempotency-Key, ETags and optimistic concurrency, long-running operations, rate-limit headers, webhook signing and delivery, authentication and authorization (OAuth 2.1, PKCE, passkeys, token storage, BFF), OWASP API Security Top 10 (BOLA first), and OpenAPI-first workflows. Also use when the user says "add an endpoint", "what status code should this return?", "how do I paginate this?", "is this a breaking change?", "send webhooks to customers", or "secure this API". Not for internal module interfaces (use software-architecture) or retry/timeout behavior of clients (use reliability).
 license: MIT
 metadata:
-  version: "1.0.0"
+  version: "1.0.1"
   category: engineering
   related: "software-architecture reliability scalability frontend-architecture testing-strategy"
 ---

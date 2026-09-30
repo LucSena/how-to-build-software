@@ -50,7 +50,9 @@ Architecture-style cases (Segment, Prime Video, Shopify's modular monolith) are 
 - **Numbers.** Blocks grew from ~20B rows (early 2021) to 200B+ (2024).
 - **Lesson.** Pick the logical shard count once, generously, and choose the tenant as the key when tenants are independent.
 - **Rule.** *Pre-split into many logical shards mapped to few machines; shard by tenant; verify with dark reads; move analytics off the OLTP primary.*
-- **Sources.** https://www.notion.com/blog/sharding-postgres-at-notion · https://www.notion.com/blog/building-and-scaling-notions-data-lake
+- **The payoff (2023, "The Great Re-shard").** Ahead of a new-year traffic spike, CPU and IOPS on the 32 hosts crossed their thresholds. Because data already lived in 15 schemas per host, Notion tripled the fleet to **96 smaller hosts** (5 schemas each) without changing the routing key: Postgres logical replication copied each group of 5 schemas (index builds were deferred until the copy finished, which was much faster). The surprise was connections: about 100 PgBouncer instances × 6 connections = 600 per shard, which would have tripled on the old shards during cutover. So they first sharded PgBouncer into 4 groups of 24 databases. Before failover they ran sampled **dark reads** (queries returning ≤ 5 rows, after a 1-second wait for replication) and saw near-100% equality. Per shard: pause traffic in PgBouncer, confirm replication caught up, repoint, revoke app access to the old host, and **reverse the replication stream** so rollback stayed possible. Users saw at most about a second of "saving".
+- **Rule from the re-shard.** *Plan the connection-pool topology as part of any shard split, defer index builds during bulk copy, and keep reverse replication running until you are sure.*
+- **Sources.** https://www.notion.com/blog/sharding-postgres-at-notion · https://www.notion.com/blog/the-great-re-shard · https://www.notion.com/blog/building-and-scaling-notions-data-lake
 
 ## 4. Instagram and Twitter — time-ordered 64-bit IDs
 - **Twitter Snowflake (2010).** 64 bits: sign bit + 41 bits of milliseconds since a custom epoch + 10 bits of machine ID + 12 bits of sequence (4,096 IDs per millisecond per worker). Uncoordinated, roughly time-ordered. Discord uses Snowflakes for all IDs.
@@ -89,7 +91,7 @@ Architecture-style cases (Segment, Prime Video, Shopify's modular monolith) are 
 - **What happened.** Pairwise pipelines between databases, search, Hadoop, and monitoring multiplied. LinkedIn built Kafka and made an ordered, append-only log the central integration point; systems subscribe to the changes they need and derived data can be rebuilt by replaying it.
 - **Lesson.** A shared log replaces N × M integrations and makes new consumers cheap.
 - **Rule.** *When many systems need the same changes, publish once to a durable log (via outbox or CDC); do not add a log for one producer and one consumer.*
-- **Source.** https://engineering.linkedin.com/distributed-systems/log-what-every-software-engineer-should-know-about-real-time-datas-unifying
+- **Source.** https://web.archive.org/web/20240105095933/https://engineering.linkedin.com/distributed-systems/log-what-every-software-engineer-should-know-about-real-time-datas-unifying
 
 ## Rules these cases support
 
@@ -106,12 +108,12 @@ Architecture-style cases (Segment, Prime Video, Shopify's modular monolith) are 
 
 - Discord: https://discord.com/blog/how-discord-stores-trillions-of-messages
 - Figma: https://www.figma.com/blog/how-figma-scaled-to-multiple-databases/ ; https://www.figma.com/blog/how-figmas-databases-team-lived-to-tell-the-scale/
-- Notion: https://www.notion.com/blog/sharding-postgres-at-notion ; https://www.notion.com/blog/building-and-scaling-notions-data-lake
+- Notion: https://www.notion.com/blog/sharding-postgres-at-notion ; https://www.notion.com/blog/the-great-re-shard ; https://www.notion.com/blog/building-and-scaling-notions-data-lake
 - Snowflake ID: https://en.wikipedia.org/wiki/Snowflake_ID
 - Instagram: https://instagram-engineering.com/sharding-ids-at-instagram-1cf5a71e5a5c
 - Pinterest: https://medium.com/pinterest-engineering/sharding-pinterest-how-we-scaled-our-mysql-fleet-3f341e96ca6f
 - Slack: https://slack.engineering/scaling-datastores-at-slack-with-vitess/
 - GitHub: https://github.blog/2021-09-27-partitioning-githubs-relational-databases-scale/
 - Dropbox: https://dropbox.tech/infrastructure/magic-pocket-infrastructure ; https://www.infoq.com/articles/dropbox-magic-pocket-exabyte-storage/
-- LinkedIn (Jay Kreps, "The Log"): https://engineering.linkedin.com/distributed-systems/log-what-every-software-engineer-should-know-about-real-time-datas-unifying
+- LinkedIn (Jay Kreps, "The Log"): https://web.archive.org/web/20240105095933/https://engineering.linkedin.com/distributed-systems/log-what-every-software-engineer-should-know-about-real-time-datas-unifying
 - ByteByteGo system-design-101 case summaries: https://github.com/ByteByteGoHq/system-design-101

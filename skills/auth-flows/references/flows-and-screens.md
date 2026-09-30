@@ -127,6 +127,15 @@ Settings → Email → [Change]
 
 Widths below are for a 360–420px column; on desktop, center a ~400px card with the product logo above. No carousel, marketing panel, or promotions inside the form column; a split layout with a product visual on wide screens is fine if the form stays first in reading order.
 
+Layout rules that hold across design systems (IBM Carbon's login pattern states them explicitly):
+- **Put the path most users take first.** In consumer apps where most people pick Google or Apple, provider buttons can lead (as in the sketch below). In B2B, or when email or SSO is the main path, put the email field and its Continue button first and the alternatives below. Never place alternative-login buttons *between* the field and its primary button.
+- **Keep every auth action inside the form region.** In a split layout, "Create account", "Use SSO", and help links belong in the form column; Carbon reports from testing that users do not look for them in the marketing side and miss them there.
+- **Keep the geometry stable between steps.** When the password (or code) step replaces the identifier step, keep the same width, margins, and button position so nothing jumps.
+- **After an inactivity sign-out, return to the page the user was on** once they sign in again (a validated, same-origin `returnTo`). After a voluntary sign-out, confirm it and land on the sign-in page.
+- **On a server-side error, keep the identifier, clear the password, and move focus to the error summary or the first field to fix.** Use the same wording for "no such account" and "wrong password" in generic mode.
+- **Use landmarks** so keyboard and screen-reader users can jump straight to the form, especially in split layouts.
+- **Email field (GOV.UK pattern):** wide enough to show about 30 characters, `maxlength="254"`, `type="email"`, `spellcheck="false"`, `autocomplete="email"` (or `username` on sign-in). Don't make people type it twice; echo it back ("We sent a code to ada@…") with a way to change it, and warn, without blocking, on likely domain typos such as `hotmail.con`.
+
 ```
 ┌─────────────────────────────────┐   ┌─────────────────────────────────┐
 │ [logo]                          │   │ ← Back                          │
@@ -285,6 +294,8 @@ Every auth screen has: default · field error (inline, announced, focus moved) �
 
 ## Sources
 
+- GOV.UK Design System, Email addresses and Passwords patterns: https://design-system.service.gov.uk/patterns/email-addresses/ ; https://design-system.service.gov.uk/patterns/passwords/
+- IBM Carbon, Login pattern (progressive/identifier-first login, error handling, alternate-login placement, split-screen testing): https://carbondesignsystem.com/patterns/login-pattern/
 - The Copenhagen Book (MIT) — email verification, password reset, WebAuthn, open redirect: https://thecopenhagenbook.com/ · https://github.com/pilcrowonpaper/copenhagen
 - The Auth Book by the same author (ideas only, no license) — email codes, passkeys, sessions: https://auth.pilcrowonpaper.com/
 - passkeys.dev — bootstrapping (identifier-first, conditional UI), re-authentication, terms: https://passkeys.dev/docs/use-cases/bootstrapping/ · https://passkeys.dev/docs/use-cases/reauth/

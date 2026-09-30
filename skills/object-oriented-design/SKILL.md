@@ -3,7 +3,7 @@ name: object-oriented-design
 description: Use when designing classes, objects, or interfaces, deciding between a class and plain functions, or untangling an OOP mess — god objects, Manager/Helper/Util classes, deep inheritance, getters and setters everywhere, singletons, anemic models, IFoo + FooImpl pairs. Covers what objects are for, class-vs-function defaults for TypeScript, Python, Kotlin, Swift, Go, Java, and C#, responsibility assignment (GRASP, CRC, role stereotypes), composition over inheritance, a Liskov checklist, value objects vs entities, tell-don't-ask and Law of Demeter, structural vs nominal interfaces, dependency injection without a framework, what to mock, polymorphism vs switch vs data-oriented design, and OOP critiques. Also use when the user asks "should this be a class?", "how do I split this class?", "inheritance or composition?", or "is this over-engineered?". Not for picking GoF patterns (use design-patterns), function-level cleanup (use clean-code), or module and service boundaries (use software-architecture).
 license: MIT
 metadata:
-  version: "1.0.0"
+  version: "1.0.1"
   category: engineering
   related: "design-patterns clean-code testing-strategy software-architecture dependency-management"
 ---

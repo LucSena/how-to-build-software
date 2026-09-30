@@ -3,7 +3,7 @@ name: environments-and-config
 description: Use when setting up or fixing environments, config, or secrets — local, CI, preview, staging, production; env vars and .env files; typed config validated at startup (Zod/t3-env, pydantic-settings); config vs secrets vs feature flags vs public build-time vars (NEXT_PUBLIC_, VITE_); secret managers, workload identity, OIDC; secret scanning, rotation, leaked keys; per-environment cloud accounts; preview environments and database branching; staging limits and testing in production; seed and anonymized data; one-command local dev (Compose, dev containers, mise, devbox); config drift; env-specific bugs (time zones, locale, CPU arch). Also use when the user says "works on my machine", "works in staging but not prod", "where do I put this API key?", "add an env var", "I committed a secret", or "set up .env". Not for pipelines, Dockerfiles, deploy strategies, or hosting choice (use deployment-and-infrastructure), day-one repo scaffolding (use project-bootstrap), or app-level security (use application-security).
 license: MIT
 metadata:
-  version: "1.0.0"
+  version: "1.0.1"
   category: engineering
   related: "deployment-and-infrastructure project-bootstrap application-security reliability data-modeling"
 ---

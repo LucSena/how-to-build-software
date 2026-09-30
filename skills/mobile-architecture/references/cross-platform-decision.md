@@ -66,8 +66,8 @@ Default recommendations:
 - Draws its own UI: Cupertino widgets do not become Liquid Glass automatically; M3 Expressive support is partial. Use platform views or packages for native bars if fidelity matters.
 
 ### Kotlin Multiplatform / Compose Multiplatform
-- Kotlin **2.4.0** (June 2026): Swift Export in Alpha (idiomatic Swift APIs instead of Objective-C headers); faster Kotlin/Native builds.
-- Compose Multiplatform **1.12** (Aug 2026); iOS stable since 1.8 (May 2025); 1.10 brought common previews, Navigation 3 on non-Android targets, and bundled Compose Hot Reload.
+- Kotlin **2.4.0** (released 2026-07-14 per the "What's new" docs): Swift export goes Alpha (idiomatic Swift APIs instead of Objective-C headers), with better concurrency support; context parameters and explicit backing fields become stable; lower memory use when linking Kotlin/Native release builds.
+- Compose Multiplatform **1.12** (Aug 2026: an experimental MCP server in Compose Hot Reload for AI agents, automatic web font fallback, Window/Dialog API v2); iOS stable since 1.8 (May 2025); 1.10 brought a common `@Preview`, Navigation 3 on non-Android targets, and stable Compose Hot Reload bundled and on by default.
 - Typical shared stack: Ktor, kotlinx.serialization, coroutines/Flow, SQLDelight or Room (KMP), DataStore, Koin or Metro for DI.
 - CMP renders Material-style UI on iOS by default; for iOS-native feel keep a SwiftUI shell or wrap UIKit/SwiftUI views; verify VoiceOver, text selection, and scroll physics.
 
@@ -105,6 +105,7 @@ Consequences: what gets easier, what gets harder (e.g. widgets need native modul
 - React Native release notes: 0.85 https://reactnative.dev/blog/2026/04/07/react-native-0.85 , 0.86 https://reactnative.dev/blog/2026/06/11/react-native-0.86 , 0.87 https://reactnative.dev/blog/2026/08/11/react-native-0.87
 - Expo changelogs (SDK 55–57): https://expo.dev/changelog ; Expo Router native tabs: https://docs.expo.dev/router/advanced/native-tabs/
 - Flutter 3.44: https://flutter.dev/blog/whats-new-in-flutter-3-44 ; material_ui / cupertino_ui migration: https://docs.flutter.dev/release/breaking-changes/material-ui-and-cupertino-ui
+- Kotlin, "What's new in Kotlin 2.4.0": https://kotlinlang.org/docs/whatsnew24.html · JetBrains, Compose Multiplatform 1.8 (iOS stable): https://blog.jetbrains.com/kotlin/2025/05/compose-multiplatform-1-8-0-released-compose-multiplatform-for-ios-is-stable-and-production-ready/
 - JetBrains: Compose Multiplatform 1.12 https://blog.jetbrains.com/kotlin/2026/08/compose-multiplatform-1-12-0/ , 1.10 https://blog.jetbrains.com/kotlin/2026/01/compose-multiplatform-1-10-0/ , Kotlin 2.4.0 https://blog.jetbrains.com/kotlin/2026/06/kotlin-2-4-0-released/
 - Android 17 release: https://android-developers.googleblog.com/2026/06/Android-17.html ; Play target API requirement: https://developer.android.com/google/play/requirements/target-sdk
 - Apple: What's new in iOS 27 https://developer.apple.com/ios/whats-new/ ; App Review 4.2: https://developer.apple.com/app-store/review/guidelines/

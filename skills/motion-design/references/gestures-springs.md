@@ -146,7 +146,7 @@ Run gesture-driven animation on the UI thread (Reanimated worklets with Gesture 
 
 ## Sources
 
-- Emil Kowalski, animation standards and `apple-design` skill: https://github.com/emilkowalski/skill
+- Emil Kowalski, animation standards and `apple-design` skill: https://github.com/emilkowalski/skills
 - Sonner: https://github.com/emilkowalski/sonner ; Vaul: https://github.com/emilkowalski/vaul
 - Apple WWDC 2018 "Designing Fluid Interfaces": https://developer.apple.com/videos/play/wwdc2018/803/
 - hyperframes motion doctrine and easing adapter (spring damping bands): https://github.com/heygen-com/hyperframes
