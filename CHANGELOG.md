@@ -4,6 +4,8 @@ All notable changes to this collection. Versioning: `x.y.z` — x = restructure/
 
 ## Unreleased
 
+- **References page** in EN/PT/ES (`/references/`): the 61 sites and projects studied for the skills, with a one-line note each, grouped into nine categories and sorted alphabetically; and all 1,299 sources cited by the skills, grouped by category and skill (collapsible), each labeled from its `## Sources` entry. Linked from the header and the home page.
+
 - **Website rebuilt as one simple page** (per language: English, Português, Español), styled like a long blog post: a single reading column, Charis SIL for body text, Source Sans 3 for headings, Source Code Pro for code, light and dark themes. It shows what the skills are, how to install them, three real routing examples from the router table, three real gotchas, and all 45 skills with their summaries. Replaces the earlier multi-page "notebook" design.
 - The site generator now has **no dependencies** (plain Node, self-hosted fonts); the Pages workflow no longer runs `npm ci`.
 

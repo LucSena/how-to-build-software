@@ -29,10 +29,22 @@ const skills = fs.readdirSync(path.join(ROOT, "skills")).flatMap((name) => {
   const fm = text.match(/^---\n([\s\S]*?)\n---/)?.[1] || "";
   const category = fm.match(/^\s+category:\s*"?([\w-]+)"?/m)?.[1];
   const gotchas = (text.split(/^## Gotchas\s*$/m)[1] || "").split(/^## /m)[0].split("\n").filter((l) => /^- /.test(l)).length;
-  const sources = new Set();
+  const sources = new Map(); // url -> label
   for (const f of [file, ...listRefs(name)]) {
     const part = read(f).split(/^## Sources\s*$/m)[1] || "";
-    for (const m of part.matchAll(/https?:\/\/[^\s)>\]`"'|,;]+/g)) sources.add(m[0].replace(/[.:]+$/, ""));
+    for (const line of part.split("\n")) {
+      let last = 0, prevLabel = "";
+      for (const m of line.matchAll(/https?:\/\/[^\s)>\]`"'|,;]+/g)) {
+        const url = m[0].replace(/[.:]+$/, "");
+        const seg = line.slice(last, m.index).split(/\s[;·]\s|\s—\s(?=[^—]*$)/).pop();
+        let label = seg.replace(/^[\s,;·]*[-*]?\s*/, "").replace(/[:—–,;·\s]+$/, "").replace(/\*\*|`/g, "").trim();
+        if (label.length > 90) label = label.replace(/\s*\([^()]*\)\s*$/, "");
+        if (!label || /^[\W_]+$/.test(label) || /^(and|or|also|see|via|PDF|paper)$/i.test(label)) label = prevLabel || label;
+        prevLabel = label;
+        last = m.index + m[0].length;
+        if (!sources.has(url)) sources.set(url, label);
+      }
+    }
   }
   return [{ name, category, gotchas, sources }];
 });
@@ -44,7 +56,8 @@ for (const s of skills) {
   if (!CATEGORIES.includes(s.category)) throw new Error(`${s.name}: unknown category ${s.category}`);
   for (const l of LANGS) if (!summaries[s.name]?.[l]) throw new Error(`site/i18n/skills.json: missing ${l} summary for ${s.name}`);
 }
-const totalSources = new Set(skills.flatMap((s) => [...s.sources])).size;
+const totalSources = new Set(skills.flatMap((s) => [...s.sources.keys()])).size;
+const refs = JSON.parse(read(path.join(SITE, "i18n/references.json")));
 const totalGotchas = skills.reduce((a, s) => a + s.gotchas, 0);
 
 const routerTable = read(path.join(ROOT, "skills/how-to-build-software/SKILL.md"));
@@ -56,9 +69,12 @@ const dateLabel = (lang) => date.toLocaleDateString(strings[lang].htmlLang, { da
 const langPath = (l) => (l === "en" ? "" : `${l}/`);
 const skillUrl = (n) => `${REPO}/tree/main/skills/${n}`;
 
-// ---- page ----
+// ---- pages ----
+const REF_SLUG = "references/";
+
 function article(lang) {
   const t = strings[lang];
+  const r = refs.text[lang];
   const v = { n: skills.length, sources: totalSources.toLocaleString(t.htmlLang), gotchas: totalGotchas.toLocaleString(t.htmlLang) };
   const routeItems = t.routes.map(([intent, label]) => {
     const chain = routes.get(intent);
@@ -88,29 +104,80 @@ ${mistakes.join("\n")}
 ${lists.join("\n")}
 <h2 id="sources">${esc(t.sourcesTitle)}</h2>
 <p>${fill(esc(t.sources), v)}</p>
-<p class="links">${t.sourcesLinks.map(([label, file]) => `<a href="${REPO}/blob/main/${file}">${esc(label)}</a>`).join(" · ")}</p>`;
-  const words = body.replace(/<[^>]+>/g, " ").split(/\s+/).filter(Boolean).length;
-  const minutes = Math.max(1, Math.round(words / 230));
+<p class="links"><a href="${REF_SLUG}">${esc(r.sourcesLink)}</a> · ${t.sourcesLinks.map(([label, file]) => `<a href="${REPO}/blob/main/${file}">${esc(label)}</a>`).join(" · ")}</p>`;
   return layout(lang, {
+    slug: "",
     title: t.siteTitle,
     description: t.metaDescription,
-    pathOut: langPath(lang),
     main: `<article>
 <header class="head">
 <h1>${esc(t.siteTitle)}</h1>
 <p class="dek">${esc(t.dek)}</p>
-<p class="byline"><a href="https://github.com/LucSena">LucSena</a> · ${esc(fill(t.updated, { date: dateLabel(lang) }))} · ${esc(fill(t.readTime, { n: minutes }))} · v${esc(version)}</p>
+<p class="byline"><a href="https://github.com/LucSena">LucSena</a> · ${esc(fill(t.updated, { date: dateLabel(lang) }))} · ${esc(fill(t.readTime, { n: readMinutes(body) }))} · v${esc(version)}</p>
 </header>
 ${body}
 </article>`,
   });
 }
 
-function layout(lang, { title, description, pathOut, main, depth = pathOut ? 1 : 0, noindex = false }) {
+function referencesPage(lang) {
   const t = strings[lang];
-  const up = depth ? "../" : "";
-  const alternates = LANGS.map((l) => `<link rel="alternate" hreflang="${strings[l].htmlLang}" href="${BASE}${langPath(l)}">`).join("\n");
-  const langLinks = LANGS.map((l) => `<a href="${up}${langPath(l) || "./"}" hreflang="${strings[l].htmlLang}" lang="${strings[l].htmlLang}"${l === lang ? ' aria-current="page"' : ""}>${l.toUpperCase()}<span class="sr"> ${esc(strings[l].label)}</span></a>`).join("");
+  const r = refs.text[lang];
+  const collator = new Intl.Collator(t.htmlLang, { sensitivity: "base", numeric: true });
+  const hostOf = (u) => { try { return new URL(u).host.replace(/^www\./, ""); } catch { return u; } };
+  const shortUrl = (u) => { try { const x = new URL(u); const s = (x.host.replace(/^www\./, "") + x.pathname).replace(/\/$/, ""); return s.length > 52 ? s.slice(0, 51) + "…" : s; } catch { return u; } };
+  const studied = refs.categories.map((c) => {
+    const items = [...c.items].sort((a, b) => collator.compare(a[0], b[0]));
+    return `<h3 id="${c.id}">${esc(c.title[lang])} <span class="count">${items.length}</span></h3>
+<ul class="refs">${items.map(([name, url, en, pt, es]) => `<li><a href="${esc(url)}">${esc(name)}</a> <span class="host">${esc(hostOf(url))}</span><br><span class="desc">${esc({ en, pt, es }[lang])}</span></li>`).join("\n")}</ul>`;
+  });
+  const cited = CATEGORIES.map((c) => {
+    const list = skills.filter((s) => s.category === c).sort((a, b) => a.name.localeCompare(b.name));
+    return `<h3 id="cited-${c}">${esc(t.categories[c])}</h3>
+${list.map((s) => {
+      const items = [...s.sources].map(([url, label]) => [url, label && label !== hostOf(url) ? label : shortUrl(url)]).sort((a, b) => collator.compare(a[1], b[1]) || collator.compare(a[0], b[0]));
+      return `<details class="skill-src" id="src-${s.name}"><summary><code>${s.name}</code> <span class="count">${items.length}</span></summary>
+<ul class="refs">${items.map(([url, label]) => `<li><a href="${esc(url)}">${esc(label)}</a>${label === shortUrl(url) ? "" : ` <span class="host">${esc(shortUrl(url))}</span>`}</li>`).join("\n")}</ul></details>`;
+    }).join("\n")}`;
+  });
+  const total = totalSources.toLocaleString(t.htmlLang);
+  const body = `
+<h2 id="studied">${esc(r.studiedTitle)}</h2>
+<p>${esc(r.studiedIntro)} <a href="${REPO}/blob/main/research/P-source-review-2026-09.md">${esc(r.notes)}</a>.</p>
+${studied.join("\n")}
+<h2 id="cited">${esc(r.citedTitle)}</h2>
+<p>${esc(fill(r.citedIntro, { n: total }))}</p>
+${cited.join("\n")}
+<p class="links"><a href="../">${esc(r.back)}</a></p>`;
+  return layout(lang, {
+    slug: REF_SLUG,
+    title: `${r.title} · ${t.siteTitle}`,
+    description: r.dek,
+    main: `<article>
+<header class="head">
+<h1>${esc(r.title)}</h1>
+<p class="dek">${esc(r.dek)}</p>
+<p class="byline"><a href="https://github.com/LucSena">LucSena</a> · ${esc(fill(t.updated, { date: dateLabel(lang) }))}</p>
+</header>
+${body}
+</article>`,
+  });
+}
+
+function readMinutes(html) {
+  const words = html.replace(/<[^>]+>/g, " ").split(/\s+/).filter(Boolean).length;
+  return Math.max(1, Math.round(words / 230));
+}
+
+function layout(lang, { title, description, slug, main, noindex = false, absolute = false }) {
+  const t = strings[lang];
+  const r = refs.text[lang];
+  const here = langPath(lang) + slug;
+  const depth = here.split("/").filter(Boolean).length;
+  const up = absolute ? BASE : "../".repeat(depth);
+  const href = (p) => up + p || "./";
+  const alternates = LANGS.map((l) => `<link rel="alternate" hreflang="${strings[l].htmlLang}" href="${BASE}${langPath(l)}${slug}">`).join("\n");
+  const langLinks = LANGS.map((l) => `<a href="${href(langPath(l) + slug)}" hreflang="${strings[l].htmlLang}" lang="${strings[l].htmlLang}"${l === lang ? ' aria-current="page"' : ""}>${l.toUpperCase()}<span class="sr"> ${esc(strings[l].label)}</span></a>`).join("");
   return `<!doctype html>
 <html lang="${t.htmlLang}">
 <head>
@@ -118,7 +185,7 @@ function layout(lang, { title, description, pathOut, main, depth = pathOut ? 1 :
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>${esc(title)}</title>
 <meta name="description" content="${esc(description)}">
-${noindex ? '<meta name="robots" content="noindex">' : `<link rel="canonical" href="${BASE}${pathOut}">\n${alternates}\n<link rel="alternate" hreflang="x-default" href="${BASE}">`}
+${noindex ? '<meta name="robots" content="noindex">' : `<link rel="canonical" href="${BASE}${here}">\n${alternates}\n<link rel="alternate" hreflang="x-default" href="${BASE}${slug}">`}
 <meta property="og:title" content="${esc(title)}">
 <meta property="og:description" content="${esc(description)}">
 <meta property="og:type" content="website">
@@ -132,7 +199,8 @@ ${noindex ? '<meta name="robots" content="noindex">' : `<link rel="canonical" hr
 <body>
 <a class="skip" href="#main">${esc(t.skip)}</a>
 <header class="bar">
-<a class="name" href="${up}${langPath(lang) || "./"}">${esc(t.siteTitle)}</a>
+<a class="name" href="${href(langPath(lang))}">${esc(t.siteTitle)}</a>
+<a class="navlink" href="${href(langPath(lang) + REF_SLUG)}"${slug === REF_SLUG ? ' aria-current="page"' : ""}>${esc(r.nav)}</a>
 <nav class="lang" aria-label="${esc(t.languages)}">${langLinks}</nav>
 <button type="button" class="theme" aria-label="${esc(t.theme)}"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 3a9 9 0 1 0 9 9c0-.5 0-1-.1-1.4A5.5 5.5 0 0 1 13.4 3.1 9 9 0 0 0 12 3Z"/></svg></button>
 </header>
@@ -145,6 +213,7 @@ ${main}
 <script>
 document.querySelector(".theme").addEventListener("click",function(){var r=document.documentElement,d=r.dataset.theme||(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"),n=d==="dark"?"light":"dark";r.dataset.theme=n;try{localStorage.setItem("theme",n)}catch(e){}});
 document.querySelectorAll(".copy").forEach(function(b){b.addEventListener("click",function(){var el=document.getElementById(b.dataset.copy),label=b.textContent,done=function(){b.textContent=b.dataset.done;setTimeout(function(){b.textContent=label},1600)};if(navigator.clipboard)navigator.clipboard.writeText(el.textContent).then(done,function(){getSelection().selectAllChildren(el)});else getSelection().selectAllChildren(el)})});
+if(location.hash){var d=document.getElementById(location.hash.slice(1));if(d&&d.tagName==="DETAILS")d.open=true}
 </script>
 </body>
 </html>
@@ -154,31 +223,36 @@ document.querySelectorAll(".copy").forEach(function(b){b.addEventListener("click
 function notFound() {
   const t = strings.en;
   return layout("en", {
+    slug: "",
     title: t.notFoundTitle,
     description: t.notFoundTitle,
-    pathOut: "404.html",
-    depth: 0,
     noindex: true,
+    absolute: true,
     main: `<article><header class="head"><h1>${esc(t.notFoundTitle)}</h1></header><p>${esc(t.notFound)} <a href="${BASE}">${esc(t.backHome)}</a>.</p></article>`,
   })
-    .replace(/<link rel="stylesheet" href="style\.css">/, () => `<style>${read(path.join(SITE, "style.css")).replace(/url\(fonts\//g, `url(${BASE}fonts/`)}</style>`)
-    .replace(/<link rel="preload"[^>]+>\n/g, "")
-    .replace(/(href|src)="(favicon\.svg)"/g, `$1="${BASE}$2"`);
+    .replace(/<link rel="stylesheet" href="[^"]*style\.css">/, () => `<style>${read(path.join(SITE, "style.css")).replace(/url\(fonts\//g, `url(${BASE}fonts/`)}</style>`)
+    .replace(/<link rel="preload"[^>]+>\n/g, "");
 }
 
 // ---- write ----
-fs.rmSync(OUT, { recursive: true, force: true });
+fs.mkdirSync(OUT, { recursive: true });
+for (const e of fs.readdirSync(OUT)) fs.rmSync(path.join(OUT, e), { recursive: true, force: true });
 fs.mkdirSync(path.join(OUT, "fonts"), { recursive: true });
+const pages = [];
 for (const l of LANGS) {
-  const dir = path.join(OUT, langPath(l));
-  fs.mkdirSync(dir, { recursive: true });
-  fs.writeFileSync(path.join(dir, "index.html"), article(l));
+  for (const [slug, render] of [["", article], [REF_SLUG, referencesPage]]) {
+    const dir = path.join(OUT, langPath(l), slug);
+    fs.mkdirSync(dir, { recursive: true });
+    fs.writeFileSync(path.join(dir, "index.html"), render(l));
+    pages.push(langPath(l) + slug);
+  }
 }
 fs.writeFileSync(path.join(OUT, "404.html"), notFound());
 fs.copyFileSync(path.join(SITE, "style.css"), path.join(OUT, "style.css"));
 fs.copyFileSync(path.join(SITE, "favicon.svg"), path.join(OUT, "favicon.svg"));
 for (const f of fs.readdirSync(path.join(SITE, "fonts"))) fs.copyFileSync(path.join(SITE, "fonts", f), path.join(OUT, "fonts", f));
 fs.writeFileSync(path.join(OUT, "robots.txt"), `User-agent: *\nAllow: /\nSitemap: ${BASE}sitemap.xml\n`);
-fs.writeFileSync(path.join(OUT, "sitemap.xml"), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${LANGS.map((l) => `<url><loc>${BASE}${langPath(l)}</loc></url>`).join("\n")}\n</urlset>\n`);
+fs.writeFileSync(path.join(OUT, "sitemap.xml"), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${pages.map((p) => `<url><loc>${BASE}${p}</loc></url>`).join("\n")}\n</urlset>\n`);
 fs.writeFileSync(path.join(OUT, ".nojekyll"), "");
-console.log(`built ${LANGS.length} pages · ${skills.length} skills · ${totalGotchas} gotchas · ${totalSources} sources → _site/`);
+const studiedCount = refs.categories.reduce((a, c) => a + c.items.length, 0);
+console.log(`built ${pages.length} pages · ${skills.length} skills · ${totalGotchas} gotchas · ${totalSources} cited sources · ${studiedCount} studied sites → _site/`);

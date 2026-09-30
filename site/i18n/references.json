@@ -1,0 +1,559 @@
+{
+  "categories": [
+    {
+      "id": "ux",
+      "title": {
+        "en": "UX principles and research",
+        "pt": "Princípios e pesquisa de UX",
+        "es": "Principios e investigación de UX"
+      },
+      "items": [
+        [
+          "Baymard: E-commerce design examples",
+          "https://baymard.com/ecommerce-design-examples",
+          "18,000+ annotated e-commerce pages across 74 page types.",
+          "Mais de 18.000 páginas de e-commerce anotadas, em 74 tipos de página.",
+          "Más de 18.000 páginas de e-commerce anotadas, en 74 tipos de página."
+        ],
+        [
+          "Design with Intent",
+          "https://designwithintent.ai",
+          "17 UX strategy skills for AI tools and a catalog of 57+ anti-patterns (CC0).",
+          "17 skills de estratégia de UX para ferramentas de IA e um catálogo de 57+ antipadrões (CC0).",
+          "17 skills de estrategia de UX para herramientas de IA y un catálogo de 57+ antipatrones (CC0)."
+        ],
+        [
+          "growth.design",
+          "https://growth.design/case-studies",
+          "Product case studies in comic form and 106 cognitive biases applied to UX.",
+          "Estudos de caso de produto em quadrinhos e 106 vieses cognitivos aplicados a UX.",
+          "Casos de producto en formato cómic y 106 sesgos cognitivos aplicados a UX."
+        ],
+        [
+          "How Complex Systems Fail",
+          "https://how.complexsystems.fail",
+          "Richard Cook's 18 short points on why complex systems fail.",
+          "Os 18 pontos curtos de Richard Cook sobre por que sistemas complexos falham.",
+          "Los 18 puntos breves de Richard Cook sobre por qué fallan los sistemas complejos."
+        ],
+        [
+          "Humane by Design",
+          "https://humanebydesign.com",
+          "Seven principles for digital products that respect people's well-being.",
+          "Sete princípios para produtos digitais que respeitam o bem-estar das pessoas.",
+          "Siete principios para productos digitales que respetan el bienestar de las personas."
+        ],
+        [
+          "Laws of UX",
+          "https://lawsofux.com",
+          "30 psychology-based laws for interface design, one page each.",
+          "30 leis baseadas em psicologia para interfaces, uma página por lei.",
+          "30 leyes basadas en psicología para interfaces, una página por ley."
+        ],
+        [
+          "Lessons of Design",
+          "https://lessons.design",
+          "A designer's essays on why he designs the way he does.",
+          "Ensaios de um designer sobre por que ele desenha do jeito que desenha.",
+          "Ensayos de un diseñador sobre por qué diseña como diseña."
+        ],
+        [
+          "NN/g: 10 Usability Heuristics",
+          "https://www.nngroup.com/articles/ten-usability-heuristics/",
+          "Jakob Nielsen's heuristics (1994, reviewed in 2024).",
+          "As heurísticas de Jakob Nielsen (1994, revisadas em 2024).",
+          "Las heurísticas de Jakob Nielsen (1994, revisadas en 2024)."
+        ],
+        [
+          "principles.design",
+          "https://principles.design",
+          "236 collections with 1,661 published design principles.",
+          "236 coleções com 1.661 princípios de design publicados.",
+          "236 colecciones con 1.661 principios de diseño publicados."
+        ],
+        [
+          "Web Field Manual: Design",
+          "https://webfieldmanual.com/design.html",
+          "Jon Yablonski's directory of web design resources.",
+          "O diretório de recursos de web design de Jon Yablonski.",
+          "El directorio de recursos de diseño web de Jon Yablonski."
+        ]
+      ]
+    },
+    {
+      "id": "engineering",
+      "title": {
+        "en": "Design engineering and motion",
+        "pt": "Design engineering e animação",
+        "es": "Design engineering y animación"
+      },
+      "items": [
+        [
+          "Design Engineer Tools",
+          "https://designengineer.tools",
+          "James Warner's list of tools for web design engineers.",
+          "A lista de ferramentas de James Warner para design engineers.",
+          "La lista de herramientas de James Warner para design engineers."
+        ],
+        [
+          "Design System Checklist",
+          "https://designsystemchecklist.com",
+          "An open checklist for planning, building, and growing a design system.",
+          "Um checklist aberto para planejar, construir e expandir um design system.",
+          "Un checklist abierto para planificar, construir y ampliar un design system."
+        ],
+        [
+          "Designeer",
+          "https://designeer.xyz",
+          "A curated hub of component and motion libraries and building tools.",
+          "Um diretório curado de bibliotecas de componentes, animação e ferramentas.",
+          "Un directorio curado de bibliotecas de componentes, animación y herramientas."
+        ],
+        [
+          "DesEngs",
+          "https://desengs.com",
+          "A feed of resources for design engineers and a gallery of minimal sites.",
+          "Um feed de recursos para design engineers e uma galeria de sites minimalistas.",
+          "Un feed de recursos para design engineers y una galería de sitios minimalistas."
+        ],
+        [
+          "Emil Kowalski: You don't need animations",
+          "https://emilkowal.ski/ui/you-dont-need-animations",
+          "When to animate: purpose, frequency of use, and speed.",
+          "Quando animar: propósito, frequência de uso e velocidade.",
+          "Cuándo animar: propósito, frecuencia de uso y velocidad."
+        ],
+        [
+          "Flo Guo: Design engineering notes",
+          "https://floguo.com/notes/design-engineering",
+          "A living document on the design engineer role, tools, and reading.",
+          "Um documento vivo sobre o papel do design engineer, ferramentas e leituras.",
+          "Un documento vivo sobre el rol del design engineer, herramientas y lecturas."
+        ],
+        [
+          "transitions.dev",
+          "https://transitions.dev",
+          "43+ CSS transitions and an agent that scores a codebase's motion.",
+          "Mais de 43 transições CSS e um agente que avalia a animação de um código.",
+          "Más de 43 transiciones CSS y un agente que evalúa la animación de un código."
+        ]
+      ]
+    },
+    {
+      "id": "galleries",
+      "title": {
+        "en": "Galleries and inspiration",
+        "pt": "Galerias e inspiração",
+        "es": "Galerías e inspiración"
+      },
+      "items": [
+        [
+          "Appshots",
+          "https://appshots.design",
+          "120,000+ mobile screens from 400+ apps.",
+          "Mais de 120.000 telas mobile de mais de 400 apps.",
+          "Más de 120.000 pantallas móviles de más de 400 apps."
+        ],
+        [
+          "Bencho",
+          "https://bencho.dev",
+          "Interactive UI blocks grouped by gesture: hover, drag, swipe, type.",
+          "Blocos de UI interativos agrupados por gesto: hover, arrastar, deslizar, digitar.",
+          "Bloques de UI interactivos agrupados por gesto: hover, arrastrar, deslizar, escribir."
+        ],
+        [
+          "dqnamo",
+          "https://dqnamo.com",
+          "A studio portfolio with playful interface experiments.",
+          "Portfólio de estúdio com experimentos de interface lúdicos.",
+          "Portafolio de estudio con experimentos de interfaz lúdicos."
+        ],
+        [
+          "Godly",
+          "https://godly.website",
+          "A daily curation of web design, sites, and tools.",
+          "Curadoria diária de web design, sites e ferramentas.",
+          "Curaduría diaria de diseño web, sitios y herramientas."
+        ],
+        [
+          "Inspora",
+          "https://inspora.design",
+          "An hourly-updated feed of web, branding, product, and motion design.",
+          "Feed atualizado a cada hora com web, branding, produto e motion.",
+          "Feed actualizado cada hora con web, branding, producto y motion."
+        ],
+        [
+          "Page Flows",
+          "https://pageflows.com",
+          "Recorded user flows from real apps and websites.",
+          "Fluxos de uso gravados de apps e sites reais.",
+          "Flujos de uso grabados de apps y sitios reales."
+        ],
+        [
+          "Refero",
+          "https://refero.design",
+          "Real product screens and flows, with a research mode for AI.",
+          "Telas e fluxos de produtos reais, com um modo de pesquisa para IA.",
+          "Pantallas y flujos de productos reales, con un modo de investigación para IA."
+        ],
+        [
+          "ScreensDesign",
+          "https://screensdesign.com",
+          "2,730 top iOS apps with session recordings and paywalls.",
+          "2.730 apps iOS de topo com gravações de sessão e paywalls.",
+          "2.730 apps iOS destacadas con grabaciones de sesión y paywalls."
+        ]
+      ]
+    },
+    {
+      "id": "components",
+      "title": {
+        "en": "Component libraries",
+        "pt": "Bibliotecas de componentes",
+        "es": "Bibliotecas de componentes"
+      },
+      "items": [
+        [
+          "Beautiful UI",
+          "https://beautifului.dev",
+          "Primitives for AI interfaces: thinking traces, tool chips, approval cards.",
+          "Primitivos para interfaces de IA: raciocínio, chips de ferramenta, cartões de aprovação.",
+          "Primitivos para interfaces de IA: razonamiento, chips de herramienta, tarjetas de aprobación."
+        ],
+        [
+          "coss ui",
+          "https://coss.com/ui",
+          "Cal.com's component library built on Base UI.",
+          "A biblioteca de componentes do Cal.com, feita sobre Base UI.",
+          "La biblioteca de componentes de Cal.com, construida sobre Base UI."
+        ],
+        [
+          "drawably",
+          "https://drawably.dev",
+          "Hand-drawn UI controls, redrawn on every mount.",
+          "Controles de UI desenhados à mão, redesenhados a cada montagem.",
+          "Controles de UI dibujados a mano, redibujados en cada montaje."
+        ],
+        [
+          "ObsidianUI",
+          "https://obsidianui.dev",
+          "React and Tailwind components with motion effects.",
+          "Componentes React e Tailwind com efeitos de animação.",
+          "Componentes React y Tailwind con efectos de animación."
+        ],
+        [
+          "React Flow",
+          "https://reactflow.dev",
+          "A React library for node-based editors and diagrams.",
+          "Uma biblioteca React para editores de nós e diagramas.",
+          "Una biblioteca React para editores de nodos y diagramas."
+        ],
+        [
+          "ReUI",
+          "https://reui.io/components",
+          "1,149 shadcn/ui components, including data grids and Gantt charts (MIT).",
+          "1.149 componentes shadcn/ui, incluindo data grids e Gantt (MIT).",
+          "1.149 componentes shadcn/ui, incluidos data grids y Gantt (MIT)."
+        ],
+        [
+          "snapcn",
+          "https://snapcn.dev/docs/components",
+          "94 Remotion components for product videos.",
+          "94 componentes Remotion para vídeos de produto.",
+          "94 componentes Remotion para vídeos de producto."
+        ]
+      ]
+    },
+    {
+      "id": "icons",
+      "title": {
+        "en": "Icons",
+        "pt": "Ícones",
+        "es": "Iconos"
+      },
+      "items": [
+        [
+          "Hugeicons",
+          "https://hugeicons.com",
+          "6,000+ free icons and 60,000+ in the Pro set.",
+          "Mais de 6.000 ícones grátis e mais de 60.000 no plano Pro.",
+          "Más de 6.000 iconos gratis y más de 60.000 en el plan Pro."
+        ],
+        [
+          "Iconly",
+          "https://web.iconly.pro",
+          "40,000+ icons, including animated and 3D sets.",
+          "Mais de 40.000 ícones, incluindo animados e 3D.",
+          "Más de 40.000 iconos, incluidos animados y 3D."
+        ],
+        [
+          "Iconsax",
+          "https://iconsax.io",
+          "7,000+ free and 44,000+ premium icons in six styles.",
+          "Mais de 7.000 ícones grátis e 44.000 premium em seis estilos.",
+          "Más de 7.000 iconos gratis y 44.000 premium en seis estilos."
+        ],
+        [
+          "Isocons",
+          "https://isocons.app",
+          "Customizable isometric icons (CC BY 4.0).",
+          "Ícones isométricos personalizáveis (CC BY 4.0).",
+          "Iconos isométricos personalizables (CC BY 4.0)."
+        ],
+        [
+          "itshover",
+          "https://itshover.com/icons",
+          "186+ animated icons built with Motion (Apache-2.0).",
+          "Mais de 186 ícones animados feitos com Motion (Apache-2.0).",
+          "Más de 186 iconos animados hechos con Motion (Apache-2.0)."
+        ],
+        [
+          "lucide-animated",
+          "https://lucide-animated.com",
+          "467 animated Lucide icons for React (MIT).",
+          "467 ícones Lucide animados para React (MIT).",
+          "467 iconos Lucide animados para React (MIT)."
+        ],
+        [
+          "Morphicons",
+          "https://morphicons.com",
+          "Morphs any stroke icon into another, with springs.",
+          "Transforma qualquer ícone de traço em outro, com molas.",
+          "Transforma cualquier icono de trazo en otro, con muelles."
+        ],
+        [
+          "Moving Icons",
+          "https://movingicons.dev",
+          "500+ animated Lucide icons for Svelte 5 (MIT).",
+          "Mais de 500 ícones Lucide animados para Svelte 5 (MIT).",
+          "Más de 500 iconos Lucide animados para Svelte 5 (MIT)."
+        ],
+        [
+          "Nucleo",
+          "https://nucleoapp.com",
+          "44,282 premium icons and an app to manage them.",
+          "44.282 ícones premium e um app para gerenciá-los.",
+          "44.282 iconos premium y una app para gestionarlos."
+        ],
+        [
+          "Remix Icon",
+          "https://remixicon.com",
+          "3,229 icons, each in line and fill versions.",
+          "3.229 ícones, cada um em versão contorno e preenchida.",
+          "3.229 iconos, cada uno en versión contorno y relleno."
+        ]
+      ]
+    },
+    {
+      "id": "ai-design",
+      "title": {
+        "en": "AI design skills and review",
+        "pt": "Skills de design e revisão com IA",
+        "es": "Skills de diseño y revisión con IA"
+      },
+      "items": [
+        [
+          "Impeccable",
+          "https://impeccable.style",
+          "A design skill for agents with 61 detector rules for AI-looking UI.",
+          "Uma skill de design para agentes com 61 regras que detectam UI com cara de IA.",
+          "Una skill de diseño para agentes con 61 reglas que detectan UI con aspecto de IA."
+        ],
+        [
+          "Rams",
+          "https://rams.ai",
+          "Design review for pull requests: 348 rules and a 0–100 score.",
+          "Revisão de design em pull requests: 348 regras e nota de 0 a 100.",
+          "Revisión de diseño en pull requests: 348 reglas y nota de 0 a 100."
+        ],
+        [
+          "Taste Skill",
+          "https://tasteskill.dev",
+          "An anti-slop frontend skill that reads the brief before designing.",
+          "Uma skill de frontend contra slop que lê o briefing antes de desenhar.",
+          "Una skill de frontend contra el slop que lee el brief antes de diseñar."
+        ],
+        [
+          "TypeUI",
+          "https://typeui.sh",
+          "Design skills and UI prompts for agents, through MCP and a CLI.",
+          "Skills de design e prompts de UI para agentes, via MCP e CLI.",
+          "Skills de diseño y prompts de UI para agentes, vía MCP y CLI."
+        ],
+        [
+          "UI Skills",
+          "https://ui-skills.com",
+          "A curated catalog of design-engineering skills, with a CLI and MCP.",
+          "Um catálogo curado de skills de design engineering, com CLI e MCP.",
+          "Un catálogo curado de skills de design engineering, con CLI y MCP."
+        ]
+      ]
+    },
+    {
+      "id": "designmd",
+      "title": {
+        "en": "DESIGN.md and design generators",
+        "pt": "DESIGN.md e geradores de design",
+        "es": "DESIGN.md y generadores de diseño"
+      },
+      "items": [
+        [
+          "Aura",
+          "https://aura.build",
+          "Generates landing pages from a prompt, with templates and DESIGN.md.",
+          "Gera landing pages a partir de um prompt, com templates e DESIGN.md.",
+          "Genera landing pages a partir de un prompt, con plantillas y DESIGN.md."
+        ],
+        [
+          "designmd.me",
+          "https://designmd.me",
+          "Extracts a DESIGN.md from any website, with Figma import.",
+          "Extrai um DESIGN.md de qualquer site, com importação para o Figma.",
+          "Extrae un DESIGN.md de cualquier sitio, con importación a Figma."
+        ],
+        [
+          "designmd.supply",
+          "https://designmd.supply",
+          "An open-source tool that turns a domain into a DESIGN.md.",
+          "Ferramenta open source que transforma um domínio em DESIGN.md.",
+          "Herramienta open source que convierte un dominio en DESIGN.md."
+        ],
+        [
+          "getdesign.md",
+          "https://getdesign.md",
+          "A catalog of 550+ website DESIGN.md files.",
+          "Um catálogo com mais de 550 arquivos DESIGN.md de sites.",
+          "Un catálogo con más de 550 archivos DESIGN.md de sitios."
+        ],
+        [
+          "HyperDesign",
+          "https://design-md.hyperbrowser.ai",
+          "Writes a DESIGN.md from screenshots of a site.",
+          "Escreve um DESIGN.md a partir de capturas de um site.",
+          "Escribe un DESIGN.md a partir de capturas de un sitio."
+        ],
+        [
+          "Neuform",
+          "https://neuform.ai",
+          "One prompt to web, mobile, and a design system.",
+          "De um prompt para web, mobile e design system.",
+          "De un prompt a web, móvil y design system."
+        ],
+        [
+          "Open Design",
+          "https://open-design.ai",
+          "A local, open-source design workspace driven by your coding agent.",
+          "Um espaço de design local e open source, movido pelo seu agente.",
+          "Un espacio de diseño local y open source, movido por tu agente."
+        ],
+        [
+          "Refero Styles",
+          "https://styles.refero.design",
+          "2,000+ DESIGN.md files extracted from product websites.",
+          "Mais de 2.000 arquivos DESIGN.md extraídos de sites de produtos.",
+          "Más de 2.000 archivos DESIGN.md extraídos de sitios de productos."
+        ]
+      ]
+    },
+    {
+      "id": "repos",
+      "title": {
+        "en": "Agent skill repositories",
+        "pt": "Repositórios de skills",
+        "es": "Repositorios de skills"
+      },
+      "items": [
+        [
+          "coreyhaines31/marketingskills",
+          "https://github.com/coreyhaines31/marketingskills",
+          "50 marketing and growth skills (MIT).",
+          "50 skills de marketing e crescimento (MIT).",
+          "50 skills de marketing y crecimiento (MIT)."
+        ],
+        [
+          "heliocosta-dev/revenue-centric-design",
+          "https://github.com/heliocosta-dev/revenue-centric-design",
+          "Design principles tied to revenue (source-available license).",
+          "Princípios de design ligados a receita (licença source-available).",
+          "Principios de diseño ligados a ingresos (licencia source-available)."
+        ],
+        [
+          "heygen-com/hyperframes",
+          "https://github.com/heygen-com/hyperframes",
+          "Write HTML, render video: a framework for agents (Apache-2.0).",
+          "Escreva HTML, renderize vídeo: um framework para agentes (Apache-2.0).",
+          "Escribe HTML, renderiza vídeo: un framework para agentes (Apache-2.0)."
+        ],
+        [
+          "Leonxlnx/taste-skill",
+          "https://github.com/Leonxlnx/taste-skill",
+          "The source of Taste Skill (MIT).",
+          "O código-fonte do Taste Skill (MIT).",
+          "El código fuente de Taste Skill (MIT)."
+        ],
+        [
+          "uphiago/recon-skills",
+          "https://github.com/uphiago/recon-skills",
+          "146 skills for authorized security testing (MIT).",
+          "146 skills para testes de segurança autorizados (MIT).",
+          "146 skills para pruebas de seguridad autorizadas (MIT)."
+        ]
+      ]
+    },
+    {
+      "id": "other",
+      "title": {
+        "en": "Other",
+        "pt": "Outros",
+        "es": "Otros"
+      },
+      "items": [
+        [
+          "Y Combinator: Requests for Startups",
+          "https://www.ycombinator.com/rfs",
+          "The problems YC wants founders to work on, by batch.",
+          "Os problemas em que a YC quer que fundadores trabalhem, por turma.",
+          "Los problemas en los que YC quiere que trabajen los fundadores, por tanda."
+        ]
+      ]
+    }
+  ],
+  "text": {
+    "en": {
+      "nav": "References",
+      "title": "References",
+      "dek": "Every site we studied and every source the skills cite, grouped and in alphabetical order.",
+      "studiedTitle": "Sites and projects we studied",
+      "studiedIntro": "The owner's reading list, opened and read on the live pages in September 2026.",
+      "citedTitle": "Sources cited by the skills",
+      "citedIntro": "All {n} sources listed in the skills' Sources sections, grouped by skill.",
+      "back": "Back to the skills",
+      "sourcesLink": "See all references",
+      "notes": "Notes on each one"
+    },
+    "pt": {
+      "nav": "Referências",
+      "title": "Referências",
+      "dek": "Todos os sites que estudamos e todas as fontes que as skills citam, agrupados e em ordem alfabética.",
+      "studiedTitle": "Sites e projetos que estudamos",
+      "studiedIntro": "A lista de leitura do dono do projeto, aberta e lida nas páginas originais em setembro de 2026.",
+      "citedTitle": "Fontes citadas pelas skills",
+      "citedIntro": "As {n} fontes listadas nas seções Sources das skills, agrupadas por skill.",
+      "back": "Voltar para as skills",
+      "sourcesLink": "Ver todas as referências",
+      "notes": "Notas sobre cada um"
+    },
+    "es": {
+      "nav": "Referencias",
+      "title": "Referencias",
+      "dek": "Todos los sitios que estudiamos y todas las fuentes que citan las skills, agrupados y en orden alfabético.",
+      "studiedTitle": "Sitios y proyectos que estudiamos",
+      "studiedIntro": "La lista de lectura del autor del proyecto, abierta y leída en las páginas originales en septiembre de 2026.",
+      "citedTitle": "Fuentes citadas por las skills",
+      "citedIntro": "Las {n} fuentes listadas en las secciones Sources de las skills, agrupadas por skill.",
+      "back": "Volver a las skills",
+      "sourcesLink": "Ver todas las referencias",
+      "notes": "Notas sobre cada uno"
+    }
+  }
+}
