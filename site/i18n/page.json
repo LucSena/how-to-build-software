@@ -1,0 +1,143 @@
+{
+  "en": {
+    "htmlLang": "en",
+    "label": "English",
+    "siteTitle": "How to Build Software",
+    "metaDescription": "45 Agent Skills that teach AI coding agents to plan, build, and design software the way experienced engineers and designers do.",
+    "dek": "45 skills that teach AI coding agents to plan, build, and design software the way experienced engineers and designers do.",
+    "updated": "Updated {date}",
+    "readTime": "{n} min read",
+    "skip": "Skip to content",
+    "theme": "Switch between light and dark theme",
+    "languages": "Language",
+    "whatTitle": "What this is",
+    "what": [
+      "A skill is a folder with a `SKILL.md` file that a coding agent reads when your request matches it. Claude Code, Codex, Cursor, Gemini CLI, GitHub Copilot, and other agents support the format.",
+      "These skills hold what an experienced engineer or designer would tell the agent before it starts: which database to pick first, when a cache hurts, how a login screen should work, why a redesign failed. Each one gives concrete defaults, the mistakes to avoid, and the sources behind them."
+    ],
+    "installTitle": "Install",
+    "installIntro": "In any agent that supports skills:",
+    "installAfter": "Pick only the skills you want with `--skill <name>`. In Claude Code you can also add it as a plugin marketplace: `/plugin marketplace add LucSena/how-to-build-software`.",
+    "copy": "Copy",
+    "copied": "Copied",
+    "howTitle": "How the agent uses it",
+    "how": "You don't call the skills by name. A router skill, `how-to-build-software`, reads your request, matches it against a routing table, and loads two to five skills in decision order: product, then architecture, then design, then implementation, then review. For example:",
+    "routes": [
+      ["Build login, sign-up, password reset, MFA, passkeys, SSO", "Build login and sign-up"],
+      ["Choose a database, cache, queue, search engine, or storage", "Pick a database and a queue"],
+      ["Build a dashboard, app shell, sidebar, or home screen", "Build the dashboard"]
+    ],
+    "loads": "loads",
+    "mistakesTitle": "What it prevents",
+    "mistakesIntro": "Every skill ends with a list of mistakes an agent makes without it. Three of the {gotchas}:",
+    "mistakes": [
+      ["auth-flows", "Separate “Sign in” and “Sign up” tabs.", "People pick the wrong one, hit “account already exists”, or create a second account. Use one “Continue” step."],
+      ["data-infrastructure", "Caching before indexing.", "A cached query with a missing index is still slow on every miss and every cold start, and now it has invalidation bugs too. Run EXPLAIN first."],
+      ["design-taste", "Fabricated proof.", "Invented “10,000+ teams”, “99.9% uptime”, testimonials, and logo walls. Use labeled placeholders and tell the user to replace them."]
+    ],
+    "skillsTitle": "The {n} skills",
+    "categories": { "meta": "Start here", "engineering": "Engineering", "design": "Design", "mobile": "Mobile" },
+    "sourcesTitle": "Where the rules come from",
+    "sources": "The skills cite {sources} sources: engineering blogs (Stripe, Cloudflare, Discord, Notion, Shopify, Slack), the Amazon Builders' Library, the Google SRE books, public postmortems, RFCs, design systems (Carbon, Primer, GOV.UK), and platform guidelines from Apple and Google. In September 2026 each cited number, version, and quote was checked against the original page; the log is in the repository.",
+    "sourcesLinks": [["Verification log", "research/P-source-review-2026-09.md"], ["Credits", "CREDITS.md"], ["Changelog", "CHANGELOG.md"]],
+    "footer": "Free and open source under the MIT license.",
+    "github": "View on GitHub",
+    "notFoundTitle": "Page not found",
+    "notFound": "This page doesn't exist. The whole site is one page:",
+    "backHome": "Go to the home page"
+  },
+  "pt": {
+    "htmlLang": "pt-BR",
+    "label": "Português",
+    "siteTitle": "How to Build Software",
+    "metaDescription": "45 Agent Skills que ensinam agentes de IA a planejar, construir e desenhar software como engenheiros e designers experientes.",
+    "dek": "45 skills que ensinam agentes de programação com IA a planejar, construir e desenhar software como engenheiros e designers experientes fazem.",
+    "updated": "Atualizado em {date}",
+    "readTime": "{n} min de leitura",
+    "skip": "Pular para o conteúdo",
+    "theme": "Alternar entre tema claro e escuro",
+    "languages": "Idioma",
+    "whatTitle": "O que é",
+    "what": [
+      "Uma skill é uma pasta com um arquivo `SKILL.md` que o agente lê quando o seu pedido combina com ela. Claude Code, Codex, Cursor, Gemini CLI, GitHub Copilot e outros agentes suportam o formato.",
+      "Estas skills guardam o que um engenheiro ou designer experiente diria ao agente antes de ele começar: qual banco escolher primeiro, quando um cache atrapalha, como uma tela de login deve funcionar, por que um redesign fracassou. Cada uma traz padrões concretos, os erros a evitar e as fontes por trás deles."
+    ],
+    "installTitle": "Instalação",
+    "installIntro": "Em qualquer agente que suporte skills:",
+    "installAfter": "Para instalar só algumas, use `--skill <nome>`. No Claude Code também dá para adicionar como marketplace de plugins: `/plugin marketplace add LucSena/how-to-build-software`.",
+    "copy": "Copiar",
+    "copied": "Copiado",
+    "howTitle": "Como o agente usa",
+    "how": "Você não chama as skills pelo nome. Uma skill roteadora, `how-to-build-software`, lê o pedido, compara com uma tabela de roteamento e carrega de duas a cinco skills na ordem das decisões: produto, arquitetura, design, implementação e revisão. Por exemplo:",
+    "routes": [
+      ["Build login, sign-up, password reset, MFA, passkeys, SSO", "Fazer login e cadastro"],
+      ["Choose a database, cache, queue, search engine, or storage", "Escolher banco de dados e fila"],
+      ["Build a dashboard, app shell, sidebar, or home screen", "Construir o dashboard"]
+    ],
+    "loads": "carrega",
+    "mistakesTitle": "O que evita",
+    "mistakesIntro": "Toda skill termina com uma lista de erros que o agente comete sem ela. Três dos {gotchas}:",
+    "mistakes": [
+      ["auth-flows", "Abas separadas de “Entrar” e “Cadastrar”.", "As pessoas escolhem a errada, dão de cara com “conta já existe” ou criam uma segunda conta. Use um único passo “Continuar”."],
+      ["data-infrastructure", "Cache antes de índice.", "Uma consulta em cache sem índice continua lenta a cada miss e a cada cold start, e ainda ganha bugs de invalidação. Rode o EXPLAIN primeiro."],
+      ["design-taste", "Prova inventada.", "“10.000+ times”, “99,9% de uptime”, depoimentos e paredes de logos que não existem. Use placeholders identificados e avise o usuário para trocá-los."]
+    ],
+    "skillsTitle": "As {n} skills",
+    "categories": { "meta": "Comece aqui", "engineering": "Engenharia", "design": "Design", "mobile": "Mobile" },
+    "sourcesTitle": "De onde vêm as regras",
+    "sources": "As skills citam {sources} fontes: blogs de engenharia (Stripe, Cloudflare, Discord, Notion, Shopify, Slack), a Amazon Builders' Library, os livros de SRE do Google, postmortems públicos, RFCs, design systems (Carbon, Primer, GOV.UK) e as diretrizes da Apple e do Google. Em setembro de 2026, cada número, versão e citação foi conferido na página original; o registro está no repositório.",
+    "sourcesLinks": [["Registro da verificação", "research/P-source-review-2026-09.md"], ["Créditos", "CREDITS.md"], ["Changelog", "CHANGELOG.md"]],
+    "footer": "Livre e de código aberto, sob a licença MIT.",
+    "github": "Ver no GitHub",
+    "notFoundTitle": "Página não encontrada",
+    "notFound": "Esta página não existe. O site inteiro é uma página só:",
+    "backHome": "Ir para a página inicial"
+  },
+  "es": {
+    "htmlLang": "es",
+    "label": "Español",
+    "siteTitle": "How to Build Software",
+    "metaDescription": "45 Agent Skills que enseñan a los agentes de IA a planificar, construir y diseñar software como lo hacen ingenieros y diseñadores con experiencia.",
+    "dek": "45 skills que enseñan a los agentes de programación con IA a planificar, construir y diseñar software como lo hacen ingenieros y diseñadores con experiencia.",
+    "updated": "Actualizado el {date}",
+    "readTime": "{n} min de lectura",
+    "skip": "Saltar al contenido",
+    "theme": "Cambiar entre tema claro y oscuro",
+    "languages": "Idioma",
+    "whatTitle": "Qué es",
+    "what": [
+      "Una skill es una carpeta con un archivo `SKILL.md` que el agente lee cuando tu pedido coincide con ella. Claude Code, Codex, Cursor, Gemini CLI, GitHub Copilot y otros agentes admiten el formato.",
+      "Estas skills contienen lo que un ingeniero o diseñador con experiencia le diría al agente antes de empezar: qué base de datos elegir primero, cuándo una caché estorba, cómo debe funcionar una pantalla de inicio de sesión, por qué fracasó un rediseño. Cada una trae valores por defecto concretos, los errores que hay que evitar y las fuentes que los respaldan."
+    ],
+    "installTitle": "Instalación",
+    "installIntro": "En cualquier agente que admita skills:",
+    "installAfter": "Para instalar solo algunas, usa `--skill <nombre>`. En Claude Code también puedes añadirlo como marketplace de plugins: `/plugin marketplace add LucSena/how-to-build-software`.",
+    "copy": "Copiar",
+    "copied": "Copiado",
+    "howTitle": "Cómo lo usa el agente",
+    "how": "No llamas a las skills por su nombre. Una skill enrutadora, `how-to-build-software`, lee tu pedido, lo compara con una tabla de enrutamiento y carga de dos a cinco skills en el orden de las decisiones: producto, arquitectura, diseño, implementación y revisión. Por ejemplo:",
+    "routes": [
+      ["Build login, sign-up, password reset, MFA, passkeys, SSO", "Hacer el inicio de sesión y el registro"],
+      ["Choose a database, cache, queue, search engine, or storage", "Elegir base de datos y cola"],
+      ["Build a dashboard, app shell, sidebar, or home screen", "Construir el dashboard"]
+    ],
+    "loads": "carga",
+    "mistakesTitle": "Qué evita",
+    "mistakesIntro": "Cada skill termina con una lista de errores que el agente comete sin ella. Tres de los {gotchas}:",
+    "mistakes": [
+      ["auth-flows", "Pestañas separadas de “Iniciar sesión” y “Registrarse”.", "La gente elige la equivocada, se topa con “la cuenta ya existe” o crea una segunda cuenta. Usa un único paso “Continuar”."],
+      ["data-infrastructure", "Caché antes que índice.", "Una consulta en caché sin índice sigue siendo lenta en cada fallo y en cada arranque en frío, y además gana bugs de invalidación. Ejecuta EXPLAIN primero."],
+      ["design-taste", "Pruebas inventadas.", "“10.000+ equipos”, “99,9 % de uptime”, testimonios y muros de logos que no existen. Usa marcadores identificados y avisa al usuario que debe reemplazarlos."]
+    ],
+    "skillsTitle": "Las {n} skills",
+    "categories": { "meta": "Empieza aquí", "engineering": "Ingeniería", "design": "Diseño", "mobile": "Móvil" },
+    "sourcesTitle": "De dónde salen las reglas",
+    "sources": "Las skills citan {sources} fuentes: blogs de ingeniería (Stripe, Cloudflare, Discord, Notion, Shopify, Slack), la Amazon Builders' Library, los libros de SRE de Google, postmortems públicos, RFC, design systems (Carbon, Primer, GOV.UK) y las guías de Apple y Google. En septiembre de 2026 se comprobó cada número, versión y cita en la página original; el registro está en el repositorio.",
+    "sourcesLinks": [["Registro de la verificación", "research/P-source-review-2026-09.md"], ["Créditos", "CREDITS.md"], ["Changelog", "CHANGELOG.md"]],
+    "footer": "Libre y de código abierto, con licencia MIT.",
+    "github": "Ver en GitHub",
+    "notFoundTitle": "Página no encontrada",
+    "notFound": "Esta página no existe. Todo el sitio es una sola página:",
+    "backHome": "Ir a la página de inicio"
+  }
+}

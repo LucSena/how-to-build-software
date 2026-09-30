@@ -2,6 +2,11 @@
 
 All notable changes to this collection. Versioning: `x.y.z` — x = restructure/breaking, y = new skill, z = content updates.
 
+## Unreleased
+
+- **Website rebuilt as one simple page** (per language: English, Português, Español), styled like a long blog post: a single reading column, Charis SIL for body text, Source Sans 3 for headings, Source Code Pro for code, light and dark themes. It shows what the skills are, how to install them, three real routing examples from the router table, three real gotchas, and all 45 skills with their summaries. Replaces the earlier multi-page "notebook" design.
+- The site generator now has **no dependencies** (plain Node, self-hosted fonts); the Pages workflow no longer runs `npm ci`.
+
 ## 0.2.1 — 2026-09-30
 
 Source verification against the original pages, with full web access, plus deeper engineering and design content read at the source.
