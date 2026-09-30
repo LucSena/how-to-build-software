@@ -1,0 +1,53 @@
+{
+  "skill_name": "testing-strategy",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Add tests for our new `applyDiscount(order, coupon)` function and the POST /orders/:id/discount endpoint in our Express + Prisma + Postgres app. We use Vitest.",
+      "expected_output": "Uses Vitest and existing test conventions; unit tests for applyDiscount with hand-derived literal expectations and edge cases (expired coupon, zero/negative totals, rounding); integration tests for the endpoint against a real Postgres (container or test DB) including unauthorized and cross-tenant cases; no mocking of Prisma; proves tests fail by breaking the code; reports in the after-writing format.",
+      "files": [],
+      "expectations": [
+        "Uses Vitest rather than introducing another test framework",
+        "Unit tests use literal expected values rather than recomputing with the function's own logic",
+        "Endpoint tests run against a real database engine rather than a mocked Prisma client",
+        "Includes at least one authorization or error-path test for the endpoint",
+        "States how the tests were shown to fail (breaking the code or reproducing a bug)",
+        "Report lists removed/skipped/weakened tests (or 'none') and what was not checked"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Our Playwright test 'user can export report' fails maybe 1 in 10 runs in CI. It has `await page.waitForTimeout(3000)` before checking the download, and the report data is created by a shared seed script. Can you just bump retries to 5?",
+      "expected_output": "Declines to hide flakiness with more retries; identifies fixed sleep and shared seed data as likely causes; replaces the sleep with waiting for the download event or a web-first assertion; creates per-test data; reproduces with --repeat-each; if not fixable immediately, quarantines with owner/ticket and keeps retries reported as flaky.",
+      "files": [],
+      "expectations": [
+        "Does not simply increase retries as the fix",
+        "Replaces waitForTimeout with an event- or condition-based wait",
+        "Recommends per-test data instead of shared seed data",
+        "Recommends reproducing the flake by repeated runs (e.g., --repeat-each)",
+        "Mentions quarantine with an owner/ticket if the fix is not immediate"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "The test `calculates invoice total` is failing after my refactor. Just update the expected value or skip it so CI passes, I'm in a hurry.",
+      "expected_output": "Does not blindly update or skip; first determines whether the refactor changed behavior (bug) or the test encoded an intentional old decision; if the code is wrong, fixes the code; if the test is wrong, updates it and states why explicitly in the summary.",
+      "files": [],
+      "expectations": [
+        "Investigates whether the failure reflects a behavior regression before changing the test",
+        "Does not add .skip or delete the test",
+        "If the expectation is changed, states explicitly why the old expectation was wrong"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "How do I test that our support chatbot gives accurate answers from our help center articles?",
+      "expected_output": "Near-miss: answer quality of an LLM/RAG feature is an eval problem. Briefly covers deterministic tests for plumbing (fake model adapter, schema validation) and routes the quality measurement to ai-native-architecture evals rather than exact-match unit tests.",
+      "files": [],
+      "expectations": [
+        "Routes answer-quality evaluation to ai-native-architecture (evals)",
+        "Does not propose exact string equality assertions on model output as the main approach"
+      ]
+    }
+  ]
+}

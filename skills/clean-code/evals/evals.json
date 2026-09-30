@@ -1,0 +1,54 @@
+{
+  "skill_name": "clean-code",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "This 180-line `processOrder` function in src/orders/service.ts is a mess — it validates the request body, computes totals, charges Stripe, sends an email, and has a `catch (e) { console.log(e) }` at the end. There are no tests. Clean it up.",
+      "expected_output": "Reads neighboring files and conventions first, adds characterization tests before changing anything, refactors in named behavior-preserving steps (Split Phase / Extract Function for parse, compute, side effects), replaces the swallowed error with propagation or a typed outcome, moves parsing to the boundary with the repo's schema library, and reports in the Summary / Changes / Verification / Not checked / Follow-ups format.",
+      "files": [],
+      "expectations": [
+        "Adds or proposes characterization tests before refactoring the untested function",
+        "Removes the log-and-continue catch block; errors are propagated, translated with context, or handled with a defined recovery",
+        "Names each smell and the refactoring applied (e.g., Long Function -> Split Phase/Extract Function)",
+        "Does not introduce a new interface, base class, or factory with a single implementation",
+        "Does not mix behavior changes into the refactor without calling them out",
+        "Final reply contains Summary, Changes, Verification, and Not checked sections"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "I have three nearly identical functions: formatUserCsv, formatInvoiceCsv, formatProductCsv. Each builds a header row and escapes values, but invoices also add a totals line. Should I make a generic CsvFormatter<T> base class with hooks?",
+      "expected_output": "Recommends extracting the genuinely shared knowledge (CSV escaping and row joining) into one function, keeping per-entity column mapping as data or small functions, and handling the invoice totals line in the invoice caller rather than via a hook/flag. Explains rule of three and the wrong-abstraction risk; rejects the inheritance-based base class.",
+      "files": [],
+      "expectations": [
+        "Distinguishes shared knowledge (escaping/joining) from per-caller variation (columns, totals line)",
+        "Recommends against an inheritance-based generic base class with hooks",
+        "Keeps the invoice-only totals behavior out of the shared abstraction (no flag parameter for one caller)",
+        "Mentions checking the codebase for an existing CSV helper or library before writing one"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Our Python service catches exceptions in every layer and logs them, and there are checks like `if user is None: raise` in almost every function even though the handler already loads the user. How should error handling be structured?",
+      "expected_output": "Explains handling at the layer that can decide, adding context with `raise ... from e` in lower layers, logging once at the boundary, parsing input with Pydantic at the boundary, and removing redundant deep checks. Uses specific exception classes (idiomatic Python) rather than introducing a Result library.",
+      "files": [],
+      "expectations": [
+        "Recommends logging each error once at the boundary rather than in every layer",
+        "Recommends exception chaining with `raise ... from e` to preserve the cause",
+        "Recommends parsing/validating once at the boundary and trusting typed values inside",
+        "Does not recommend introducing a Result/Either library as the default for Python",
+        "Warns against bare `except:` or `except Exception: pass`"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Should our checkout service be split into microservices so each part is cleaner?",
+      "expected_output": "Near-miss: this is an architecture/boundaries question. Briefly notes that code cleanliness inside modules does not require distribution, and routes to software-architecture rather than applying line-level clean-code refactorings.",
+      "files": [],
+      "expectations": [
+        "Identifies the question as architecture/module boundaries and points to software-architecture",
+        "Does not produce a line-level refactoring plan or code smell list as the main answer"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,56 @@
+{
+  "skill_name": "software-architecture",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I'm a solo founder starting a B2B invoicing SaaS (Node + Postgres). I want it to scale — should I start with microservices for billing, customers, and notifications, with Kafka between them?",
+      "expected_output": "Recommends a modular monolith on Postgres with Billing, Customers, and Notifications as modules owning their own tables, in-process domain events (outbox if reactions must not be lost), and lists the concrete triggers that would justify extracting a service later. Drafts an ADR and a Mermaid C4 context/container diagram.",
+      "files": [],
+      "expectations": [
+        "Recommends a modular monolith (single deployable) rather than microservices",
+        "Does not recommend Kafka or another broker for the initial design",
+        "Names at least two concrete triggers for later service extraction (e.g., team topology, independent scaling, deploy cadence, isolation)",
+        "States that each module owns its tables and other modules may not join or write them",
+        "Includes or offers an ADR for the decision",
+        "Includes a Mermaid diagram (C4 or flowchart)"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Our Django monolith is a big ball of mud — every app imports every other app's models and we have circular imports. Ten devs, two teams. How do we fix the structure without a rewrite?",
+      "expected_output": "Inspects the existing layout first, proposes business-capability modules with public interfaces and single table ownership, an incremental migration path (no big-bang rewrite), and import-linter contracts in CI to forbid internal imports and cycles.",
+      "files": [],
+      "expectations": [
+        "Does not propose a rewrite or immediate microservices",
+        "Proposes modules by business capability, not by technical layer",
+        "Recommends enforcing boundaries with an automated tool in CI (e.g., import-linter) including cycle or forbidden-import checks",
+        "Addresses data ownership (no cross-module table access) as part of the plan",
+        "Gives ordered, incremental migration steps"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "We have 9 product teams on one Rails monolith; deploys queue for hours and the video transcoding part needs GPUs. Plan how to extract services.",
+      "expected_output": "Acknowledges that team topology and a divergent scaling/hardware profile are valid triggers; lists prerequisites (per-service deploys, tracing, on-call, contract tests); prescribes the strangler-fig path starting with the module that has the strongest trigger (transcoding) after boundaries and data are separated; warns about distributed-monolith red flags.",
+      "files": [],
+      "expectations": [
+        "Identifies team topology and GPU/scaling needs as legitimate triggers for extraction",
+        "Lists platform prerequisites before extracting (e.g., automated deploys, tracing/observability, on-call ownership, contract tests)",
+        "Describes a strangler-fig or incremental extraction sequence, one service at a time",
+        "Requires database per service / no shared database",
+        "Mentions at least two distributed-monolith red flags"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Add retries with exponential backoff to our Stripe API client and a circuit breaker.",
+      "expected_output": "Near-miss: this is a resilience task for the reliability skill, not an architecture restructuring. Should not propose new modules, styles, ADRs, or C4 diagrams; should route to or apply reliability guidance (timeouts, retry with jitter for idempotent calls/idempotency keys, breaker).",
+      "files": [],
+      "expectations": [
+        "Does not propose restructuring the codebase or changing architecture style",
+        "Does not produce C4 diagrams",
+        "Addresses timeouts, retry backoff with jitter, and idempotency (directly or by deferring to the reliability skill)"
+      ]
+    }
+  ]
+}

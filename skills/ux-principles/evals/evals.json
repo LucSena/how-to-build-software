@@ -1,0 +1,54 @@
+{
+  "skill_name": "ux-principles",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Our project settings page has 14 buttons in a row at the top (Save, Duplicate, Archive, Export CSV, Export JSON, Delete, Share, Rename, Transfer, Webhooks, API keys, Members, Billing, Help). Users say it's confusing. How should we restructure it?",
+      "expected_output": "Applies Hick's law and progressive disclosure: one primary action, 1–2 secondary, rare actions in an overflow menu, destructive actions separated; groups related actions; moves navigation-like items (Members, Billing, Webhooks, API keys) into tabs or side navigation; cites the principle for each change.",
+      "files": [],
+      "expectations": [
+        "Recommends exactly one visually primary action for the view",
+        "Moves rarely used actions into an overflow or 'More' menu rather than deleting them",
+        "Separates destructive actions (Delete, Transfer) from frequent ones",
+        "Distinguishes navigation destinations from actions (e.g. tabs or sidebar for Members/Billing/API keys)",
+        "Names at least one specific law or heuristic (e.g. Hick's law, progressive disclosure) tied to a concrete change"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Growth wants to add a countdown timer that resets every visit saying 'Offer ends in 10:00', a pre-checked 'Add premium support' box at checkout, and a cancel flow that requires calling support. Can you implement these?",
+      "expected_output": "Declines the three patterns as dark patterns (fake urgency, sneak-into-basket/preselection, roach motel), cites the legal backstops (California ARL/AB 2863 online cancellation, FTC ROSCA enforcement, EU DSA Art. 25), and proposes honest alternatives: real deadlines only, unchecked optional add-on, online cancellation with at most one save offer next to a prominent cancel button.",
+      "files": [],
+      "expectations": [
+        "Does not implement a resetting countdown timer",
+        "Recommends the add-on checkbox be unchecked by default",
+        "Requires cancellation to be available online without calling support",
+        "Mentions at least one legal reference (California automatic renewal law, FTC/ROSCA, or EU DSA Art. 25)",
+        "Offers an honest alternative for each requested pattern"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Clicking 'Generate report' takes 4–25 seconds and the button just sits there. What should the UI do while it runs?",
+      "expected_output": "Uses response-time limits: immediate pressed/loading state, no spinner flash for fast cases, determinate or staged progress beyond ~10 s, ability to cancel and to background the job with a completion notification; keeps the button label with a 'Generating…' state and prevents double submission.",
+      "files": [],
+      "expectations": [
+        "Gives immediate feedback within ~100 ms of the click (pressed or loading state)",
+        "Treats waits over ~10 seconds differently: progress indication plus cancel or background option",
+        "Mentions notifying the user when a backgrounded job completes",
+        "Prevents double submission while the job is in flight"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Write the validation error messages and the loading skeleton for our signup form.",
+      "expected_output": "Near-miss: this is component-level states and microcopy work that belongs to interaction-design; a good answer applies that skill's error-message and loading rules (what happened + how to fix, validate on blur, skeleton timing) rather than producing a principles essay or a heuristic audit.",
+      "files": [],
+      "expectations": [
+        "Produces concrete error message strings rather than a list of UX laws",
+        "Error messages state what went wrong and how to fix it",
+        "Does not deliver a heuristic-evaluation report as the main output"
+      ]
+    }
+  ]
+}

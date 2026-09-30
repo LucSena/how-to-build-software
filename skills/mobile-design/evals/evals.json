@@ -1,0 +1,58 @@
+{
+  "skill_name": "mobile-design",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "We're building a habit-tracking app for iOS and Android in React Native. Design the first-run experience: sign-up, asking for notification permission for daily reminders, and camera access for progress photos.",
+      "expected_output": "A first-run plan that lets people create a habit before any account wall, asks for notification permission only after the user sets a reminder time, asks for camera only when they tap to add a photo (or uses the system photo picker), uses a single 'Continue' button on any iOS pre-permission screen, allows 'Not now' only in the Android rationale, and designs denied states with settings deep links.",
+      "files": [],
+      "expectations": [
+        "Does not request any permission at app launch",
+        "Notification permission is tied to a user action such as setting a reminder",
+        "Any iOS pre-permission screen has exactly one button labelled Continue or Next, with no skip or Not now",
+        "Mentions the Android POST_NOTIFICATIONS runtime permission or shouldShowRequestPermissionRationale",
+        "Describes a denied-permission state with a path to system settings",
+        "Lets the user reach value before forcing account creation, or explains why an account is required",
+        "Mentions in-app account deletion if account creation is offered"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Our Android app is a port of our iOS app. Designers want the same UI on both: bottom tab bar with a center + tab for creating posts, iOS-style back chevron with 'Back' text, and a custom share sheet so it looks on-brand. Review this plan.",
+      "expected_output": "A review that flags the + tab as an action in a navigation bar (use a FAB or toolbar), rejects iOS back chevron + text on Android in favor of system back/predictive back and the Material top app bar, rejects the custom share sheet in favor of the Android Sharesheet, and recommends sharing content and brand while letting chrome follow each platform.",
+      "files": [],
+      "expectations": [
+        "Flags the + tab as misuse of navigation for an action and proposes a FAB or toolbar action",
+        "Recommends Android system back / predictive back instead of an iOS-style back button with text",
+        "Recommends the system share sheet over a custom share UI",
+        "Distinguishes what to share across platforms (content, brand) from what to split (navigation, dialogs, system surfaces)",
+        "Findings carry a severity label (P0-P3 or equivalent)"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Spec the checkout form for our mobile app: email, phone, card number, one-time code from SMS. Make sure it's fast to fill on a phone.",
+      "expected_output": "A field-by-field spec with keyboard types, autofill/content types (including one-time-code), return-key behavior, validation on blur, paste allowed, keyboard avoidance for the submit button, and a note that Android 17 delays standard SMS OTPs so SMS Retriever/User Consent or autofill is required.",
+      "files": [],
+      "expectations": [
+        "Specifies an email keyboard and email autofill/content type for the email field",
+        "Specifies a phone keyboard for the phone field",
+        "Specifies one-time-code autofill (iOS textContentType oneTimeCode and an Android equivalent such as SMS Retriever or SMS User Consent)",
+        "States the keyboard must not cover the focused field or submit button",
+        "Allows paste in all fields including the code",
+        "Does not recommend reading SMS with READ_SMS"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Which SwiftUI modifier makes a floating toolbar button use the prominent Liquid Glass style?",
+      "expected_output": "Near-miss: a narrow iOS API question. Answers directly with .buttonStyle(.glassProminent) (or a confirmation-action toolbar item) and points to ios-design for Liquid Glass details, without running the cross-platform mobile-design workflow.",
+      "files": [],
+      "expectations": [
+        "Answers with .buttonStyle(.glassProminent) or ToolbarItem placement .confirmationAction",
+        "Does not produce a full cross-platform navigation map, permission table, or form spec",
+        "Refers to ios-design or keeps the answer iOS-specific"
+      ]
+    }
+  ]
+}

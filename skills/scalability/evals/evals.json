@@ -1,0 +1,56 @@
+{
+  "skill_name": "scalability",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Our /api/projects/:id/tasks endpoint takes 4 seconds for big projects. Postgres, Prisma, ~2M tasks. Should we put Redis in front of it?",
+      "expected_output": "Measures first (EXPLAIN ANALYZE, query logs), checks for missing composite index and N+1 (e.g., per-task includes), adds keyset pagination with a limit, and only then considers caching with a stated staleness and invalidation plan. Does not add Redis as the first step.",
+      "files": [],
+      "expectations": [
+        "Asks for or runs EXPLAIN (ANALYZE) / query-level measurement before caching",
+        "Checks for a missing index, proposing a composite index with the filter column first (e.g., project_id then sort column)",
+        "Checks for N+1 queries and proposes eager loading or batching",
+        "Requires a LIMIT and cursor/keyset pagination for the list",
+        "Does not recommend Redis as the first fix; if caching is suggested, it includes invalidation after commit and TTL"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "We're launching a consumer app and expect 5 million requests per day at launch, maybe 3x in a year. p95 should be under 300 ms. How many app servers and DB connections do we need, and do we need Kafka?",
+      "expected_output": "Converts 5M/day to ~58 rps average, applies a peak factor (~3x → ~175 rps; ~520 rps at 3x growth), applies Little's law for in-flight requests, sizes the DB pool by cores ((cores × 2) + 1) with a pooler, recommends N+1 headroom, and concludes Kafka is not needed at this scale absent a specific requirement.",
+      "files": [],
+      "expectations": [
+        "Converts requests/day into average rps correctly (about 58 rps)",
+        "Applies a peak multiplier to get peak rps",
+        "Uses Little's law (rate × latency) to estimate concurrency",
+        "Sizes DB connections from database cores rather than from traffic, and mentions a pooler",
+        "Says Kafka is not required for this load without a specific need (e.g., replay or many consumer groups)",
+        "Labels numbers as estimates to be confirmed by load testing"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "When an order is paid we update the orders table and then publish an OrderPaid message to SQS so the shipping service picks it up. Sometimes shipping never hears about it, and sometimes it ships twice. Fix the design.",
+      "expected_output": "Identifies the dual-write problem, introduces a transactional outbox with a relay, explains at-least-once delivery, and makes the shipping consumer idempotent via an inbox/dedupe table keyed by message ID in the same transaction as the effect.",
+      "files": [],
+      "expectations": [
+        "Names the dual-write problem as the cause of lost messages",
+        "Proposes a transactional outbox written in the same transaction as the order update",
+        "States delivery is at-least-once",
+        "Makes the consumer idempotent with a dedupe/inbox table or equivalent keyed by message ID",
+        "Does not claim exactly-once delivery from the broker solves it"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Our checkout calls the payment provider and sometimes hangs for 60 seconds. Add a timeout and a circuit breaker.",
+      "expected_output": "Near-miss: this is a resilience/reliability task (timeouts, retries, breakers), not capacity scaling. Should apply or route to reliability guidance rather than proposing caching, replicas, sharding, or queues as the fix.",
+      "files": [],
+      "expectations": [
+        "Does not propose caching, read replicas, or sharding as the fix",
+        "Sets an explicit timeout on the payment call and addresses circuit breaking (directly or by deferring to the reliability skill)",
+        "Mentions idempotency (e.g., idempotency key) if retries are suggested"
+      ]
+    }
+  ]
+}

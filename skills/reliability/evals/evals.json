@@ -1,0 +1,55 @@
+{
+  "skill_name": "reliability",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Our Node API calls a shipping-rates provider with plain fetch() during checkout. When the provider is slow, our whole API hangs and pods restart. Fix it.",
+      "expected_output": "Adds an explicit timeout via AbortSignal.timeout derived from the provider's latency and the request budget; limited retries (only transient errors, capped exponential backoff with full jitter, honoring Retry-After, single layer); a circuit breaker and bulkhead/concurrency limit for the provider; a fallback (cached or default rates, or clear degraded message); metrics/trace span; and checks that liveness probes do not depend on the provider or DB.",
+      "files": [],
+      "expectations": [
+        "Adds an explicit timeout to the fetch call (e.g., AbortSignal.timeout)",
+        "Retries only transient errors with capped exponential backoff and jitter, with a small max attempts",
+        "Adds a circuit breaker or bulkhead/concurrency limit for the provider",
+        "Defines a fallback or degraded behavior for checkout when the provider is unavailable",
+        "Mentions that liveness probes must not check downstream dependencies (pod restarts)",
+        "Adds telemetry (latency/error metrics or trace span) for the dependency"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Set up alerting for our payments API. Right now we page on CPU > 80% and it wakes people up for nothing. We want 99.9% availability.",
+      "expected_output": "Defines an availability SLI (non-5xx / valid requests at the gateway), a 99.9% 30-day SLO with ~43 min error budget, multi-window multi-burn-rate alerts (14.4x 1h/5m page, 6x 6h/30m page, 1x 3d/6h ticket), removes CPU paging in favor of dashboards/tickets, requires runbooks, and suggests an error-budget policy.",
+      "files": [],
+      "expectations": [
+        "Defines an SLI as a ratio of good events to valid events",
+        "States the error budget for 99.9% over 30 days (about 43 minutes)",
+        "Uses multi-window burn-rate alerts including 14.4x over 1h and 5m",
+        "Recommends not paging on CPU (symptom-based alerting instead)",
+        "Requires a runbook link or actionable alerts"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Write the migration to rename the column customers.name to customers.full_name in our Postgres DB. We deploy with rolling updates.",
+      "expected_output": "Refuses a single RENAME in the same deploy; gives an expand/contract sequence across multiple deploys: add nullable column, dual-write, batched backfill, switch reads, add NOT NULL via CHECK NOT VALID + VALIDATE, stop writing old, drop old later; sets lock_timeout; notes both app versions run concurrently.",
+      "files": [],
+      "expectations": [
+        "Does not use a single RENAME COLUMN deployed together with the code change",
+        "Explains that old and new app versions run concurrently during rolling deploys",
+        "Includes add column, dual-write, backfill in batches, switch reads, and drop old column in a later release",
+        "Sets lock_timeout (or equivalent) for the DDL",
+        "Adds NOT NULL safely (CHECK ... NOT VALID then VALIDATE, or equivalent)"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Our Postgres primary is at 95% CPU from a dashboard query that scans the events table. How should we scale the database?",
+      "expected_output": "Near-miss: this is a capacity/query performance problem for the scalability skill (EXPLAIN, indexes, pagination, replicas, partitioning), not primarily resilience patterns. Should not answer with retries, circuit breakers, or SLO alerting as the fix.",
+      "files": [],
+      "expectations": [
+        "Does not propose retries or circuit breakers as the fix for the CPU problem",
+        "Focuses on measuring the query (EXPLAIN) and fixing indexes/query shape, or defers to the scalability skill"
+      ]
+    }
+  ]
+}

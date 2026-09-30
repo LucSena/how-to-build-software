@@ -1,0 +1,54 @@
+{
+  "skill_name": "data-dense-ui",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Build an orders table for our admin in React: columns order ID, customer, status, total (EUR), created date. We have about 80,000 orders and growing.",
+      "expected_output": "Server-side pagination/sort/filter with URL state; numbers right-aligned with tabular numerals and Intl currency formatting; status as text badge; created date locale-formatted with time zone; copyable ID; sticky header; visible row actions menu; bulk selection with explicit 'select all matching'; loading, empty, no-results, and error states.",
+      "files": [],
+      "expectations": [
+        "Sorting, filtering, and pagination are performed server-side (not client-side over a single page)",
+        "Total column is right-aligned and uses tabular numerals",
+        "Currency and dates are formatted with Intl (or equivalent locale-aware formatter), not string concatenation or toFixed",
+        "Filter, sort, and page state are stored in the URL",
+        "Status is conveyed with text, not color alone",
+        "Includes empty/no-results and error states for the table"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Our SaaS dashboard shows 12 same-size cards (MRR, ARR, churn, signups, DAU, MAU, NPS, tickets, uptime, CAC, LTV, ARPU). Nobody uses it. Redesign it.",
+      "expected_output": "Starts from the primary question and user role; establishes a KPI hierarchy with one north-star metric top-left and at most 3–5 headline KPIs; each KPI has comparison, period, and good-direction coding with icon plus color; moves remaining metrics to trends, tables, or linked reports; adds freshness and per-tile states.",
+      "files": [],
+      "expectations": [
+        "Asks for or states the primary question/decision the dashboard serves",
+        "Reduces headline KPIs to at most 5 with one visually dominant metric",
+        "Each KPI shows a comparison (vs. target or previous period) and its period",
+        "Deltas are encoded with more than color (sign, arrow, or text)",
+        "Moves remaining metrics to secondary areas or linked views rather than keeping 12 equal tiles"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Which chart should I use to show monthly revenue for our 4 product lines over the last 2 years, and how do I show each product's share of this month's revenue?",
+      "expected_output": "Line chart (4 series, direct labels, possibly highlight one) or small multiples for the trend; a sorted bar or 100% stacked bar (pie acceptable only because there are 4 parts) for the current share; bars start at zero; consistent colors per product; accessible table alternative.",
+      "files": [],
+      "expectations": [
+        "Recommends a line chart (or small multiples) for the 2-year trend",
+        "Recommends a bar, stacked bar, or a pie/donut only with justification of few parts for the share",
+        "Recommends consistent colors per product line across both charts",
+        "Mentions a text or table alternative for accessibility"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Our Postgres query behind the orders list takes 9 seconds. How do we speed up the database?",
+      "expected_output": "Near-miss: this is backend query performance (indexes, query plans, pagination strategy in the database) owned by scalability; the answer should focus on database indexing and query optimization, possibly noting UI-side keyset pagination, rather than table styling.",
+      "files": [],
+      "expectations": [
+        "Addresses database-side causes (indexes, query plan / EXPLAIN, or keyset pagination)",
+        "Does not respond primarily with table layout, density, or formatting advice"
+      ]
+    }
+  ]
+}

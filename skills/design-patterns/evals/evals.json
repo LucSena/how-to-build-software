@@ -1,0 +1,51 @@
+{
+  "skill_name": "design-patterns",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "We compute shipping cost differently for 'standard', 'express', and 'pickup'. Right now it's an if/else in calculateShipping(). I want to use the Strategy pattern with a ShippingStrategy interface, three classes, and a ShippingStrategyFactory. Can you implement that in our TypeScript codebase?",
+      "expected_output": "Checks the codebase for existing conventions, then recommends the simplest adequate form: a union type for the method plus an exhaustive switch or a Record<ShippingMethod, (order) => Money> map of functions. Explains that interface + classes + factory is not justified for three stateless formulas, states when it would be (strategies with their own config/state or open extension), and gives a short sketch plus a revisit condition.",
+      "files": [],
+      "expectations": [
+        "Recommends a map of functions or exhaustive switch over a union instead of interface + 3 classes + factory",
+        "States the condition under which a full Strategy with classes would be justified",
+        "Does not create a factory class",
+        "Output includes Problem, Simplest option considered, Recommendation, and Revisit/remove when"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Our Next.js app has a checkout flow with isLoading, isError, isPaid, isRetrying and showConfirm booleans in one component, and we keep getting bugs where the spinner and error show at the same time. How should we restructure the state?",
+      "expected_output": "Recommends modeling checkout as a finite state machine: a discriminated union of states with a reducer (or XState if nested/parallel states are needed), with explicit UI per state. Explains impossible states, keeps server data in the data-fetching layer, and notes server actions must authenticate, authorize, and validate.",
+      "files": [],
+      "expectations": [
+        "Replaces the booleans with a discriminated union or state machine",
+        "Shows or describes explicit transitions/events",
+        "Explains that the change makes contradictory states unrepresentable",
+        "Does not recommend adding more booleans or a useEffect to sync them"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Review this Kotlin design: every service has an interface (IUserService, IOrderService) with exactly one Impl class, a generic BaseRepository<T> wraps our Exposed ORM, and ConfigManager.getInstance() is called inside business logic. Is this good architecture?",
+      "expected_output": "Identifies premature abstraction (single-implementation interfaces), a generic repository over an ORM that hides query capabilities, and singleton abuse via global access. Recommends concrete classes except at I/O boundaries, named query functions or aggregate repositories, and constructor injection of config from a composition root. Names removal steps.",
+      "files": [],
+      "expectations": [
+        "Flags single-implementation interfaces as unnecessary unless they sit at an I/O boundary",
+        "Flags the generic BaseRepository<T> over the ORM as a lowest-common-denominator wrapper",
+        "Flags ConfigManager.getInstance() in business logic and recommends constructor injection",
+        "Gives concrete, incremental steps rather than a full rewrite"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Should our order system be split into separate microservices communicating through Kafka events?",
+      "expected_output": "Near-miss: this is an architecture-style and service-boundary decision. Routes to software-architecture (and scalability for messaging) rather than answering with GoF Observer or in-process event patterns.",
+      "files": [],
+      "expectations": [
+        "Routes the question to software-architecture",
+        "Does not answer by recommending an in-process Observer/event emitter pattern"
+      ]
+    }
+  ]
+}

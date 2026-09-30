@@ -1,0 +1,57 @@
+{
+  "skill_name": "motion-design",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Add some nice animations to our app: the command palette (Cmd+K), the settings modal, the dropdown menus, and toasts. Make it feel premium.",
+      "expected_output": "Applies the frequency gate: the Cmd+K palette gets no open/close animation; modal, dropdowns and toasts get short ease-out transitions with exact curves and durations, origin-aware dropdowns, toasts via transitions, and a reduced-motion variant for each.",
+      "files": [],
+      "expectations": [
+        "The command palette opened via keyboard shortcut is left un-animated (or explicitly instant)",
+        "Uses an ease-out cubic-bezier for entrances and does not use ease-in for any entrance",
+        "All UI durations are at or under 300 ms (drawers/sheets excepted)",
+        "No entrance starts from scale(0); starts around 0.95 or higher",
+        "Dropdown transform-origin is set to the trigger while the modal stays centered",
+        "Includes a prefers-reduced-motion variant that keeps opacity and removes movement, without a global 0.01ms kill switch",
+        "Animates only transform and opacity and does not use transition: all"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Build a mobile bottom sheet in React that users can drag down to dismiss. Right now it only closes if you drag it more than half way and it feels dead.",
+      "expected_output": "Implements velocity-based dismissal alongside the distance threshold, pointer capture, 1:1 tracking with grab offset, rubber-banding above the top, spring with velocity handoff on release, cancel handling, and a non-drag close control.",
+      "files": [],
+      "expectations": [
+        "Dismisses on release velocity (around 0.11 px/ms) as well as distance",
+        "Uses setPointerCapture (or the library equivalent) once dragging starts",
+        "Applies rubber-band resistance past the boundary instead of a hard clamp",
+        "Hands release velocity to a spring or uses an iOS-like drawer curve",
+        "Handles pointercancel or lost capture so state resets",
+        "Provides a non-drag way to close (button or Escape) for WCAG 2.5.7"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Our landing page scroll animations are janky on Android phones. We use a scroll event listener that sets opacity and top on each section.",
+      "expected_output": "Replaces scroll listeners with scroll-driven animations behind @supports (or IntersectionObserver), switches from top to transform, keeps content visible by default, disables under reduced motion, and notes Firefox lacks scroll-driven animations as of 2026-09.",
+      "files": [],
+      "expectations": [
+        "Removes the scroll event listener as the animation driver",
+        "Animates translate/transform and opacity instead of top",
+        "Wraps animation-timeline usage in @supports and a reduced-motion query",
+        "States that scroll-driven animations are not Baseline (missing in Firefox stable) and are progressive enhancement",
+        "Content is visible without the animation running"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Should the success message after saving a form be a toast or shown inline next to the Save button?",
+      "expected_output": "Near-miss: this is a feedback-pattern choice, not a motion question. Answers briefly (inline feedback near the trigger for a single form save) or routes to interaction-design, without producing a motion spec.",
+      "files": [],
+      "expectations": [
+        "Does not produce easing curves, durations, or spring parameters as the main answer",
+        "Addresses the toast-versus-inline pattern decision or points to interaction-design"
+      ]
+    }
+  ]
+}

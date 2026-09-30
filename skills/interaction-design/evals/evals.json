@@ -1,0 +1,53 @@
+{
+  "skill_name": "interaction-design",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Here's our signup form in React: email and password inputs with placeholder text as labels, errors shown on every keystroke, the submit button disabled until everything is valid, and the form resets if the API returns an error. Fix it.",
+      "expected_output": "Adds visible labels, moves validation to on-blur then on-input after an error, keeps submit enabled and focuses the first invalid field on submit, preserves input on API errors with a specific message, adds type/autocomplete attributes, a loading state with unchanged label and double-submit protection.",
+      "files": [],
+      "expectations": [
+        "Every input gets a visible label; placeholder is not used as the label",
+        "Validation first runs on blur (not on the first keystroke) and clears as soon as the value becomes valid",
+        "Submit button is not pre-disabled; on submit the first invalid field receives focus",
+        "Entered values are preserved when the API returns an error",
+        "Email input uses type=email and autocomplete (email or username); password uses autocomplete new-password or current-password",
+        "Submit shows a loading state and prevents double submission"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Users can delete tasks from a list. Right now it opens a modal 'Are you sure? Yes / No'. Can you improve this?",
+      "expected_output": "Replaces the confirmation with immediate soft-delete plus an Undo toast (~5–10 s, pausing on hover/focus), keyboard-reachable Undo, hard-delete after the window; if a confirmation is kept for bulk or irreversible cases, uses specific verb buttons.",
+      "files": [],
+      "expectations": [
+        "Recommends Undo instead of a confirmation dialog for this reversible action",
+        "Undo is offered for a bounded window of several seconds",
+        "Implementation soft-deletes first and permanently deletes only after the window",
+        "Does not use 'Yes' / 'No' as button labels anywhere in the solution"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "In our admin app, clicking a customer row opens a modal with the customer's details and an edit form with 20 fields; from there 'View invoices' opens another modal. What's a better pattern?",
+      "expected_output": "Moves detail/edit into a side sheet or a full page with a URL, eliminates modal-on-modal by navigating or replacing content, keeps list context, restores focus, and makes the open item deep-linkable.",
+      "files": [],
+      "expectations": [
+        "Replaces the modal with a side sheet/drawer or a dedicated page",
+        "Explicitly removes the modal-on-modal (nested modal) pattern",
+        "Makes the open customer (and invoices view) addressable by URL so Back and sharing work",
+        "Mentions focus handling on open and close"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Our data table with 50,000 rows is slow to scroll and sorting takes seconds. How do we fix it?",
+      "expected_output": "Near-miss: this is a data-dense UI and performance problem (virtualization, server-side sorting/pagination) owned by data-dense-ui; a good answer addresses virtualization or server-side operations rather than only interaction states or copy.",
+      "files": [],
+      "expectations": [
+        "Recommends virtualization or server-side pagination/sorting",
+        "Does not limit the answer to loading spinners or microcopy changes"
+      ]
+    }
+  ]
+}

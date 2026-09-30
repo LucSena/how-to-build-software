@@ -1,0 +1,54 @@
+{
+  "skill_name": "web-platform",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Our marketing site's LCP is 4.2s on mobile. The hero is a CSS background-image set by a React component after hydration, and we lazy-load all images. What should we change?",
+      "expected_output": "Identifies late discovery and lazy-loading as causes; moves the hero to an <img> in server-rendered HTML with fetchpriority=high, width/height, srcset/sizes, AVIF/WebP, no loading=lazy; keeps lazy-loading for below-the-fold; states the 2.5s p75 threshold and recommends field measurement with attribution.",
+      "files": [],
+      "expectations": [
+        "States the good LCP threshold as 2.5 s at p75 (not 2.0 s)",
+        "Recommends rendering the hero as an <img> in the initial HTML instead of a JS-applied CSS background",
+        "Recommends fetchpriority=\"high\" on the LCP image and removing loading=\"lazy\" from it",
+        "Keeps loading=\"lazy\" for below-the-fold images",
+        "Recommends explicit width/height or aspect-ratio",
+        "Recommends responsive srcset/sizes and a modern format (AVIF or WebP)"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Add a dark mode toggle to our site. Users complain about a white flash when the page loads in dark mode.",
+      "expected_output": "Uses color-scheme meta and :root color-scheme, light-dark() tokens, an inline head script (or server-rendered attribute) that applies the saved override before paint, system preference by default, theme-color per scheme, and disabling transitions during swap.",
+      "files": [],
+      "expectations": [
+        "Adds <meta name=\"color-scheme\" content=\"light dark\"> and sets color-scheme on :root or html (not body)",
+        "Applies a saved theme before first paint via an inline head script or server-side attribute, not in a framework effect",
+        "Defaults to the system preference and persists only an explicit override",
+        "Uses light-dark() or equivalent semantic tokens rather than inverting colors",
+        "Mentions disabling transitions during the theme swap"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Can I use scroll-driven animations and CSS anchor positioning in production for our dashboard tooltips and a reading progress bar? We need to support the latest two versions of Chrome, Safari, and Firefox.",
+      "expected_output": "Explains that scroll-driven animations are not in Firefox stable as of 2026-09 (progressive enhancement behind @supports), anchor positioning shipped in all engines by Firefox 147 but needs feature detection and a fallback position; gives @supports snippets and fallbacks.",
+      "files": [],
+      "expectations": [
+        "States scroll-driven animations are not supported in Firefox stable and must be progressive enhancement",
+        "Wraps scroll-driven code in @supports (animation-timeline: ...)",
+        "States anchor positioning shipped in all engines by early 2026 and recommends @supports (anchor-name: ...) detection or a fallback position",
+        "Provides a fallback that keeps the tooltip usable without the feature"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Should our new SaaS dashboard use Next.js server components or a client-side SPA with React Query?",
+      "expected_output": "Near-miss: rendering strategy and data fetching architecture belong to frontend-architecture. Routes there (optionally noting performance implications like JS budget), rather than producing a CSS/CWV checklist.",
+      "files": [],
+      "expectations": [
+        "Routes the decision to frontend-architecture or treats it as an architecture question",
+        "Does not answer with a modern CSS Baseline table or metadata checklist"
+      ]
+    }
+  ]
+}

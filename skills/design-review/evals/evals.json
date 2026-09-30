@@ -1,0 +1,54 @@
+{
+  "skill_name": "design-review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Review our pricing page before launch. Here's the code in app/pricing/page.tsx and a screenshot at desktop width. Is it ready to ship?",
+      "expected_output": "Runs the passes in order, scores all 10 Nielsen heuristics 0-4 (with n/a renormalization allowed for 7 and 10 on a Persuade surface), labels findings Observed/Inferred with file:line or screen region, assigns P0-P3 with one fix each, lists mobile and dark mode as Not checked if no evidence was provided, and gives a ship/fix/rebuild verdict.",
+      "files": [],
+      "expectations": [
+        "Includes a heuristic score table covering all 10 Nielsen heuristics with a total and rating band",
+        "If any heuristic is marked n/a, the total uses the reduced maximum (not /40)",
+        "Every finding has a P0-P3 severity and exactly one concrete fix",
+        "Findings are labeled Observed or Inferred and cite a file:line or a described screen region",
+        "Includes a Not checked section that names mobile width (390 px) if no mobile evidence was provided",
+        "Includes a verdict such as ship, fix, or rebuild"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Here's a landing page an AI generated for my bakery: centered hero with a purple-to-blue gradient, 'Elevate your mornings' headline in Inter, three cards with emoji icons, three testimonials from 'Sarah J.', 'Mike T.', 'Emma L.' and '10,000+ happy customers'. What do you think?",
+      "expected_output": "Flags the generic/slop patterns as reflex defaults (gradient, Inter as brand voice, three identical cards, emoji icons, buzzword headline), flags fabricated testimonials and the unsourced metric as at least P1 and says to replace them with real content or clearly labeled placeholders rather than more plausible fakes, and routes the visual direction to design-taste.",
+      "files": [],
+      "expectations": [
+        "Identifies at least three generic default patterns from the slop check",
+        "Flags the testimonials and '10,000+ happy customers' as potentially fabricated and rates this P1 or higher",
+        "Does not suggest inventing more realistic-looking testimonials or numbers",
+        "Recommends design-taste (or a deliberate visual direction) rather than only cosmetic tweaks",
+        "Names specific strengths or states that none were found"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "You already fixed the dashboard issues from your review twice, but the empty state and filter bar still feel off to me. Keep polishing until it's perfect.",
+      "expected_output": "Applies the two-round cap: stops iterative polishing, calls for a fresh-eyes review with the evidence set and original goals, returns a disposition (ship/fix/rebuild/recapture), and flags that recurring issues after two rounds suggest a structural problem.",
+      "files": [],
+      "expectations": [
+        "Does not start a third open-ended polish round",
+        "Proposes or performs a fresh-eyes review by a reviewer without prior conversation context",
+        "Uses a disposition such as ship, fix, rebuild, or recapture",
+        "Suggests the recurring problem may be structural and recommends redesigning that part"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Review this pull request: it refactors our useInvoices hook to use React Query and fixes a race condition in pagination.",
+      "expected_output": "Near-miss: this is a code/PR correctness review, not a UI design review. Routes to code-review and does not produce heuristic scores or a slop check.",
+      "files": [],
+      "expectations": [
+        "Does not produce Nielsen heuristic scores",
+        "Routes to code-review or performs a code correctness review instead of a design audit"
+      ]
+    }
+  ]
+}

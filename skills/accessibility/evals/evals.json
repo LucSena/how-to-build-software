@@ -1,0 +1,56 @@
+{
+  "skill_name": "accessibility",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Build a React confirm-delete modal for our project list. Keep it simple.",
+      "expected_output": "Uses native dialog (or an accessible primitive) with aria-labelledby, initial focus on the safe action, Escape to close, focus returned to the trigger, specific button labels, and a polite announcement after deletion; notes what was tested.",
+      "files": [],
+      "expectations": [
+        "Uses <dialog> with showModal() or a named accessible primitive rather than a hand-rolled div overlay",
+        "Dialog is labelled by its title (aria-labelledby or equivalent)",
+        "Focus returns to the triggering element when the dialog closes",
+        "Escape closes the dialog",
+        "Buttons name the action (e.g. 'Delete project' / 'Cancel'), not Yes/No",
+        "Focus ring uses :focus-visible and is not removed"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Audit this signup form for accessibility: <form><input placeholder=\"Email\"><input type=\"password\" placeholder=\"Password\" onpaste=\"return false\"><div class=\"btn\" onclick=\"submit()\">Sign up</div><span style=\"color:red\">Invalid email</span></form>",
+      "expected_output": "Reports findings with WCAG criteria and severity: missing labels (1.3.1/3.3.2/4.1.2), blocked paste (3.3.8), div button (2.1.1/4.1.2), error not linked or color-only (1.4.1/3.3.1), missing autocomplete (1.3.5); each with an exact fix; states that automated tools alone would not verify everything and lists what was not checked.",
+      "files": [],
+      "expectations": [
+        "Flags placeholder-only inputs as missing labels and cites a WCAG criterion",
+        "Flags the blocked paste as a 3.3.8 Accessible Authentication failure",
+        "Flags the div used as a button and recommends a native <button>",
+        "Recommends linking the error with aria-describedby and aria-invalid",
+        "Recommends autocomplete tokens such as email and new-password",
+        "Each finding has a severity and one concrete fix",
+        "Includes a Not checked section"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Our design uses light gray #9CA3AF text on white for secondary labels. The designer says APCA says it's fine, so we're compliant, right?",
+      "expected_output": "Explains WCAG 2 contrast ratio (4.5:1 for normal text) is the compliance bar; APCA is not part of WCAG 2.x and not adopted in WCAG 3 as of 2026-09; #9CA3AF on white is about 2.5:1 and fails; suggests a darker token.",
+      "files": [],
+      "expectations": [
+        "States WCAG 2.x ratios (4.5:1 normal text, 3:1 large) are the compliance requirement",
+        "States APCA is a secondary/perceptual check and not a compliance substitute",
+        "Concludes the pair fails AA for normal-size text",
+        "Suggests a darker color or token that reaches 4.5:1"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Can you make our page transitions feel snappier? They take about 600ms and use ease-in.",
+      "expected_output": "Near-miss: this is primarily motion tuning. Routes to or applies motion-design guidance (shorter duration, ease-out); may mention reduced-motion support, but does not run a WCAG audit.",
+      "files": [],
+      "expectations": [
+        "Does not produce a WCAG conformance audit or checklist as the answer",
+        "Recommends shorter duration and an ease-out curve, or points to motion-design"
+      ]
+    }
+  ]
+}

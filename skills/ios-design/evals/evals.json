@@ -1,0 +1,54 @@
+{
+  "skill_name": "ios-design",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Our SwiftUI app still looks like iOS 18: we use a custom navigation bar background in our brand purple, a custom HStack tab bar with a blur, and cards with .ultraThinMaterial. We set UIDesignRequiresCompatibility to YES last year. Plan the update to Liquid Glass.",
+      "expected_output": "A migration plan that removes custom bar backgrounds and the custom tab bar in favor of system TabView/toolbar (which adopt Liquid Glass automatically), keeps glass off the content cards (standard materials or plain surfaces there), limits tint to the primary action, uses GlassEffectContainer for any remaining custom floating controls, warns that UIDesignRequiresCompatibility is ignored when building with the iOS 27 SDK, and includes accessibility testing with Reduce Transparency, Increase Contrast, Reduce Motion and the glass transparency setting.",
+      "files": [],
+      "expectations": [
+        "Recommends replacing the custom tab bar with the system TabView",
+        "Recommends removing the custom opaque/brand navigation bar background",
+        "States that Liquid Glass should not be applied to content cards or list rows",
+        "States that UIDesignRequiresCompatibility is ignored when building with the iOS 27 SDK",
+        "Limits tinted/prominent glass to the primary action",
+        "Includes testing with Reduce Transparency and Increase Contrast"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Design the settings row layout and type styles for an iOS banking app screen that shows account name, balance, and a chevron. Some of our users use the largest accessibility text sizes.",
+      "expected_output": "Uses Dynamic Type text styles (e.g. body/headline for name, body or title3 for balance, footnote/subheadline for secondary), no fixed point sizes, switches the horizontal row to a vertical stack at accessibility sizes, avoids truncation, scales icon size with @ScaledMetric, uses semantic colors, keeps 44 pt targets, and mentions testing at AX5 (body 53 pt).",
+      "files": [],
+      "expectations": [
+        "Uses named Dynamic Type text styles rather than fixed point sizes",
+        "Describes switching from horizontal to vertical layout at accessibility text sizes",
+        "Mentions testing at the largest accessibility size (AX5)",
+        "Uses semantic system colors (e.g. label, secondaryLabel) rather than hard-coded values",
+        "Keeps the tappable row at least 44 pt tall"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "App Review rejected our iOS app. We only offer 'Continue with Google' for login, account deletion is by emailing support, and our permission screen before the camera prompt has 'Allow camera' and 'Maybe later' buttons. How do we fix it?",
+      "expected_output": "Identifies 4.8 (add Sign in with Apple or an equivalent privacy-preserving login), 5.1.1(v) (in-app account deletion), and the HIG pre-alert rule (single button titled Continue or Next that opens the system alert, no skip), and gives concrete UI changes for each.",
+      "files": [],
+      "expectations": [
+        "Cites guideline 4.8 and adds Sign in with Apple or an equivalent login meeting its criteria",
+        "Cites guideline 5.1.1(v) and adds account deletion inside the app",
+        "Changes the pre-permission screen to a single Continue or Next button with no Maybe later option",
+        "Does not suggest incentives or fake alert imagery to increase permission acceptance"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Should our Android app's bottom navigation use Material 3 Expressive's short navigation bar or the regular one?",
+      "expected_output": "Near-miss: this is an Android question. Does not apply iOS HIG or Liquid Glass rules; defers to android-design guidance (ShortNavigationBar / flexible navigation bar on compact width).",
+      "files": [],
+      "expectations": [
+        "Does not recommend Liquid Glass, SF Symbols, or iOS tab bar APIs for the Android app",
+        "Refers to android-design or answers in Material 3 Expressive terms"
+      ]
+    }
+  ]
+}
