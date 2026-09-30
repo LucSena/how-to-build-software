@@ -69,7 +69,7 @@ Why crash at startup: Node.js Best Practices describes the alternative — the a
 
 ## Environment matrix
 
-| | Local | CI | Preview (per PR) | Staging | Production |
+| Aspect | Local | CI | Preview (per PR) | Staging | Production |
 |---|---|---|---|---|---|
 | Artifact | local build | built once per commit | same image that would ship | same digest prod will get | same digest |
 | Data | seeds | fixtures, fresh DB per run | seeds or anonymized branch | anonymized or synthetic, prod-sized for perf tests | real |

@@ -2,6 +2,16 @@
 
 All notable changes to this collection. Versioning: `x.y.z` — x = restructure/breaking, y = new skill, z = content updates.
 
+## 0.2.0 — 2026-09-30
+
+Much deeper engineering, the product flows people ask for most, and a website.
+
+- **New engineering skills (12):** `project-bootstrap`, `tech-stack-selection`, `codebase-organization`, `object-oriented-design`, `dependency-management`, `system-design`, `data-modeling`, `data-infrastructure` (choosing databases, caches, queues, search, storage), `environments-and-config`, `deployment-and-infrastructure`, `application-security`, `lessons-from-failures` (postmortems, supply-chain incidents, project and redesign failures).
+- **New product-flow skills (4):** `auth-flows` (login, sign-up, passkeys, MFA, recovery, sessions), `onboarding-design`, `dashboard-design` (with app shell and navigation), `app-screen-patterns` (settings, team, billing, notifications, search, API keys, error pages).
+- **Upgraded (1.1.0):** `how-to-build-software` (new routing and quality bar), `clean-code` (canonical talks and essays), `software-architecture` and `scalability` (case studies from engineering blogs), `reliability` (postmortem-derived rules), `design-systems` (building one from zero), `conversion-ux` and `data-dense-ui` (clear scope boundaries).
+- **Website** in English, Portuguese, and Spanish, generated from the skills (`site/`), with a bibliography of every cited source; deployed by GitHub Pages.
+- CI: workflow actions pinned to commit SHAs.
+
 ## 0.1.0 — 2026-09-30
 
 Initial collection of 29 skills.

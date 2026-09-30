@@ -138,6 +138,26 @@
     });
   }
 
+  // Skill index: mark the section currently being read.
+  const tocLinks = [...document.querySelectorAll(".toc a")];
+  if (tocLinks.length && "IntersectionObserver" in window) {
+    const byId = new Map(tocLinks.map((a) => [a.hash.slice(1), a]));
+    const spy = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (!entry.isIntersecting) continue;
+          for (const a of tocLinks) a.removeAttribute("aria-current");
+          byId.get(entry.target.id)?.setAttribute("aria-current", "true");
+        }
+      },
+      { rootMargin: "0px 0px -70% 0px" },
+    );
+    for (const id of byId.keys()) {
+      const heading = document.getElementById(id);
+      if (heading) spy.observe(heading);
+    }
+  }
+
   // Gentle language suggestion — never an automatic redirect.
   const body = document.body;
   const pageLang = doc.dataset.lang;

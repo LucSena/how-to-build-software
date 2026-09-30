@@ -177,7 +177,8 @@
       "sourcesTitle": "Sources behind this skill",
       "readOnGithub": "Read on GitHub",
       "englishNote": "",
-      "skillHeading": "The skill"
+      "skillHeading": "The skill",
+      "onThisPage": "In this skill"
     },
     "footer": {
       "license": "MIT licensed. Free to use, fork, and improve.",
@@ -374,7 +375,8 @@
       "sourcesTitle": "Fontes por trás desta skill",
       "readOnGithub": "Ler no GitHub",
       "englishNote": "As skills são escritas em inglês para que todo agente as leia da mesma forma. O resumo acima está traduzido; a skill completa vem a seguir, no original.",
-      "skillHeading": "A skill"
+      "skillHeading": "A skill",
+      "onThisPage": "Nesta skill"
     },
     "footer": {
       "license": "Licença MIT. Livre para usar, fazer fork e melhorar.",
@@ -571,7 +573,8 @@
       "sourcesTitle": "Fuentes detrás de esta skill",
       "readOnGithub": "Leer en GitHub",
       "englishNote": "Las skills están escritas en inglés para que todos los agentes las lean igual. El resumen de arriba está traducido; la skill completa sigue, en el original.",
-      "skillHeading": "La skill"
+      "skillHeading": "La skill",
+      "onThisPage": "En esta skill"
     },
     "footer": {
       "license": "Licencia MIT. Libre para usar, hacer fork y mejorar.",

@@ -530,10 +530,18 @@ p { margin: 0 0 1em; text-wrap: pretty; }
   font-size: 0.85rem;
   color: var(--pencil-ink);
 }
-.flow__aside code { color: inherit; }
+.flow__aside code { color: inherit; display: block; font-style: normal; }
 
 .flow__sep { display: grid; place-items: center; }
 .flow__arrow { width: 2.6rem; height: 1.2rem; fill: none; stroke: var(--ink-2); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+
+@media (min-width: 900px) {
+  .flow__steps { flex-wrap: nowrap; }
+  .flow__box { flex: 1 1 0; min-width: 0; }
+  .flow__box code { overflow-wrap: anywhere; }
+  .flow__sep { flex: none; }
+  .flow__arrow { width: 2rem; }
+}
 
 @media (max-width: 899px) {
   .flow__steps { flex-direction: column; align-items: stretch; }
@@ -577,6 +585,7 @@ p { margin: 0 0 1em; text-wrap: pretty; }
 
 .skill-ref { text-decoration: none; }
 .skill-ref code {
+  white-space: nowrap;
   font-size: 0.82em;
   padding: 0.08em 0.35em;
   border-radius: 3px;
@@ -841,8 +850,16 @@ p { margin: 0 0 1em; text-wrap: pretty; }
 .prose--skill h2:hover .anchor, .prose--skill h3:hover .anchor { opacity: 1; }
 .prose--skill ul, .prose--skill ol { padding-left: 1.4rem; margin: 0 0 1.2em; }
 .prose--skill li { margin: 0.3em 0; }
-.prose--skill li:has(> input[type="checkbox"]) { list-style: none; margin-left: -1.4rem; }
-.prose--skill input[type="checkbox"] { accent-color: var(--pencil); margin-right: 0.5rem; translate: 0 0.12em; }
+.prose--skill li:has(> .task-box) { list-style: none; margin-left: -1.4rem; }
+.task-box {
+  display: inline-block;
+  width: 0.85em;
+  height: 0.85em;
+  margin-right: 0.6rem;
+  border: 1.5px solid var(--pencil);
+  border-radius: 2px 3px 2px 4px;
+  translate: 0 0.1em;
+}
 .prose--skill :not(pre) > code {
   background: var(--paper-2);
   border: 1px solid var(--line);
@@ -965,3 +982,38 @@ p { margin: 0 0 1em; text-wrap: pretty; }
   .masthead, .footer, .filters, .copy, .theme-toggle, .suggest { display: none !important; }
   .sheet::before { display: none; }
 }
+
+/* ---------- skill layout: article + margin index ---------- */
+
+.sheet--skill > .skill-layout { max-width: none; }
+.skill-layout { display: block; }
+.toc { display: none; }
+
+@media (min-width: 1100px) {
+  .skill-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 48rem) minmax(12rem, 15rem);
+    column-gap: 3.5rem;
+    align-items: start;
+  }
+  .toc {
+    display: block;
+    position: sticky;
+    top: 5.5rem;
+    margin-top: 2.5rem;
+    font-family: var(--sans);
+    font-size: 0.875rem;
+    max-height: calc(100vh - 7rem);
+    overflow-y: auto;
+    scrollbar-width: thin;
+  }
+  .toc__title { font-family: var(--serif); font-style: italic; color: var(--pencil-ink); margin-bottom: 0.5rem; }
+  .toc ol { list-style: none; padding: 0; margin: 0; border-left: 1.5px solid color-mix(in oklch, var(--pencil) 45%, transparent); }
+  .toc li a { display: block; padding: 0.25rem 0 0.25rem 0.85rem; color: var(--ink-2); text-decoration: none; line-height: 1.35; }
+  .toc li a:hover { color: var(--ink); }
+  .toc li a[aria-current="true"] { color: var(--ink); font-weight: 600; box-shadow: inset 2px 0 0 var(--pencil); margin-left: -1.5px; }
+}
+
+.file-ref { text-decoration: none; }
+.file-ref:hover code { border-color: var(--pencil); }
+.prose--skill li:has(> .task-box) { padding-left: 1.45rem; text-indent: -1.45rem; }

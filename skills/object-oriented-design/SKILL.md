@@ -151,7 +151,7 @@ Language variants, value objects, and test wiring: `references/value-objects-and
 
 ## Value objects and entities
 
-| | Entity | Value object |
+| Trait | Entity | Value object |
 |---|---|---|
 | Identity | Persists across changes (`User#42`) | None — defined by its attributes |
 | Equality | By ID | By value |

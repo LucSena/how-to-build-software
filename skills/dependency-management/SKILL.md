@@ -131,7 +131,7 @@ A good adapter: your types in and out, vendor errors translated into your error 
 
 ## Lockfiles, ranges, reproducible installs
 
-| | Application / service | Library (published) |
+| Concern | Application / service | Library (published) |
 |---|---|---|
 | Lockfile | Commit it; deploy from it | Commit it for local dev; it is not published to consumers |
 | Runtime dependency ranges | Exact pins or lockfile-controlled | Ranges (`^x.y.z`) so consumers can dedupe and patch |

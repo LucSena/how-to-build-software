@@ -102,14 +102,18 @@ function extractSources(markdown) {
   const seen = new Set();
   for (const m of section.matchAll(/\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)/g)) {
     const url = normalizeUrl(m[2]);
-    if (!seen.has(url)) found.push({ url, label: m[1].replace(/[`*_]/g, "").trim() }), seen.add(url);
+    if (!seen.has(url)) found.push({ url, label: m[1].replace(/[`*_]/g, "").replace(URL_RE, "").trim() || "" }), seen.add(url);
   }
   for (const line of section.split("\n")) {
     for (const raw of line.match(URL_RE) || []) {
       const url = normalizeUrl(raw);
       if (seen.has(url)) continue;
       seen.add(url);
-      const before = line.slice(0, line.indexOf(raw)).replace(/^[\s>*-]+/, "").replace(/[:—–\-(\s]+$/, "");
+      const before = line
+        .slice(0, line.indexOf(raw))
+        .replace(URL_RE, "")
+        .replace(/^[\s>*-]+/, "")
+        .replace(/[\s:;,·—–\-(|]+$/, "");
       const label = before.replace(/[`*_[\]]/g, "").replace(/\s+/g, " ").trim();
       found.push({ url, label: label.length > 3 && label.length < 160 ? label : "" });
     }
@@ -206,7 +210,7 @@ const stats = {
   sources: bibliography.size,
 };
 
-const summaryIn = (skill, lang) => (lang !== "en" && skillI18n[skill.name]?.[lang]) || skill.summary;
+const summaryIn = (skill, lang) => skillI18n[skill.name]?.[lang] || skillI18n[skill.name]?.en || skill.summary;
 
 // ---------- markdown ----------
 
@@ -214,10 +218,13 @@ function renderSkillBody(skill, lang) {
   const t = ui[lang];
   const marked = new Marked({ gfm: true });
   const used = new Map();
+  let lastHeading = skill.title;
+  let tableCount = 0;
   marked.use({
     renderer: {
       heading({ tokens, depth }) {
         const html = this.parser.parseInline(tokens);
+        lastHeading = html.replace(/<[^>]+>/g, "");
         let id = slugify(html) || "section";
         const n = used.get(id) || 0;
         used.set(id, n + 1);
@@ -226,16 +233,26 @@ function renderSkillBody(skill, lang) {
       },
       table(token) {
         const html = marked.Renderer.prototype.table.call(this, token);
-        return `<div class="table-wrap" role="region" tabindex="0" aria-label="${esc(t.skillPage.skillHeading)} table">${html}</div>`;
+        tableCount += 1;
+        return `<div class="table-wrap" role="region" tabindex="0" aria-label="${esc(lastHeading)} (${tableCount})">${html}</div>`;
       },
     },
   });
   const withoutTitle = skill.body.replace(/^#\s+.+\n+/, "");
   let html = marked.parse(withoutTitle);
+  skill.toc = [...html.matchAll(/<h2 id="([^"]+)"><a[^>]*>#<\/a>(.*?)<\/h2>/g)].map((m) => ({ id: m[1], text: m[2].replace(/<[^>]+>/g, "") }));
+  html = html
+    .replace(/<input (?:checked="" )?disabled="" type="checkbox"(?: checked="")?>\s?/g, '<span class="task-box" aria-hidden="true"></span>')
+    .replace(/<pre>/g, '<pre tabindex="0">');
   html = html.replace(/href="(?!https?:|#|mailto:)([^"]+)"/g, (m, rel) => {
     const clean = rel.replace(/^\.\//, "");
     return `href="${REPO}/blob/main/skills/${skill.name}/${clean}"`;
   });
+  html = html.replace(/<code>((?:references|assets|scripts)\/[\w./-]+)<\/code>/g, (m, rel) =>
+    fs.existsSync(path.join(ROOT, "skills", skill.name, rel))
+      ? `<a class="file-ref" href="${REPO}/blob/main/skills/${skill.name}/${rel}"><code>${rel}</code></a>`
+      : m,
+  );
   html = html.replace(/<code>([a-z0-9]+(?:-[a-z0-9]+)+)<\/code>/g, (m, name) =>
     skillNames.has(name) && name !== skill.name ? `<a class="skill-ref" href="../${name}/"><code>${name}</code></a>` : m,
   );
@@ -345,7 +362,7 @@ function skillCard(skill, lang, root) {
           <a class="card__link" href="${root}${langPrefix(lang)}skills/${skill.name}/">
             <span class="card__head"><code class="card__name">${skill.name}</code><span class="card__cat">${esc(t.categories[skill.category])}</span></span>
             <span class="card__body">${esc(summary)}.</span>
-            <span class="card__foot">${esc(fill(t.skills.refs, { n: skill.refs.length }))}<span class="visually-hidden">. ${esc(fill(t.skills.open, { name: skill.name }))}</span></span>
+            <span class="card__foot">v${esc(skill.version)}${skill.refs.length ? ` · ${esc(fill(t.skills.refs, { n: skill.refs.length }))}` : ""}<span class="visually-hidden">. ${esc(fill(t.skills.open, { name: skill.name }))}</span></span>
           </a>
         </li>`;
 }
@@ -418,7 +435,7 @@ function homePage(lang) {
       (c) => `<li class="case">
             <p class="case__name"><strong>${esc(c.name)}</strong> <span>${esc(c.year)}</span></p>
             <p class="case__what"><span class="visually-hidden">${esc(t.failures.whatLabel)}: </span>${esc(c.what)}</p>
-            <p class="case__rule"><span class="case__rule-label">${esc(t.failures.ruleLabel)}</span> <span class="pencil-line">${esc(c.rule)}${PENCIL.underline}</span></p>
+            <p class="case__rule"><span class="case__rule-label">${esc(t.failures.ruleLabel)}</span> <span class="pencil-line">${esc(c.rule)}</span></p>
           </li>`,
     )
     .join("\n          ");
@@ -553,6 +570,7 @@ function skillPage(skill, lang) {
   const depth = (lang === "en" ? 0 : 1) + 2;
   const root = "../".repeat(depth);
   const summary = summaryIn(skill, lang);
+  const bodyHtml = renderSkillBody(skill, lang);
   const related = skill.related.filter((r) => byName[r]);
   const refs = skill.refs
     .map((r) => `<li><a href="${REPO}/blob/main/skills/${skill.name}/references/${r.file}"><code>${r.file}</code></a> <span>${esc(r.title)}</span></li>`)
@@ -574,10 +592,16 @@ function skillPage(skill, lang) {
           <p><a class="button button--quiet" href="${REPO}/blob/main/skills/${skill.name}/SKILL.md">${esc(t.skillPage.readOnGithub)}</a></p>
         </header>
         ${t.skillPage.englishNote ? `<p class="lang-note">${esc(t.skillPage.englishNote)}</p>` : ""}
-        <article class="prose prose--skill" lang="en" aria-labelledby="skill-body-title">
-          <h2 id="skill-body-title" class="visually-hidden">${esc(t.skillPage.skillHeading)}</h2>
-${renderSkillBody(skill, lang)}
-        </article>
+        <div class="skill-layout">
+          <article class="prose prose--skill" lang="en" aria-labelledby="skill-body-title">
+            <h2 id="skill-body-title" class="visually-hidden">${esc(t.skillPage.skillHeading)}</h2>
+${bodyHtml}
+          </article>
+          <nav class="toc" aria-label="${esc(t.skillPage.onThisPage)}">
+            <p class="toc__title">${esc(t.skillPage.onThisPage)}</p>
+            <ol role="list" lang="en">${skill.toc.map((h) => `<li><a href="#${h.id}">${esc(h.text)}</a></li>`).join("")}</ol>
+          </nav>
+        </div>
         ${skill.refs.length ? `<section class="skill-refs" aria-labelledby="refs-title"><h2 id="refs-title">${esc(t.skillPage.references)}</h2><p class="muted">${esc(t.skillPage.referencesNote)}</p><ul role="list">
               ${refs}
             </ul></section>` : ""}
@@ -677,6 +701,6 @@ fs.writeFileSync(
 );
 fs.writeFileSync(path.join(OUT, "robots.txt"), `User-agent: *\nAllow: /\nSitemap: ${BASE_URL}sitemap.xml\n`);
 
-const missing = LANGS.filter((l) => l !== "en").flatMap((l) => skills.filter((s) => !skillI18n[s.name]?.[l]).map((s) => `${l}:${s.name}`));
+const missing = LANGS.flatMap((l) => skills.filter((s) => !skillI18n[s.name]?.[l]).map((s) => `${l}:${s.name}`));
 console.log(`built ${skills.length} skills × ${LANGS.length} languages · ${stats.refs} reference files · ${stats.sources} sources → _site/`);
 if (missing.length) console.log(`untranslated summaries (fall back to English): ${missing.join(", ")}`);
