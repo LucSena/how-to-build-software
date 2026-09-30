@@ -44,6 +44,7 @@ If `.agents/project-context.md` exists (or `.claude/project-context.md`), read i
 | Start a new product, app, or repo | `project-context` → `tech-stack-selection` → `project-bootstrap` → `software-architecture` → `codebase-organization` |
 | Choose a language, framework, database, or host | `tech-stack-selection` → `software-architecture` |
 | Design a system end to end, write a design doc | `system-design` → `data-modeling` → `scalability` → `reliability` |
+| Choose a database, cache, queue, search engine, or storage | `data-infrastructure` → `scalability` → `system-design` |
 | Design the database schema or a migration | `data-modeling` → `scalability` |
 | Set up environments, config, secrets, local dev | `environments-and-config` → `deployment-and-infrastructure` |
 | Ship it: CI/CD, containers, Kubernetes or not, IaC, background jobs | `deployment-and-infrastructure` → `reliability` |
