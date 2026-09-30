@@ -1,0 +1,57 @@
+{
+  "skill_name": "api-design",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Design the REST API for invoices in our multi-tenant SaaS: list, get, create, update, send to customer. Customers will integrate with it.",
+      "expected_output": "OpenAPI-first design with plural resources (/v1/invoices), correct methods and status codes (201 + Location on create, 422 for validation), a custom send action, cursor pagination with enforced max limit, RFC 9457 problem details, Idempotency-Key on POST create/send, ETag/If-Match on updates, object-level authorization scoped by tenant with 404 for other tenants, and tests for cross-tenant access.",
+      "files": [],
+      "expectations": [
+        "Uses plural resource paths with a version prefix (e.g., /v1/invoices)",
+        "Create returns 201 with a Location header",
+        "Uses cursor-based pagination with a default and a maximum limit",
+        "Errors use RFC 9457 problem details (application/problem+json) with a stable type or code",
+        "Requires an Idempotency-Key (or equivalent) for create and send",
+        "States object-level authorization scoped by tenant (BOLA) and returns 404 for other tenants' invoices",
+        "Produces or outlines an OpenAPI contract"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "We want to rename the field `customer_name` to `customerName` in our public v1 orders API response and make `shippingAddress` required on POST /v1/orders. Is that fine to ship this week?",
+      "expected_output": "Identifies both as breaking changes; proposes additive alternatives (add customerName alongside customer_name; keep shippingAddress optional in v1) or a v2 with a deprecation plan using Deprecation and Sunset headers, usage measurement, and a published migration window; adds a breaking-change diff to CI.",
+      "files": [],
+      "expectations": [
+        "Classifies renaming a response field as breaking",
+        "Classifies making a request field required as breaking",
+        "Offers an additive path within v1 or a new major version",
+        "Mentions Deprecation and/or Sunset headers or an equivalent deprecation plan with a timeline",
+        "Recommends an automated breaking-change check in CI (e.g., oasdiff)"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "We need to receive Stripe-like webhooks from our payment provider in an Express app and mark orders as paid.",
+      "expected_output": "Raw-body route, signature verification with constant-time comparison, timestamp tolerance to prevent replay, dedupe by event/webhook ID with a unique constraint, fast 2xx then async processing, out-of-order handling (fetch current state or compare versions), idempotent order update.",
+      "files": [],
+      "expectations": [
+        "Verifies the signature over the raw request body, not re-serialized JSON",
+        "Uses a constant-time comparison",
+        "Rejects old timestamps to prevent replay",
+        "Deduplicates by event or webhook ID",
+        "Acknowledges quickly and processes asynchronously",
+        "Makes the order update idempotent"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Our billing module and orders module inside the monolith call each other's internal classes directly. How should the interface between them look?",
+      "expected_output": "Near-miss: this is an internal module boundary question for software-architecture (public module API, no deep imports, events), not an HTTP API design task. Should not design REST endpoints, status codes, or versioning for in-process module calls.",
+      "files": [],
+      "expectations": [
+        "Does not propose HTTP/REST endpoints between in-process modules",
+        "Recommends a public module interface or in-process events, or defers to the software-architecture skill"
+      ]
+    }
+  ]
+}
