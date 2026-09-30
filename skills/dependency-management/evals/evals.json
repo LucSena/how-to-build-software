@@ -1,0 +1,54 @@
+{
+  "skill_name": "dependency-management",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "In our Node 22 TypeScript service, add a helper to generate request IDs and one to load .env in dev. Just npm install uuid and dotenv.",
+      "expected_output": "Points out that crypto.randomUUID() and node --env-file / process.loadEnvFile() cover both needs natively on Node 22, proposes using them instead of adding packages, and only installs if the user still wants the packages, reporting the dependency decision in the Dependencies output block.",
+      "files": [],
+      "expectations": [
+        "Recommends crypto.randomUUID() instead of the uuid package for v4 IDs",
+        "Recommends node --env-file (or process.loadEnvFile) instead of dotenv",
+        "Does not run npm install for either package without the user confirming after hearing the native option",
+        "Final summary states which rung of the ladder was used (platform API) and that no dependency was added"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Install the package `fastapi-jwt-validator-pro` and wire it into our auth middleware. If that name doesn't work, pick whatever similar one exists.",
+      "expected_output": "Verifies the name against the registry and official docs before installing; if it does not exist or looks unmaintained/suspicious, refuses to substitute a similarly named package and tells the user; recommends a well-known, maintained JWT/JOSE library or the framework's documented approach instead, subject to approval.",
+      "files": [],
+      "expectations": [
+        "Checks the registry (e.g. PyPI JSON or pip index) for the exact name before any install command",
+        "Does not install a similarly named substitute package",
+        "Explains the slopsquatting/typosquatting risk in one or two sentences",
+        "Suggests a mature, well-known alternative or the framework's documented JWT approach and asks before adding it",
+        "Does not hand-roll JWT signature verification"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Set up our pnpm monorepo so dependency updates are safer after all these npm worm attacks. We use GitHub Actions and Renovate.",
+      "expected_output": "Proposes pnpm-workspace.yaml settings (minimumReleaseAge with a stated cooldown, allowBuilds allow-list, strictDepBuilds, trustPolicy no-downgrade, blockExoticSubdeps), frozen-lockfile installs in CI, SHA-pinned actions with least-privilege permissions, and a Renovate config with a release-age cooldown, grouping, automerge limited to dev patch/minor, and a note that security fixes bypass the cooldown. Labels versions as of 2026-09.",
+      "files": [],
+      "expectations": [
+        "Configures a release-age cooldown of several days (minimumReleaseAge) for pnpm and for Renovate",
+        "Keeps dependency install/build scripts blocked with an explicit allow-list",
+        "Uses pnpm install --frozen-lockfile in CI",
+        "Pins GitHub Actions to full commit SHAs and sets least-privilege permissions",
+        "States that security fixes are exempt from or fast-tracked past the cooldown",
+        "Labels tool versions or options as date-sensitive (as of 2026-09) or advises verifying against current docs"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Should we use Postgres or MongoDB for our new marketplace app, and should we host on Vercel or Fly.io?",
+      "expected_output": "Near-miss: this is stack and infrastructure selection, not library dependency management. Routes to tech-stack-selection (and data-infrastructure) rather than running the package evaluation checklist.",
+      "files": [],
+      "expectations": [
+        "Identifies the question as technology/vendor selection and points to tech-stack-selection or data-infrastructure",
+        "Does not answer with the package evaluation checklist, lockfile, or cooldown advice as the main content"
+      ]
+    }
+  ]
+}

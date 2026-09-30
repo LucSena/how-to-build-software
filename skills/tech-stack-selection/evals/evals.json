@@ -1,0 +1,64 @@
+{
+  "skill_name": "tech-stack-selection",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Two of us know Python/Django well, one knows React. We're building a B2B SaaS for scheduling field technicians. What stack should we use?",
+      "expected_output": "Gathers or states the four facts, recommends a boring default weighted by team skill (Django server-rendered with HTMX or a React island, Postgres, container PaaS, bought auth/payments/email/error tracking), lists rejected options with reasons, innovation tokens spent, a revisit trigger, and drafts an ADR in the output format.",
+      "files": [],
+      "expectations": [
+        "Team skill is treated as a decisive criterion and the recommendation builds on the team's Django experience",
+        "Postgres is the database",
+        "Auth, payments, and email are bought or adopted rather than built",
+        "Includes at least one rejected option with a reason",
+        "Includes a measurable 'revisit when' trigger and proposes an ADR",
+        "Does not propose microservices or Kubernetes"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Should we rewrite our Node/Express API in Rust? It'll be way faster.",
+      "expected_output": "Asks for or checks a numeric performance requirement and profiling evidence; explains that most APIs are I/O-bound; treats Rust as an innovation token for a team without Rust experience; recommends profiling and fixing hot paths or isolating one component, not a full rewrite; proposes a spike with a pass/fail threshold if a real requirement exists.",
+      "files": [],
+      "expectations": [
+        "Asks for a numeric latency or throughput requirement, or measured profiling data, before recommending a rewrite",
+        "Recommends against a full rewrite without evidence and prefers incremental change or isolating one component",
+        "Mentions team skill or innovation-token cost of adopting Rust",
+        "Proposes a time-boxed spike or measurement with a pass/fail threshold"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Where should we host our new Next.js + Postgres app with a background worker? I was thinking Heroku since it's simple.",
+      "expected_output": "Recommends a PaaS or managed container platform with managed Postgres, flags Heroku's reported February 2026 move to sustaining engineering, names lock-in guardrails (OCI, Postgres wire protocol, S3 API, OpenTelemetry), and points to deployment-and-infrastructure for pipeline depth.",
+      "files": [],
+      "expectations": [
+        "Flags Heroku's 2026 sustaining-engineering status rather than recommending it without comment",
+        "Recommends a PaaS or managed container option with managed Postgres and a worker process",
+        "Mentions at least one lock-in guardrail such as containers, Postgres compatibility, or S3-compatible storage"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Should I build my own authentication with JWTs to save money? It's just a login form.",
+      "expected_output": "Recommends framework auth, a maintained library, or a hosted IdP; lists what auth really includes (resets, MFA, passkeys, sessions, rate limiting); keeps user IDs owned in the app database; points to auth-flows for implementation.",
+      "files": [],
+      "expectations": [
+        "Recommends buying or adopting auth rather than building it from scratch",
+        "Names concrete hidden scope such as password reset, MFA, session handling, or rate limiting",
+        "Points to auth-flows or application-security for the implementation details"
+      ]
+    },
+    {
+      "id": 5,
+      "prompt": "Our Postgres queries for the orders table are slow. Should we add Redis or switch databases?",
+      "expected_output": "Near-miss: this is a performance and data-infrastructure question, not a stack choice. Defers to scalability (indexes, query plans, pooling) and data-infrastructure (whether a cache is warranted) instead of running a stack-selection matrix.",
+      "files": [],
+      "expectations": [
+        "Does not run the full stack-selection decision matrix",
+        "Points to measuring and fixing queries or indexes first, or to scalability or data-infrastructure",
+        "Does not recommend switching databases without evidence"
+      ]
+    }
+  ]
+}

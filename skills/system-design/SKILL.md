@@ -1,6 +1,6 @@
 ---
 name: system-design
-description: Use when designing a system, service, or large feature end to end, or writing or reviewing a design doc, RFC, or technical proposal — problem framing, functional and non-functional requirements, SLOs and downtime budgets, back-of-envelope and data-size estimates, access patterns and invariants, data model, API sketch, high-level architecture, deep dives, failure modes, trade-offs and alternatives considered, rollout and migration plans (dual-write, shadow reads, logical sharding, cells), and lessons from real engineering case studies (Discord, Figma, Notion, Shopify, Stripe, Slack, GitHub, Segment, Prime Video, Stack Overflow). Also use when the user says "design X", "how would you architect this?", "write a design doc", "system design for …", "we need to move from A to B without downtime", or "review this design". Not for individual scaling techniques (use scalability), table-level schema design (use data-modeling), picking a database, cache, or queue product (use data-infrastructure), or code and module structure (use software-architecture).
+description: Use when designing a system, service, or large feature end to end, or writing or reviewing a design doc, RFC, or technical proposal — problem framing, requirements and non-goals, SLOs and downtime budgets, back-of-envelope and data-size estimates, access patterns and invariants, data model, API sketch, high-level architecture, deep dives, failure modes, trade-offs and alternatives considered, rollout and migration plans (dual-write, shadow reads, logical sharding, cells), and real case studies (Discord, Figma, Notion, Shopify, Stripe, Slack, GitHub, Segment, Prime Video). Also use when the user says "design X", "how would you architect this?", "write a design doc", "we need to move from A to B without downtime", or "review this design". Not for individual scaling techniques (use scalability), table-level schema design (use data-modeling), picking a database, cache, or queue product (use data-infrastructure), or module structure (use software-architecture).
 license: MIT
 metadata:
   version: "1.0.0"
@@ -87,7 +87,7 @@ Serial dependencies multiply: three 99.9% dependencies in a request path give at
 
 ## Estimation habits
 
-Use `scalability` (`references/numbers.md` there) for latency numbers, rps conversions, and Little's law. Add these data habits:
+Use the numbers reference in `scalability` for latency numbers, rps conversions, and Little's law. Add these data habits:
 
 - **Size the data, not just the traffic.** Row size ≈ sum of column sizes + per-row overhead (tens of bytes in Postgres) + each index. × rows per year × years retained. Compare with one node's RAM (working set) and disk.
 - **Find the biggest thing, not the average.** Largest tenant, most-read channel, celebrity account. Discord's problem was hot partitions from a few huge servers, not total volume.

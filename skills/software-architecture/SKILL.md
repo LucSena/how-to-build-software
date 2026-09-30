@@ -3,9 +3,9 @@ name: software-architecture
 description: Use when deciding how a codebase or system should be structured — starting a new product or service, drawing module or service boundaries, choosing between layered, hexagonal/clean, vertical slice, modular monolith, microservices, serverless, or event-driven/CQRS/event sourcing, applying DDD (bounded contexts, aggregates, domain events), splitting or strangling a monolith, laying out a monorepo, writing an ADR, drawing C4 diagrams, or adding architecture fitness functions. Also use when the user asks "should this be a microservice?", "where should this code live?", "how should I organize this project?", "this is a big ball of mud", or "modules keep importing each other". Not for code-level naming and refactoring (use clean-code), single patterns such as strategy or repository (use design-patterns), load and data growth (use scalability), or UI folder structure and rendering (use frontend-architecture).
 license: MIT
 metadata:
-  version: "1.0.0"
+  version: "1.1.0"
   category: engineering
-  related: "design-patterns scalability reliability api-design frontend-architecture clean-code"
+  related: "system-design design-patterns scalability data-infrastructure reliability api-design"
 ---
 
 # Software Architecture
@@ -63,7 +63,7 @@ Add to any of these only on a trigger: a worker process when work outlasts a req
 | CQRS | Read and write models differ drastically, or reads vastly outnumber writes with different shapes | Typical CRUD |
 | Event sourcing | History *is* the product (ledgers, audit-mandated domains, temporal queries) | Most apps; heavy erasure requirements; no team experience |
 
-Full table with key rules and trade-offs: `references/styles-decision.md`.
+Full table with key rules and trade-offs: `references/styles-decision.md`. Real precedents (Shopify, Segment, Prime Video, Uber, Airbnb, Stack Overflow, WhatsApp, 37signals): `references/case-studies.md`.
 
 ## Module boundaries
 
@@ -189,12 +189,16 @@ Not checked: <what you could not verify>
 | `references/modular-monolith.md` | defining module boundaries, writing boundary lint configs, or extracting a module into a service |
 | `references/event-driven.md` | adding domain/integration events, a broker, CQRS, event sourcing, or choreography vs orchestration |
 | `references/adr-c4.md` | writing an ADR, drawing C4 diagrams in Mermaid, or adding fitness functions |
+| `references/case-studies.md` | justifying a style, boundary, or service-count decision with a real precedent, or the user cites Segment, Prime Video, Shopify, Uber, Airbnb, Stack Overflow, WhatsApp, or 37signals |
 | `assets/adr-template.md` | creating a new ADR file |
 
 ## Related skills
 
+- `system-design` — when the task is a whole system or a design doc: requirements, estimates, data, trade-offs, rollout.
 - `design-patterns` — once boundaries are set, for the patterns inside a module.
 - `scalability` — when a driver is load, data volume, caching, or queues.
+- `data-infrastructure` — when a decision adds or replaces a database, cache, queue, or search engine.
+- `data-modeling` — when module data ownership turns into tables, keys, constraints, and migrations.
 - `reliability` — when a driver is availability, failure isolation, or safe deploys.
 - `api-design` — when a module or service exposes a public or cross-team contract.
 - `frontend-architecture` — for client-side structure, rendering, and state.

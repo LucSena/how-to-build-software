@@ -1,0 +1,22 @@
+# Copy to .dockerignore next to the Dockerfile.
+# Keeps secrets, VCS history, and bulk out of the build context.
+.git
+.github
+.env
+.env.*
+!.env.example
+**/node_modules
+dist
+build
+coverage
+*.log
+.aws
+.npmrc
+.pypirc
+.terraform
+*.tfstate
+*.tfstate.*
+.venv
+__pycache__
+Dockerfile*
+compose*.yaml

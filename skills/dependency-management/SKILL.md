@@ -196,7 +196,7 @@ Suggested defaults (proposals, tune per project): flag in review any single addi
 | Shai-Hulud worms (2025) | Install scripts stole tokens and republished victims' packages | Scripts off; short-lived tokens; trusted publishing |
 | axios (2026-03) | Hijacked account; the only change was a new dependency whose postinstall dropped a RAT | Review new transitive deps in lockfile diffs; cooldowns; scripts off |
 
-Full write-ups: `lessons-from-failures` (`references/security-and-supply-chain.md`).
+Full write-ups: the `lessons-from-failures` skill (its security and supply-chain reference).
 
 ## Removing and pruning
 

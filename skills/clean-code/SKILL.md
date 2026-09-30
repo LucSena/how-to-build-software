@@ -1,11 +1,11 @@
 ---
 name: clean-code
-description: Use when writing, refactoring, or cleaning up code, or when code is hard to read, name, change, or test. Covers naming, function size and shape, parameters, error handling (exceptions vs result types, parse-don't-validate, never swallowing errors), comments, immutability, deep vs shallow modules, duplication vs abstraction (DRY, rule of three, wrong abstraction), SOLID and its limits, code smells mapped to refactoring moves, safe refactoring of legacy code, and idioms for TypeScript, Python, Kotlin, Swift, and Go. Also use when the user says "clean this up", "refactor", "this is messy", "make it readable", "better names", "this function is too long", "god file", or "tidy before I add a feature". Not for choosing design patterns (use design-patterns), module or service boundaries (use software-architecture), or reviewing someone else's PR (use code-review).
+description: Use when writing, refactoring, or cleaning up code, or when code is hard to read, name, change, or test. Covers naming, function size and shape, parameters, error handling (exceptions vs result types, parse-don't-validate, never swallowing errors), comments, immutability, deep vs shallow modules, duplication vs abstraction (DRY, rule of three, wrong abstraction), SOLID and its limits, code smells mapped to refactoring moves, safe refactoring of legacy code, and idioms for TypeScript, Python, Kotlin, Swift, and Go. Also use when the user says "clean this up", "refactor", "this is messy", "make it readable", "better names", "this function is too long", "god file", or "tidy before I add a feature". Not for choosing design patterns (use design-patterns), class and object design (use object-oriented-design), module or service boundaries (use software-architecture), or reviewing someone else's PR (use code-review).
 license: MIT
 metadata:
-  version: "1.0.0"
+  version: "1.1.0"
   category: engineering
-  related: "design-patterns testing-strategy code-review software-architecture"
+  related: "design-patterns object-oriented-design testing-strategy code-review software-architecture dependency-management"
 ---
 
 # Clean Code
@@ -32,6 +32,7 @@ If `.agents/project-context.md` exists (or `.claude/project-context.md`), read i
 - [ ] **Scope the cleanup.** Clean what the task touches (plus what blocks it). List anything larger as a follow-up instead of doing it silently.
 - [ ] **Secure behavior first.** If the code you will change has no tests, write characterization tests that pin current behavior (see `testing-strategy`). Check: they pass before any change.
 - [ ] **Diagnose.** Name each smell and its refactoring (table below, full map in `references/smells-refactorings.md`). If you can't name the smell, you may just have a preference — leave it.
+- [ ] **Tidy first? Decide when.** If a small structural cleanup makes the requested change easy and you know exactly what it is, do it *first* as a separate commit (minutes, not hours). If it would only pay off later, list it as a follow-up; if the code won't change again, leave it (Beck's first/after/later/never).
 - [ ] **Refactor in steps.** One named refactoring at a time; run tests/type checker after each. Never mix a refactor and a behavior change in one step or commit.
 - [ ] **Self-check.** Walk the Gotchas list. Ask: did this change increase or decrease what a future reader must hold in their head?
 - [ ] **Report** in the Output format, including what you did not verify.
@@ -131,6 +132,7 @@ YAGNI does not cover things that are expensive to retrofit: security, data model
 
 - **Deep > shallow.** A module earns its interface by hiding complexity. Red flags: pass-through methods, a `Service` that forwards every call to a `Repository`, a wrapper whose interface is as big as what it wraps, the same design decision leaking into several modules. Full red-flag list: `references/principles-critique.md`.
 - **Pull complexity down.** The implementer absorbs complexity (sensible defaults, internal retries, normalization) instead of pushing knobs onto every caller.
+- **Class and object design** (what deserves a class, responsibilities, inheritance vs composition, DI, value objects) lives in `object-oriented-design`.
 - **SOLID is a set of heuristics, not laws.** Keep the kernels (separate things that change for different reasons; honor subtype contracts; depend on abstractions at I/O boundaries). Reject the misreadings: one-method classes (SRP), speculative extension points (OCP), an `IFoo` for every `Foo` (DIP). Details and critiques in `references/principles-critique.md`.
 
 ## Smells → refactorings (most common)
@@ -162,6 +164,8 @@ For legacy code and large changes, use seams, characterization tests, Parallel C
 - **Leftovers.** Unused imports, dead functions, debug prints, commented-out code, placeholder stubs (`// TODO: implement`) that look finished. Remove before reporting done.
 - **Refactor plus behavior change in one step.** When tests fail you can't tell which caused it. Two steps, ideally two commits.
 - **Renaming by text search.** Use the language server's rename or a typed codemod; text replace misses dynamic references and hits unrelated strings.
+- **Installing a package for a few lines** (`is-odd`, `left-pad`, `uuid` for v4). Use the platform or write it with edge-case tests; see `dependency-management`.
+- **Quoting a book as the reason.** "Clean Code says…" or "Ousterhout says…" is not evidence; the authors disagree with each other. Resolve with the tension map in `references/canonical-talks-and-essays.md` and evidence from this codebase.
 - **"Improving" performance-critical code into polymorphic layers.** In measured hot paths, a flat loop over plain data can be much faster; profile before and after.
 
 ## Output format
@@ -187,10 +191,13 @@ When asked only for advice, list findings as `smell → refactoring → why`, or
 | `references/error-handling.md` | Designing error types, choosing exceptions vs result values, wrapping errors, or handling async/cleanup in a specific language |
 | `references/language-idioms.md` | Writing or cleaning TypeScript, Python, Kotlin, Swift, or Go and need the idiomatic default for that language |
 | `references/principles-critique.md` | Someone cites SOLID, DRY, clean architecture rules, or "small functions" as a reason for a change, or you need Ousterhout's red flags as a checklist |
+| `references/canonical-talks-and-essays.md` | Two principles conflict (small functions vs deep modules, DRY vs duplication, comments vs names, tidy now vs later), or the user cites a book, talk, or essay (Clean Code, A Philosophy of Software Design, Tidy First?, Simple Made Easy, cognitive load) |
 
 ## Related skills
 
 - `design-patterns` — when the cleanup reveals a real need for a pattern (or an unnecessary one to remove).
+- `object-oriented-design` — when the mess is at class level: god objects, Manager/Helper classes, deep inheritance, singletons, anemic models.
 - `testing-strategy` — to add characterization or behavior tests before refactoring.
 - `software-architecture` — when the problem is module or service boundaries, not code inside them.
 - `code-review` — to review the result or someone else's change.
+- `dependency-management` — before adding a package to solve something a few lines or the platform could.

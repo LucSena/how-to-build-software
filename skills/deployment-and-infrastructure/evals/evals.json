@@ -1,0 +1,69 @@
+{
+  "skill_name": "deployment-and-infrastructure",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Write a GitHub Actions workflow for our Node API: run tests on PRs, and on merge to main build a Docker image, push to ECR, and deploy to staging then production on ECS. Our AWS keys are already saved as repo secrets AWS_ACCESS_KEY_ID / AWS_SECRET_ACCESS_KEY.",
+      "expected_output": "A workflow with workflow-level permissions: {} and minimal per-job permissions; third-party actions pinned to full commit SHAs with version comments, using explicit <SHA> placeholders (not invented SHAs) and telling the user to fill them or let Dependabot manage them; OIDC with environment-scoped IAM roles instead of the stored access keys (recommends deleting them); image built once and deployed by digest to both environments; migrations as a separate step; GitHub Environments with protection on production; timeouts and concurrency; smoke test and release marker.",
+      "files": [],
+      "expectations": [
+        "Every third-party action is referenced by a full commit SHA or an explicit <SHA> placeholder with a version comment, not by @vN tag",
+        "Does not fabricate 40-character SHAs; placeholders are flagged for lookup",
+        "Uses OIDC (id-token: write + role-to-assume) instead of the stored AWS access key secrets and recommends removing them",
+        "Sets permissions at workflow level to empty or read-only and grants id-token: write only to jobs that need it",
+        "Builds the image once and deploys the same digest to staging and production (no rebuild per environment)",
+        "Production deploy job uses a protected GitHub Environment",
+        "Sets timeout-minutes on jobs"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Every time we deploy our API to Kubernetes we see a burst of 502s for a few seconds, and last week a short Postgres failover restarted all our pods. Here's our Deployment: image api:latest, no resources, livenessProbe hits /health which queries the DB, CMD is `npm start`.",
+      "expected_output": "Diagnoses the SIGTERM/endpoint-removal race and missing graceful shutdown (npm start does not forward signals) as the cause of 502s, and the DB-dependent liveness probe as the cause of the fleet-wide restart. Fixes: exec-form CMD with the app as PID 1, SIGTERM handler that fails readiness and drains, preStop sleep with a grace period covering it, separate /livez (process only) and /readyz, startup probe, image by digest instead of latest, memory request = limit and CPU request, maxUnavailable 0, PDB and zone spread.",
+      "files": [],
+      "expectations": [
+        "Identifies that liveness must not check the database and splits liveness and readiness endpoints",
+        "Adds a preStop delay and a terminationGracePeriodSeconds that covers preStop plus drain",
+        "Replaces npm start with exec-form CMD (or an init) so SIGTERM reaches the app, and adds a SIGTERM handler that drains",
+        "Replaces :latest with a pinned image digest",
+        "Adds resource requests, with memory request equal to limit"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "We're 3 developers building a B2B SaaS: one Next.js app, one Node API, a worker, and Postgres. Traffic is a few hundred users. Should we set up EKS with Helm and Argo CD so we're ready to scale?",
+      "expected_output": "Recommends against Kubernetes for now using the decision questions (no platform owner, few services, modest traffic), proposing a PaaS or managed containers (e.g., Render/Fly/Cloud Run/ECS Fargate) with managed Postgres, preview environments, IaC for what exists, and build-once promotion; names the concrete triggers that would justify Kubernetes later, and notes GitOps is for multi-cluster Kubernetes setups.",
+      "files": [],
+      "expectations": [
+        "Recommends a PaaS or managed container platform instead of EKS for the current stage",
+        "Justifies with the decision factors (team size or no platform owner, number of services, traffic shape, ops burden)",
+        "Lists concrete triggers under which Kubernetes would become appropriate",
+        "Does not recommend Argo CD/GitOps for this setup"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Add a nightly job that charges customers whose invoices are due. We run 4 replicas of our Express app, so I was going to use node-cron inside the app.",
+      "expected_output": "Rejects in-process cron across 4 replicas (4x charges); uses one scheduler that enqueues, an idempotent job with idempotency keys passed to the payment provider, overlap protection, explicit UTC time zone off the top of the hour, watermark-based processing, retries with backoff and DLQ, and dead-man's-switch monitoring.",
+      "files": [],
+      "expectations": [
+        "Points out that in-process cron would run once per replica (duplicate charges)",
+        "Uses a single scheduler (platform scheduler, CronJob, or queue scheduler) that enqueues work",
+        "Makes the charge idempotent, including an idempotency key sent to the payment provider",
+        "Prevents overlapping runs and sets an explicit time zone",
+        "Adds monitoring that alerts when the job has not succeeded by a deadline"
+      ]
+    },
+    {
+      "id": 5,
+      "prompt": "Where should I store our Stripe secret key and how do I load it into the app across local, staging and prod?",
+      "expected_output": "Recognizes this as a secrets/config question owned by environments-and-config: secret manager or platform secret store per environment, never in git or client bundles, typed config validated at startup, .env.example with a test-key placeholder, sandbox keys outside production — rather than answering with pipeline or Dockerfile changes.",
+      "files": [],
+      "expectations": [
+        "Identifies environments-and-config as the primary skill",
+        "Keeps the key out of git, Docker ARG/ENV, and client-exposed variables",
+        "Uses separate keys per environment with test-mode keys outside production"
+      ]
+    }
+  ]
+}

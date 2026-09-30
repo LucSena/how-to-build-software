@@ -1,0 +1,59 @@
+# Local and CI backing services. Production does not run from this file.
+# - Same engine and major version as production (dev/prod parity).
+# - Every <digest>/<version> must be looked up from the registry, never invented.
+# - Health checks + `condition: service_healthy`: Compose otherwise waits only for "started", not "ready".
+# Usage:
+#   docker compose up -d                 # backing services only; run the app natively with hot reload
+#   docker compose --profile full up     # also build and run the app container
+
+services:
+  db:
+    image: postgres:17@sha256:<digest>
+    environment:
+      POSTGRES_USER: app
+      POSTGRES_PASSWORD: app          # local-only throwaway credential
+      POSTGRES_DB: app
+      TZ: UTC
+    ports: ["5432:5432"]
+    volumes: [pgdata:/var/lib/postgresql/data]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  cache:
+    image: valkey/valkey:<version>@sha256:<digest>   # or redis; only if production uses one
+    ports: ["6379:6379"]
+    healthcheck:
+      test: ["CMD", "valkey-cli", "ping"]
+      interval: 5s
+      retries: 10
+
+  mail:
+    image: axllent/mailpit:<version>@sha256:<digest>  # catches all outgoing mail; UI on http://localhost:8025
+    ports: ["8025:8025", "1025:1025"]
+
+  app:
+    profiles: ["full"]
+    build:
+      context: .
+      args:
+        GIT_SHA: local
+    env_file: .env                    # created from .env.example by the setup script; git-ignored
+    environment:
+      DATABASE_URL: postgres://app:app@db:5432/app
+      SMTP_URL: smtp://mail:1025
+    depends_on:
+      db: { condition: service_healthy }
+      cache: { condition: service_healthy }
+    ports: ["8080:8080"]
+    init: true                        # forwards signals and reaps zombies
+    read_only: true
+    tmpfs: ["/tmp"]
+    security_opt: ["no-new-privileges:true"]
+    cap_drop: ["ALL"]
+    mem_limit: 512m                   # same limit the heap flag in the Dockerfile assumes
+
+volumes:
+  pgdata: {}

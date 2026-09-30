@@ -1,11 +1,11 @@
 ---
 name: scalability
-description: Use when a system must handle more users, requests, or data, or is getting slow under load — capacity estimates and back-of-envelope math, the scaling ladder, caching and cache invalidation, database indexes, N+1 queries, pagination, connection pooling, read replicas, partitioning and sharding, background jobs and queues (Postgres queues, Kafka, durable execution), idempotent consumers, transactional outbox, sagas, consistency models, rate limiting, back-pressure and load shedding, multi-tenant SaaS data isolation (row-level security), and cloud cost. Also use when the user says "this endpoint is slow", "add caching", "will this scale?", "we're launching and expect 10x traffic", "the database is at 90% CPU", "should we add Redis or Kafka?", or "how many servers do we need?". Not for retries, timeouts, circuit breakers, SLOs, or deploy safety (use reliability), or HTTP API shape (use api-design).
+description: Use when a system must handle more users, requests, or data, or is getting slow under load — capacity estimates and back-of-envelope math, the scaling ladder, caching and cache invalidation, database indexes, N+1 queries, pagination, connection pooling, read replicas, partitioning and sharding, background jobs and queues (Postgres queues, Kafka, durable execution), idempotent consumers, transactional outbox, sagas, consistency models, rate limiting, back-pressure and load shedding, multi-tenant SaaS data isolation (row-level security), and cloud cost. Also use when the user says "this endpoint is slow", "add caching", "will this scale?", "we're launching and expect 10x traffic", "the database is at 90% CPU", "should we add Redis or Kafka?", or "how many servers do we need?". Not for retries, timeouts, circuit breakers, SLOs, or deploy safety (use reliability), HTTP API shape (use api-design), choosing a database, cache, or queue product (use data-infrastructure), or schema design (use data-modeling).
 license: MIT
 metadata:
-  version: "1.0.0"
+  version: "1.1.0"
   category: engineering
-  related: "reliability software-architecture api-design"
+  related: "system-design data-infrastructure data-modeling reliability software-architecture api-design"
 ---
 
 # Scalability
@@ -65,7 +65,7 @@ Full latency table, availability math, and the estimation template: `references/
 | 6. Partition | Single tables huge (time-series, events, logs) | Postgres declarative partitioning by time; cheap retention by dropping partitions | Queries must include the partition key |
 | 7. Shard | Writes or data exceed one primary after all the above | Prefer managed distributed SQL (Citus, Vitess, CockroachDB, Spanner-class) over hand-rolled | One-way door; cross-shard queries and transactions |
 
-Never skip to step 5–7 without evidence that steps 2–4 are exhausted.
+Never skip to step 5–7 without evidence that steps 2–4 are exhausted. How Discord, Figma, Notion, Slack, and GitHub climbed this ladder: `references/case-studies.md`.
 
 ## Caching defaults
 
@@ -178,9 +178,13 @@ Not checked: <what you could not measure>
 | `references/databases.md` | slow queries, indexes, pagination SQL, pooling, replicas, partitioning, sharding, or RLS |
 | `references/async-messaging.md` | choosing a queue/broker, designing jobs or consumers, DLQs, or ordering |
 | `references/distributed-patterns.md` | idempotent consumers, outbox, sagas, consistency choices, rate limiting, or load shedding |
+| `references/case-studies.md` | justifying a ladder step with precedent, choosing a partition or shard key, planning sharding or ID generation, or the user asks how Discord, Figma, Notion, Instagram, Pinterest, Slack, GitHub, Dropbox, or LinkedIn scaled |
 
 ## Related skills
 
+- `system-design` — when scaling is part of a larger design or migration that needs a design doc and phased rollout.
+- `data-infrastructure` — when the ladder justifies a new datastore, cache, queue, or search engine and you must choose which.
+- `data-modeling` — keys, constraints, indexes, and safe migrations for the schema being scaled.
 - `reliability` — timeouts, retries, circuit breakers, SLOs, and safe rollout of scaling changes.
 - `software-architecture` — when scaling pressure suggests new services or datastores (ADR first).
 - `api-design` — pagination contracts, `Idempotency-Key`, and rate-limit headers exposed to clients.

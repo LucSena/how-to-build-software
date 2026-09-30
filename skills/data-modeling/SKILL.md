@@ -1,6 +1,6 @@
 ---
 name: data-modeling
-description: Use when designing or changing a database schema — tables, columns, primary keys (bigint identity, UUIDv7, ULID, Snowflake), foreign keys and constraints (NOT NULL, CHECK, UNIQUE, EXCLUDE), enums vs lookup tables, money, timestamps and time zones, names, addresses, emails and phones, soft delete vs archive, audit logs and history tables, multi-tenant schemas (tenant_id, composite foreign keys, row-level security), JSONB columns, many-to-many, trees, counters and hot rows, optimistic locking, idempotency and outbox tables, zero-downtime migrations and backfills, indexing strategy, naming, DynamoDB single-table design, event sourcing storage, PII retention and deletion, OLTP vs analytics, and SQLite in production. Also use when the user says "design the schema", "what should the tables look like?", "UUID or auto-increment?", "how do I store money/time zones?", "add a column to a big table", or "review this migration". Not for choosing a database product (use data-infrastructure), slow-query triage and sharding (use scalability), or the end-to-end design method (use system-design).
+description: Use when designing or changing a database schema — tables, primary keys (bigint identity, UUIDv7, ULID, Snowflake), constraints (NOT NULL, CHECK, UNIQUE, foreign keys, EXCLUDE), enums vs lookup tables, money, timestamps and time zones, names, addresses, emails and phones, soft delete vs archive, audit and history tables, multi-tenant schemas (tenant_id, composite foreign keys, row-level security), JSONB, many-to-many, trees, hot-row counters, optimistic locking, idempotency and outbox tables, zero-downtime migrations and backfills, indexing, naming, DynamoDB single-table design, event-sourcing storage, PII retention, analytics via CDC, and SQLite in production. Also use when the user says "design the schema", "UUID or auto-increment?", "how do I store money or time zones?", "add a column to a big table", or "review this migration". Not for choosing a database product (use data-infrastructure), slow-query triage or sharding (use scalability), or the end-to-end design method (use system-design).
 license: MIT
 metadata:
   version: "1.0.0"
@@ -81,7 +81,7 @@ CREATE TABLE orders (
   total_minor  bigint NOT NULL CHECK (total_minor >= 0),
   placed_at    timestamptz NOT NULL DEFAULT now(),
   shipped_at   timestamptz,
-  CHECK ((status = 'shipped') = (shipped_at IS NOT NULL))
+  CHECK (status <> 'shipped' OR shipped_at IS NOT NULL)      -- shipped implies a ship time
 );
 CREATE INDEX orders_customer_id_idx ON orders (customer_id);          -- Postgres does not index FK columns for you
 CREATE INDEX orders_tenant_placed_idx ON orders (tenant_id, placed_at DESC);

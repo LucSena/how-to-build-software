@@ -62,7 +62,7 @@ ALTER TABLE products
 
 -- State-dependent columns
 ALTER TABLE orders ADD CONSTRAINT orders_shipped_consistency_chk
-  CHECK ((status = 'shipped') = (shipped_at IS NOT NULL));
+  CHECK (status NOT IN ('shipped','delivered') OR shipped_at IS NOT NULL);  -- implication, not equality: later states keep shipped_at
 
 -- Exactly one of several columns
 ALTER TABLE payments ADD CONSTRAINT payments_one_method_chk

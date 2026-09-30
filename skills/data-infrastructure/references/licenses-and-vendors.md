@@ -13,7 +13,7 @@ License, governance, and ownership decide whether you can keep running a data co
 
 | When | What changed | Practical reading |
 |---|---|---|
-| 2021-01 | Elastic moved Elasticsearch and Kibana from Apache 2.0 to SSPL / Elastic License | Triggered the OpenSearch fork (from 7.10) |
+| 2021 | Elastic moved Elasticsearch and Kibana from Apache 2.0 to SSPL / Elastic License | Triggered the OpenSearch fork (from 7.10) |
 | 2024-03 | Redis Ltd. relicensed Redis from BSD-3 to RSALv2 / SSPLv1 starting with 7.4 (neither OSI-approved) | Self-hosted Redis 7.4+ is not open source under those terms |
 | 2024-03/04 | The Linux Foundation launched **Valkey**, a BSD-3 fork of Redis 7.2.4, backed by AWS, Google Cloud, Oracle, and others | Default choice for a BSD-licensed, foundation-governed Redis-compatible store |
 | 2024-08 | Cockroach Labs announced retiring CockroachDB Core; from v24.3 (November 2024) a single Enterprise license, free below $10M annual revenue | Self-hosting costs money above the threshold; check terms before adopting |
@@ -26,8 +26,8 @@ License, governance, and ownership decide whether you can keep running a data co
 | 2025-05 | CNCF and Synadia settled the NATS dispute: trademarks to the Linux Foundation, project stays in CNCF under Apache 2.0 | NATS remains foundation-governed |
 | 2025-05 | Databricks announced acquiring **Neon** (serverless Postgres) | Neon now powers Databricks' Lakebase; still Postgres, so `pg_dump` exit remains |
 | 2025-05 | **MinIO** removed the admin console from its Community Edition | First step of the community edition's wind-down |
-| 2025-06 | Timescale renamed itself **Tiger Data** | TimescaleDB's advanced features stay under the Timescale License (no competing DBaaS) |
 | 2025-05 | Amazon **Aurora DSQL** GA (Postgres-compatible, multi-region active-active) | Compatibility gaps; check the current list |
+| 2025-06 | Timescale renamed itself **Tiger Data** | TimescaleDB's advanced features stay under the Timescale License (no competing DBaaS) |
 | 2025-10 | MinIO stopped publishing community binaries and container images | Self-hosters left without official builds |
 | 2025-12 | MinIO repository moved to maintenance mode; Amazon **S3 Vectors** GA | — |
 | 2025-12 → 2026-03 | **IBM** announced (December) and completed (March) its acquisition of **Confluent** | Kafka's main commercial vendor is now part of IBM |
@@ -38,10 +38,9 @@ License, governance, and ownership decide whether you can keep running a data co
 
 | Component | License / governance | Note |
 |---|---|---|
-| PostgreSQL | PostgreSQL License (permissive), community-governed | Safest base |
+| PostgreSQL | PostgreSQL License (permissive), community project | Safest base |
 | Valkey | BSD-3, Linux Foundation | — |
 | Redis 8 | AGPLv3 / RSALv2 / SSPLv1, Redis Ltd. | Choose the AGPL option knowingly |
-| Memcached | Permissive | — |
 | Dragonfly | BSL 1.1 | Cannot offer as a managed service |
 | OpenSearch | Apache 2.0, Linux Foundation | — |
 | Elasticsearch | AGPLv3 / SSPL / Elastic License, Elastic | — |
@@ -85,7 +84,7 @@ Write the exit into the decision record before adopting:
 - **Protocol compatibility**: which other products speak the same protocol (Postgres wire, S3, Redis protocol, Kafka API)? Note gaps ("PG-compatible" systems miss extensions; Valkey matches the Redis 7.2 feature set).
 - **Wrap proprietary APIs** (SQS, Pub/Sub, Algolia, Momento, a vector DB SDK) behind a small interface in your code so the call sites do not spread.
 - **Avoid restricted features** you would lose on another host (TimescaleDB's licensed features, vendor-only extensions) unless you accept the lock-in explicitly.
-- **Egress**: moving large data out costs money; 37signals' cloud exit involved a large egress bill (which AWS waived) — egress fees are a lock-in mechanism.
+- **Egress**: moving large data out costs money; 37signals' 2025 exit from S3 was reported to involve roughly $250k of egress fees, which AWS waived — egress fees are a lock-in mechanism.
 - **Derived stores are the easiest to leave**: caches, search indexes, and vector indexes can be rebuilt from the source of truth if you kept the rebuild job working.
 
 ## Sources
@@ -109,3 +108,5 @@ Write the exit into the decision record before adopting:
 - Typesense / Meilisearch — https://typesense.org/docs/guide/system-requirements.html , https://www.meilisearch.com/docs/learn/engine/storage
 - ClickBench — https://github.com/ClickHouse/ClickBench
 - Jepsen analyses — https://jepsen.io/analyses
+- PostgreSQL License — https://www.postgresql.org/about/licence/
+- 37signals storage exit — https://www.datacenterdynamics.com/en/news/37signals-begins-exiting-aws-storage-service/ , https://www.theregister.com/2024/10/21/37signals_aws_savings/

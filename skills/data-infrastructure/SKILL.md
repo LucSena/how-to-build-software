@@ -73,7 +73,7 @@ Rules:
 
 - **Managed by default.** You are buying backups, point-in-time recovery, failover, and patching. Self-host only with DBA capacity, a cost case at scale, or a residency mandate — and then use a mature operator and test failover.
 - **"PG-compatible" is not Postgres.** Distributed SQL and serverless variants miss extensions and features, and optimistic-concurrency systems (Aurora DSQL) require client retries; test your ORM and migrations against the compatibility list first.
-- **SQLite is a real production option** for one machine with Litestream-style backups (Rails 8 defaults to it). Switch to Postgres when you need several writers, HA, or horizontal app scaling.
+- **SQLite is a real production option** for one machine with Litestream-style backups (Rails 8 made it a first-class production option). Switch to Postgres when you need several writers, HA, or horizontal app scaling.
 
 Per-engine detail, Postgres limits (MVCC bloat, connections, single writer), multi-region, and managed/serverless options: `references/databases.md`.
 

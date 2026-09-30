@@ -1,6 +1,6 @@
 # Supply-Chain Security for Dependencies
 
-Use this file to harden installs and CI, set up provenance or SBOMs, review a suspicious lockfile diff, or respond to a compromised package. Configuration flags are as of 2026-09; verify them against current package-manager docs before copying. For the full narrative of each incident, see `lessons-from-failures` (`references/security-and-supply-chain.md`).
+Use this file to harden installs and CI, set up provenance or SBOMs, review a suspicious lockfile diff, or respond to a compromised package. Configuration flags are as of 2026-09; verify them against current package-manager docs before copying. For the full narrative of each incident, see the `lessons-from-failures` skill (its security and supply-chain reference).
 
 ## Contents
 1. Attack vectors and the control for each

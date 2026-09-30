@@ -1,0 +1,71 @@
+{
+  "skill_name": "data-infrastructure",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I'm starting a B2B SaaS for project tracking (Next.js + Node, 2 devs). Plan the data layer: I was thinking MongoDB since our tasks have custom fields, Redis for caching and queues, Elasticsearch for search, and Kafka for events so we're ready to scale. File attachments too.",
+      "expected_output": "Recommends one managed Postgres (JSONB + GIN for custom fields), a Postgres-backed job queue (e.g., pg-boss or Graphile Worker) with transactional enqueue, no distributed cache until measured (HTTP/CDN caching), Postgres full-text + pg_trgm for search, no Kafka, and S3-compatible object storage with presigned uploads for attachments. Names the concrete trigger that would justify adding each rejected component later, and produces a short decision record.",
+      "files": [],
+      "expectations": [
+        "Recommends Postgres as the primary database and handles custom fields with JSONB (not MongoDB), noting the relational nature of projects/tasks/users",
+        "Recommends a Postgres-backed job queue for a Node stack (such as pg-boss or Graphile Worker) and mentions transactional enqueue",
+        "Does not add Redis/Valkey at MVP, or adds it only with a stated measured trigger",
+        "Does not recommend Kafka and explains when it would be justified (many independent consumers, replay, cross-team streams)",
+        "Recommends Postgres full-text search (tsvector/GIN and/or pg_trgm) before Elasticsearch, with a trigger for adding a search engine",
+        "Stores attachments in S3-compatible object storage with presigned uploads, keeping only metadata in the database",
+        "Includes a decision record or ADR-style justification for the chosen components"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "We run Rails with Sidekiq on a single Redis instance that's also our Rails cache (maxmemory-policy allkeys-lru). Jobs occasionally just disappear and we can't find errors. Also should we self-host MinIO for user uploads to save money vs S3?",
+      "expected_output": "Identifies that allkeys-lru eviction on a shared cache+queue instance silently deletes Sidekiq jobs; recommends separating instances (queue on noeviction + AOF persistence, cache on its own evictable instance) or moving jobs to Solid Queue/Postgres; mentions reliable fetch for crashed workers. Advises against self-hosted MinIO because its community repo was archived in February 2026 with no security fixes, and suggests alternatives (R2 for egress savings, Garage/SeaweedFS/Ceph if self-hosting).",
+      "files": [],
+      "expectations": [
+        "Names eviction under allkeys-lru on the shared instance as the likely cause of disappearing jobs",
+        "Recommends a separate Redis/Valkey instance for the queue with noeviction and persistence (AOF), or moving jobs to a database-backed queue such as Solid Queue",
+        "Mentions that basic fetch can lose in-flight jobs on worker crash and that reliable fetch (e.g., super_fetch) or a DB queue addresses it",
+        "Does not recommend self-hosted MinIO and states it is archived/unmaintained as of 2026",
+        "Suggests at least one alternative: a managed S3-compatible provider (e.g., Cloudflare R2 for egress) or a maintained self-hosted option (Garage, SeaweedFS, Ceph RGW)"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "We want semantic search over our help-center articles and support tickets (~300k chunks, multi-tenant, each tenant only sees its own data). Postgres 17 is our main DB. Pinecone or Qdrant?",
+      "expected_output": "Recommends pgvector in the existing Postgres at this size, with HNSW, tenant filtering plus iterative index scans (hnsw.iterative_scan) or partial indexes/partitioning so filtered queries return enough results, row-level security/tenant scoping, hybrid search with FTS via reciprocal rank fusion, and storing embedding model/version per row. States the triggers for a dedicated store (hundreds of millions of vectors, very high QPS with strict recall, many cold tenant namespaces).",
+      "files": [],
+      "expectations": [
+        "Recommends pgvector in the existing Postgres rather than Pinecone or Qdrant at ~300k vectors",
+        "Explains the filtered-query gotcha (filters applied after the approximate index scan) and proposes iterative index scans, partial indexes, or partitioning",
+        "Keeps tenant isolation in the database (tenant filter and/or row-level security)",
+        "Recommends storing the embedding model/version to support re-embedding",
+        "States concrete triggers for moving to a dedicated vector store"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Our Postgres orders table has a slow list query (p95 2.5s) on the customer dashboard. Which cache should we add, Redis or Valkey?",
+      "expected_output": "A near-miss: the real task is query tuning, which belongs to scalability. The answer measures first (EXPLAIN ANALYZE, indexes, N+1, pagination) and defers the cache choice; if a cache is later justified, Valkey is the default distributed engine with a TTL and invalidation story. Hands off to the scalability skill for the tuning work.",
+      "files": [],
+      "expectations": [
+        "Does not pick a cache engine as the first step; asks for or runs EXPLAIN (ANALYZE) and checks indexes, N+1, and pagination first",
+        "Names the scalability skill (or equivalent query-tuning work) as the next step for the slow query",
+        "States the conditions under which a cache would be justified (repeated reads, tolerable staleness, hit-rate estimate, invalidation plan)",
+        "If an engine is named, chooses Valkey as the default with a license/governance reason, or Redis with its license terms stated"
+      ]
+    },
+    {
+      "id": 5,
+      "prompt": "Three teams (billing, analytics, notifications) all need to react to order events, analytics wants to backfill 6 months of history into a new model, and we're at about 20k events/second. We currently use a Postgres job queue. Is Postgres still fine?",
+      "expected_output": "Recognizes the triggers for a log/stream: multiple independent consumers, replay/backfill, cross-team exchange, and high sustained throughput. Recommends a managed Kafka-compatible service fed by a transactional outbox or CDC (with replication-slot safeguards), keeps the Postgres job queue for background jobs, and covers idempotent consumers, per-key ordering, schema versioning, and license/ownership notes (e.g., IBM owning Confluent as of 2026).",
+      "files": [],
+      "expectations": [
+        "Identifies replay/backfill and multiple independent consumer groups as reasons a Postgres queue no longer fits",
+        "Recommends a Kafka-compatible log (managed) for the event stream",
+        "Publishes events via a transactional outbox or CDC rather than dual writes, and mentions guarding the replication slot (e.g., max_slot_wal_keep_size, lag alerts) if CDC is used",
+        "Keeps the existing Postgres queue for ordinary background jobs rather than moving everything to Kafka",
+        "Requires idempotent consumers and per-key ordering rather than global ordering or exactly-once claims"
+      ]
+    }
+  ]
+}

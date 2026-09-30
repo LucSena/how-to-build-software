@@ -1,0 +1,141 @@
+# .github/workflows/ci-cd.yml — CI on every PR; build once + promote by digest on main.
+#
+# BEFORE USE
+# - Replace every <SHA> with the full 40-character commit SHA of the release named in the comment.
+#   Look it up (e.g. `git ls-remote https://github.com/actions/checkout refs/tags/<tag>`; for annotated
+#   tags use the peeled ^{} commit) — NEVER invent a SHA. Dependabot (package-ecosystem: github-actions)
+#   then keeps SHAs and version comments current.
+# - Replace account IDs, role names, region, registry, and the deploy/migrate/smoke scripts with yours.
+# - Create GitHub Environments "staging" and "production"; put required reviewers / branch rules on production.
+# - Cloud trust policies: each role trusts only its environment, e.g. sub = repo:<org>/<repo>:environment:production
+#   (repos created after 2026-07-15 use immutable subject claims: repo:<org>@<ownerId>/<repo>@<repoId>:environment:production).
+
+name: ci-cd
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions: {}                       # nothing by default; each job asks for what it needs
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}   # never cancel a running main deploy
+
+jobs:
+  test:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@<SHA> # vX.Y.Z
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@<SHA> # vX.Y.Z
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run typecheck
+      - run: npm run config:check     # schema keys == .env.example keys
+      - run: npm test
+      - name: Lint Dockerfile
+        run: docker run --rm -i hadolint/hadolint@sha256:<digest> < Dockerfile
+      # Add secret scanning, dependency audit, and SAST here or as parallel jobs.
+
+  build:
+    needs: test
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    permissions:
+      contents: read
+      id-token: write                 # OIDC to the registry account and for attestations
+      attestations: write
+    outputs:
+      digest: ${{ steps.push.outputs.digest }}
+      image: ${{ steps.ecr.outputs.registry }}/app
+    steps:
+      - uses: actions/checkout@<SHA> # vX.Y.Z
+        with:
+          persist-credentials: false
+      - uses: aws-actions/configure-aws-credentials@<SHA> # vX.Y.Z
+        with:
+          role-to-assume: arn:aws:iam::111111111111:role/ci-image-push   # shared-services account
+          aws-region: eu-west-1
+      - uses: aws-actions/amazon-ecr-login@<SHA> # vX.Y.Z
+        id: ecr
+      - uses: docker/setup-buildx-action@<SHA> # vX.Y.Z
+      - uses: docker/build-push-action@<SHA> # vX.Y.Z
+        id: push
+        with:
+          context: .
+          push: true
+          pull: true
+          tags: ${{ steps.ecr.outputs.registry }}/app:${{ github.sha }}
+          build-args: GIT_SHA=${{ github.sha }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          provenance: true
+          sbom: true
+      # Scan the pushed image here (Trivy/Grype/Scout) and fail on criticals.
+      - uses: actions/attest-build-provenance@<SHA> # vX.Y.Z
+        with:
+          subject-name: ${{ steps.ecr.outputs.registry }}/app
+          subject-digest: ${{ steps.push.outputs.digest }}
+          push-to-registry: true
+
+  deploy-staging:
+    needs: build
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    environment: staging
+    permissions:
+      contents: read
+      id-token: write
+    env:
+      IMAGE: ${{ needs.build.outputs.image }}@${{ needs.build.outputs.digest }}   # promote by digest, never by tag
+    steps:
+      - uses: actions/checkout@<SHA> # vX.Y.Z
+        with:
+          persist-credentials: false
+      - uses: aws-actions/configure-aws-credentials@<SHA> # vX.Y.Z
+        with:
+          role-to-assume: arn:aws:iam::222222222222:role/deploy-staging  # trusts environment:staging only
+          aws-region: eu-west-1
+      - name: Migrate (one-off job, same image, before traffic)
+        run: ./scripts/migrate.sh "$IMAGE"
+      - name: Deploy
+        run: ./scripts/deploy.sh "$IMAGE"
+      - name: Smoke test (version + wiring)
+        run: ./scripts/smoke.sh https://staging.example.com "${{ github.sha }}"
+
+  deploy-production:
+    needs: [build, deploy-staging]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    environment: production           # required reviewers / wait timer / branch policy live here
+    permissions:
+      contents: read
+      id-token: write
+    env:
+      IMAGE: ${{ needs.build.outputs.image }}@${{ needs.build.outputs.digest }}
+    steps:
+      - uses: actions/checkout@<SHA> # vX.Y.Z
+        with:
+          persist-credentials: false
+      - uses: aws-actions/configure-aws-credentials@<SHA> # vX.Y.Z
+        with:
+          role-to-assume: arn:aws:iam::333333333333:role/deploy-prod     # separate production account
+          aws-region: eu-west-1
+      - name: Migrate (expand-only; contract ships in a later release)
+        run: ./scripts/migrate.sh "$IMAGE"
+      - name: Progressive deploy with automated analysis (auto-rollback on SLO regression)
+        run: ./scripts/deploy.sh "$IMAGE" --strategy canary
+      - name: Smoke test (version + wiring)
+        run: ./scripts/smoke.sh https://app.example.com "${{ github.sha }}"
+      - name: Release marker
+        run: ./scripts/mark-release.sh "${{ github.sha }}"   # error-tracker release + dashboard annotation
