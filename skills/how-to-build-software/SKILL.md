@@ -3,9 +3,9 @@ name: how-to-build-software
 description: Use when starting or planning any non-trivial software work — a new app, feature, screen, service, refactor, redesign, or review — to pick which engineering, design, and mobile skills apply and in what order. Routes intents like "build me a SaaS", "design this screen", "make it scale", "clean up this code", "review my app", or "ship an iOS/Android app" to the right skills, and sets the universal quality bar every deliverable must clear. Use it first whenever a task spans more than one discipline, even if the user does not mention skills.
 license: MIT
 metadata:
-  version: "1.0.0"
+  version: "1.1.0"
   category: meta
-  related: "project-context software-architecture design-taste mobile-design code-review design-review"
+  related: "project-context project-bootstrap system-design software-architecture code-review design-review"
 ---
 
 # How to Build Software
@@ -37,29 +37,69 @@ If `.agents/project-context.md` exists (or `.claude/project-context.md`), read i
 
 ## Routing table
 
+**Starting and shaping a product**
+
 | The user wants to… | Load, in order |
 |---|---|
-| Start a new product or app | `project-context` → `software-architecture` → `frontend-architecture` or `mobile-architecture` → `design-taste` → `design-foundations` → `design-systems` |
-| Build or change a web screen/page | `design-taste` → `design-foundations` → `interaction-design` → `accessibility` → `web-platform` |
-| Build a landing page, signup, onboarding, pricing, checkout | `conversion-ux` → `design-taste` → `design-foundations` → `web-platform` |
-| Build a dashboard, table, admin, or data-heavy view | `data-dense-ui` → `interaction-design` → `design-foundations` |
+| Start a new product, app, or repo | `project-context` → `tech-stack-selection` → `project-bootstrap` → `software-architecture` → `codebase-organization` |
+| Choose a language, framework, database, or host | `tech-stack-selection` → `software-architecture` |
+| Design a system end to end, write a design doc | `system-design` → `data-modeling` → `scalability` → `reliability` |
+| Design the database schema or a migration | `data-modeling` → `scalability` |
+| Set up environments, config, secrets, local dev | `environments-and-config` → `deployment-and-infrastructure` |
+| Ship it: CI/CD, containers, Kubernetes or not, IaC, background jobs | `deployment-and-infrastructure` → `reliability` |
+
+**Writing and organizing code**
+
+| The user wants to… | Load, in order |
+|---|---|
+| Structure a codebase, split modules, scale a growing codebase | `codebase-organization` → `software-architecture` → `design-patterns` |
+| Design classes and objects, fix an OOP mess | `object-oriented-design` → `design-patterns` → `clean-code` |
+| Clean up, refactor, or name things better | `clean-code` → `object-oriented-design` → `testing-strategy` |
+| Add, audit, or remove a dependency/package | `dependency-management` → `application-security` |
+| Decide what and how to test | `testing-strategy` |
+| Review code or a PR | `code-review` |
+
+**Running it safely**
+
+| The user wants to… | Load, in order |
+|---|---|
+| Make it handle more load or data | `scalability` → `system-design` → `reliability` |
+| Make it stop breaking in production | `reliability` → `lessons-from-failures` → `testing-strategy` |
+| Secure the app (authorization, injection, XSS, secrets) | `application-security` → `api-design` |
+| Learn from outages, write a postmortem, avoid known disasters | `lessons-from-failures` → `reliability` |
+| Design an HTTP/GraphQL/gRPC API or webhooks | `api-design` → `application-security` |
+| Build an LLM feature, RAG, or agent | `ai-native-architecture` → `ai-interface-design` |
+
+**Product screens and flows**
+
+| The user wants to… | Load, in order |
+|---|---|
+| Build login, sign-up, password reset, MFA, passkeys, SSO | `auth-flows` → `application-security` → `interaction-design` |
+| Build onboarding, first-run, activation, empty accounts | `onboarding-design` → `interaction-design` → `ux-principles` |
+| Build a dashboard, app shell, sidebar, or home screen | `dashboard-design` → `data-dense-ui` → `design-foundations` |
+| Build settings, billing, team, notifications, search, error pages | `app-screen-patterns` → `interaction-design` |
+| Build tables, data grids, charts, admin CRUD | `data-dense-ui` → `interaction-design` |
+| Build a landing page, pricing, paywall, checkout, cancel flow | `conversion-ux` → `design-taste` → `web-platform` |
 | Build a chat, copilot, or agent interface | `ai-interface-design` → `interaction-design` → `ai-native-architecture` |
-| Add animation or polish interactions | `motion-design` → `interaction-design` |
+
+**Visual design and quality**
+
+| The user wants to… | Load, in order |
+|---|---|
+| Build or change a web screen/page | `design-taste` → `design-foundations` → `interaction-design` → `accessibility` → `web-platform` |
 | Create or clean up a design system, tokens, DESIGN.md | `design-systems` → `design-foundations` |
+| Add animation or polish interactions | `motion-design` → `interaction-design` |
 | Pick icons, component libraries, inspiration | `design-resources` |
 | Review or critique a UI | `design-review` (it pulls in `ux-principles`, `accessibility`) |
+| Understand why users struggle or why a design failed | `ux-principles` → `lessons-from-failures` → `design-review` |
+
+**Mobile**
+
+| The user wants to… | Load, in order |
+|---|---|
 | Design an iPhone/iPad app | `mobile-design` → `ios-design` → `mobile-architecture` |
 | Design an Android app | `mobile-design` → `android-design` → `mobile-architecture` |
-| Choose native vs React Native/Flutter/KMP | `mobile-architecture` |
-| Structure a codebase, define modules/boundaries | `software-architecture` → `design-patterns` |
-| Clean up, refactor, or name things better | `clean-code` → `design-patterns` → `testing-strategy` |
-| Make it handle more load / data | `scalability` → `reliability` |
-| Make it stop breaking in production | `reliability` → `testing-strategy` |
-| Design an HTTP/GraphQL/gRPC API or webhooks | `api-design` |
-| Decide what and how to test | `testing-strategy` |
-| Build an LLM feature, RAG, or agent | `ai-native-architecture` → `ai-interface-design` |
-| Review code or a PR | `code-review` |
-| Understand why users struggle | `ux-principles` → `design-review` |
+| Choose native vs React Native/Flutter/KMP | `mobile-architecture` → `tech-stack-selection` |
 
 When two rows match, take the union and keep decision order.
 
@@ -73,6 +113,10 @@ Every deliverable clears all of these before it is called done:
 - Errors are handled where they can be acted on, and surfaced with context otherwise — never swallowed.
 - No secrets in code, logs, or client bundles; untrusted input is validated at the boundary.
 - Names describe domain intent; no file grows into a god-module without a reason written down.
+- Every new dependency passed the `dependency-management` check; the standard library or a few lines of code were considered first.
+- Config is validated at startup; secrets live outside the repo; the same artifact is promoted through every environment.
+- Schema changes are backward compatible (expand/contract) and every destructive operation has a tested backup or undo.
+- Authorization is checked server-side on every request that touches another user's or tenant's data.
 
 **Design**
 - Every interactive element has hover (pointer devices), focus-visible, active, disabled, and loading states; every data view has loading, empty, error, and partial states.
@@ -114,3 +158,5 @@ Then execute, and end with a short **Done / Verified / Not checked** summary.
 - `project-context` — capture stack, platforms, scale, and design system once so every skill reuses it.
 - `code-review` — the engineering exit gate.
 - `design-review` — the design exit gate.
+- `project-bootstrap` — the first day of a new repo: walking skeleton, standards, CI, first deploy.
+- `system-design` — when the task is a system, not a screen: requirements, estimates, data, trade-offs.
