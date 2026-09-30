@@ -2,6 +2,17 @@
 
 All notable changes to this collection. Versioning: `x.y.z` — x = restructure/breaking, y = new skill, z = content updates.
 
+## 0.2.1 — 2026-09-30
+
+Source verification against the original pages, with full web access, plus deeper engineering and design content read at the source.
+
+- **Verified against the originals.** Every URL cited in `skills/` (1,430) was requested, and failures were re-checked in a real browser. The text of 1,390+ sources was downloaded, and each line with a number, version, date, or quote was matched against the sources its file cites. Lines that did not match were reviewed by hand and corrected or removed. Full log: `research/P-source-review-2026-09.md`.
+- **Corrections (examples):** Rams now has 348 rules (not "300+"); transitions.dev has 43+ transitions and a motion-scoring agent (not "about 18"); getdesign.md has 550+ DESIGN.md files (not 70+); Kotlin 2.4.0 was released 2026-07-14 (not June); the Hawaii alert prompt is quoted exactly from the FCC report; the npm chalk/debug compromise reached "more than 2 billion" weekly downloads per the first report (not 2.6 billion); a quote attributed to Gunnar Morling was actually Conduktor's; the "35% dimming" rule for Liquid Glass is not in Apple's session and was removed; an unsourced "$47,000 agent loop" story was removed; icon library counts and licenses updated (Isocons is CC BY 4.0, Remix Icon's license has prohibitions, lucide-animated has 467 icons).
+- **Broken links fixed:** import-linter, Sentry, Travis CI, "The Log", arlobelshee.com, misko.hevery.com, SiliconANGLE, the butterfly-ballot source (now the APSR paper).
+- **New reference:** `application-security/references/external-exposure.md`, a pre-launch pass for what attackers check first (leaked `.env`/`.git`/source maps, metrics and actuators, BaaS tables without RLS, open sign-up, SSRF through image optimizers, dangling DNS, staging), adapted from recon-skills and confirmed in vendor docs.
+- **Deepened from primary sources:** Amazon Builders' Library (caching, load shedding, idempotent retries), Stripe (rate limiters, idempotency), Netflix (adaptive concurrency limits), Discord (Go → Rust as a worked stack decision), Notion (the 2023 re-shard), Shopify (deconstructing the monolith), Slack (the 2022 metastable incident), Dan Luu (postmortem lessons), IBM Carbon (login, empty states, dashboards), GitHub Primer (loading, empty states), GOV.UK (email addresses, passwords), Impeccable's slop catalog.
+- **Validator:** the nested-reference check no longer misfires on Python < 3.11, where `Path.glob("*/")` also matched files.
+
 ## 0.2.0 — 2026-09-30
 
 Much deeper engineering, the product flows people ask for most, and a website.
