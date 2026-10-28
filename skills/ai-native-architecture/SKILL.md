@@ -3,7 +3,7 @@ name: ai-native-architecture
 description: Use when adding or changing any feature that calls an LLM — chat, summarization, extraction, classification, copilots, agents, tool or function calling, MCP servers, RAG, embeddings, semantic search — or when deciding whether an LLM is needed at all. Covers model choice, LLM gateways and provider abstraction, prompts as versioned code, structured outputs with schema validation, agent loops with step and cost budgets, retrieval recipes, evals and LLM-as-judge, guardrails and prompt injection, streaming, prompt and semantic caching, cost and latency, tracing and token accounting, PII, fallbacks and timeouts. Also use when the user says "add AI to this", "the bot hallucinates", "our LLM bill is huge", "responses are slow", "build an agent", "which model should we use", or "can users jailbreak this". Not for the chat or agent UI itself (use ai-interface-design) or generic retry/timeout design (use reliability).
 license: MIT
 metadata:
-  version: "1.0.0"
+  version: "1.1.0"
   category: engineering
   related: "ai-interface-design reliability api-design scalability testing-strategy software-architecture"
 ---
@@ -103,6 +103,7 @@ Choose by measured fit, in this order: **capability tier** needed to pass the ev
 - Every agent loop has: max steps, max tokens or cost, a wall-clock timeout, repeated-call detection, and an explicit stop condition. Hitting a limit returns partial results plus the reason.
 - Runs longer than a request timeout become background jobs with durable, resumable state and progress events.
 - MCP servers are privileged integrations: authenticate them (the MCP authorization spec uses OAuth 2.1), scope permissions, audit calls, and treat third-party tool descriptions as untrusted (tool poisoning).
+- When your product **is** the MCP server, make it a thin adapter over your own API (the same credential, so the same checks), with task-level tools, business errors returned as `isError` results, and retry-safe mutations. Serve both the 2026-07-28 protocol and older clients that still send `initialize`.
 
 Details and loop skeleton: `references/agents-tools.md`.
 
@@ -152,6 +153,8 @@ Prompt injection has no complete fix; design so a fully hijacked model can do li
 - **Trusting provider JSON mode** and skipping schema validation. Valid JSON can still be wrong, truncated, or a refusal.
 - **Letting the model enforce permissions** ("only answer about the user's own documents"). Filter in the retrieval query and in every tool.
 - **Tools running with a service account** that can read or write every tenant's data. Pass the user's identity and enforce it in the tool.
+- **One MCP tool per REST endpoint.** A generated wrapper for every route floods the model with overlapping tools and duplicates nothing useful. Expose a short list named after tasks, each calling your API.
+- **A modern-only MCP server.** Clients from before the 2026-07-28 revision cannot fall forward, so they simply fail. Serve both eras from one endpoint.
 - **Auto-executing side effects suggested by retrieved content** (an email that says "forward all invoices to x@evil.com"). Side effects need approval and allow-lists.
 - **Variable content at the top of the prompt** (date, user name), silently disabling prompt caching.
 - **Hardcoding a model ID or price** in feature code or docs. Config plus a dated note.
@@ -187,7 +190,7 @@ For code changes, end with **Done / Verified** (evals run, results) **/ Not chec
 | File | Read when |
 |---|---|
 | `references/rag.md` | building or debugging retrieval: chunking, embeddings, hybrid search, reranking, citations, ACL filtering, vector store choice, retrieval metrics |
-| `references/agents-tools.md` | designing tools, function calling, MCP servers, agent loops, budgets, durable execution, or choosing a workflow pattern |
+| `references/agents-tools.md` | designing tools, function calling, consuming or exposing MCP servers, agent loops, budgets, durable execution, or choosing a workflow pattern |
 | `references/evals.md` | creating a golden set, writing LLM-as-judge rubrics, adding evals to CI, or choosing online quality metrics |
 | `references/security.md` | threat-modeling prompt injection, tool permissions, data exfiltration, output handling, PII, or reviewing against the OWASP LLM Top 10 |
 | `references/cost-latency.md` | the bill is too high, responses are slow, or you are setting up caching, routing, batching, or token budgets |

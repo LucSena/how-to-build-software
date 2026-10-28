@@ -113,6 +113,28 @@ async function runAgent(task: Task, user: User, limits: Limits): Promise<AgentRe
 - Treat tool descriptions and results from third-party servers as untrusted: a malicious description can instruct the model (tool poisoning).
 - Log every call with user, tool, arguments, and result size.
 
+### Exposing your own product to agents over MCP
+
+The rules above are for consuming MCP servers. When your product is the server, these defaults apply (as of 2026-10):
+
+- **Reach.** A remote server over Streamable HTTP that accepts a bearer token reaches the API runtimes:
+  - the Claude Messages API MCP connector (`authorization_token`);
+  - the OpenAI Responses API (`authorization` or `headers`);
+  - the xAI SDK (`authorization`);
+  - Gemini (`headers`);
+  - self-hosted agent SDKs (arbitrary headers).
+
+  Chat products that let a person add a connector through a UI, such as claude.ai and ChatGPT, expect OAuth. Ship the bearer path first, and treat OAuth as a separate milestone.
+- **Serve both protocol eras.** The 2026-07-28 revision removed sessions and the `initialize` handshake. A client from before it has no way to fall forward, so a modern-only server locks it out. The spec allows one endpoint to serve both eras. Use the official SDK's dual-era support rather than parsing JSON-RPC yourself.
+- **Make it a thin adapter.** Each tool calls your existing API with the caller's own credential. Authorization, validation, idempotency, rate limits and plan limits then stay in one place and cannot drift. Add the API route first, then the tool.
+- **Design tools around tasks, not endpoints.** Name them after what an agent is trying to do (`buy_service`, `submit_delivery`), not after one tool per route. Long lists of overlapping tools distract the model.
+- **Return business failures as tool results.** Use `isError: true` and include the fields the agent needs to act (error code, next action, limit details). Keep JSON-RPC errors for protocol faults. A model can recover from a result; it usually cannot recover from a transport error.
+- **Make mutating tools safe to retry.** Clients re-send tool calls after timeouts. Accept an optional idempotency key, and derive one when it is absent (for example, from the tool, the arguments and the day). Document the trade-off: a deliberate identical repeat then needs its own key.
+- **Never let the agent approve its own spend.** Irreversible or paid actions that policy holds should return a pending state such as "awaiting approval" that only a human path can clear.
+- **Validate `Origin`.** The transport spec requires it, to stop DNS-rebinding and cross-site calls from browsers. Server-side clients send no `Origin`.
+- **Mark third-party content as untrusted in the server `instructions`.** Anything other users wrote (titles, messages, deliverables) reaches the model through your tools.
+- **Offer a polling tool for events.** Hosted runtimes cannot receive webhooks. A cursor-based `get_events` tool covers them; webhooks serve agents that run their own server.
+
 **Multi-agent** setups (several agents coordinating) multiply cost and failure modes. Use them only when subtasks are genuinely parallel and independent (broad research, large codebase search) and a single agent with good tools measurably underperforms.
 
 ## Sources
@@ -120,5 +142,10 @@ async function runAgent(task: Task, user: User, limits: Limits): Promise<AgentRe
 - Anthropic, "Building Effective Agents": https://www.anthropic.com/engineering/building-effective-agents
 - Anthropic, "Writing effective tools for agents": https://www.anthropic.com/engineering/writing-tools-for-agents
 - Model Context Protocol authorization specification: https://modelcontextprotocol.io/specification/latest/basic/authorization
+- MCP 2026-07-28 changelog (sessions and `initialize` removed): https://modelcontextprotocol.io/specification/2026-07-28/changelog
+- MCP versioning (dual-era servers; legacy clients cannot fall forward): https://modelcontextprotocol.io/specification/2026-07-28/basic/versioning
+- MCP Streamable HTTP transport (`Origin` validation): https://modelcontextprotocol.io/specification/2026-07-28/basic/transports/streamable-http
+- MCP tools (`isError` tool results versus protocol errors): https://modelcontextprotocol.io/specification/2026-07-28/server/tools
+- Claude connector authentication options: https://claude.com/docs/connectors/building/authentication
 - OWASP Top 10 for LLM Applications 2025 (LLM06 Excessive Agency): https://genai.owasp.org/llm-top-10/
 - Durable execution overview: https://www.kai-waehner.de/blog/2025/06/05/the-rise-of-the-durable-execution-engine-temporal-restate-in-an-event-driven-architecture-apache-kafka/ ; https://www.dbos.dev/blog/postgres-is-all-you-need-for-durable-execution

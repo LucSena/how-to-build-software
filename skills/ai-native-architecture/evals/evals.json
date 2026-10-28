@@ -51,6 +51,20 @@
         "Addresses the UI concerns (stop control, streaming display, citations) or points to the ai-interface-design skill",
         "Does not produce a backend architecture document with gateway, eval, and RAG pipeline sections"
       ]
+    },
+    {
+      "id": 5,
+      "prompt": "We want Claude and OpenAI agents to use our B2B invoicing API, which has about 120 REST endpoints. Plan: auto-generate one MCP tool per endpoint, run it as a stateless server on the newest MCP protocol only, and authenticate every call with our internal service account so agents never need keys. Anything wrong with that?",
+      "expected_output": "Rejects the service account (tools must act with the end customer's own credential so the API's authorization still applies) and the one-tool-per-endpoint generation (a short list of task-level tools that call the existing API). Recommends serving both the 2026-07-28 protocol and older clients that still send initialize, a bearer key the runtimes can pass, business errors returned as isError tool results with actionable fields, retry-safe mutating tools with idempotency keys, Origin validation, human approval for irreversible actions such as sending or paying invoices, and treating customer-written text as untrusted.",
+      "files": [],
+      "expectations": [
+        "Rejects the shared service account and requires the caller's own credential so the existing API enforces permissions",
+        "Recommends a small set of task-level tools instead of one tool per endpoint",
+        "Says older MCP clients that send initialize must still be served (dual-era), not only the newest protocol",
+        "Returns business or validation failures as tool results the model can read (isError), not only protocol errors",
+        "Makes mutating tools safe to retry with idempotency keys",
+        "Requires human approval or a pending state for irreversible actions such as sending or paying invoices"
+      ]
     }
   ]
 }
