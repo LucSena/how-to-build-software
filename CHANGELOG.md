@@ -4,6 +4,21 @@ All notable changes to this collection. Versioning: `x.y.z` — x = restructure/
 
 ## Unreleased
 
+- **Agents as callers, from building Meldwork's platform round (as of 2026-10).**
+  - `ai-native-architecture` 1.1.0: `references/agents-tools.md` adds "Exposing your own product to agents over MCP". It covers:
+    - which runtimes accept a bearer-token remote server;
+    - serving both protocol eras after the 2026-07-28 revision removed `initialize` and sessions;
+    - a thin adapter over your own API, and task-level tools;
+    - `isError` results, retry-safe mutations, `Origin` validation and polling for hosted runtimes.
+
+    The skill also gains two new gotchas and one new eval.
+  - `conversion-ux` 1.2.0: `references/pricing-paywalls.md` adds "When the caller is an agent". It covers:
+    - typed, non-retryable limit errors, with a deliberate choice between 402 and 429;
+    - out-of-band owner notices written after the rollback;
+    - limits on new capacity, never on reads or in-flight work.
+
+    The skill also gains one new gotcha and one new eval.
+
 - **References page** in EN/PT/ES (`/references/`): the 61 sites and projects studied for the skills, with a one-line note each, grouped into nine categories and sorted alphabetically; and all 1,299 sources cited by the skills, grouped by category and skill (collapsible), each labeled from its `## Sources` entry. Linked from the header and the home page.
 
 - **Website rebuilt as one simple page** (per language: English, Português, Español), styled like a long blog post: a single reading column, Charis SIL for body text, Source Sans 3 for headings, Source Code Pro for code, light and dark themes. It shows what the skills are, how to install them, three real routing examples from the router table, three real gotchas, and all 45 skills with their summaries. Replaces the earlier multi-page "notebook" design.

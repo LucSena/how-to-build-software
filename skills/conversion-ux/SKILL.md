@@ -3,7 +3,7 @@ name: conversion-ux
 description: Use when building or improving the screens that turn visitors into users and users into customers — landing pages and heroes, CTAs, social proof, signup forms as a conversion step, pricing pages, paywalls and upgrade prompts, trials, checkout, and cancellation flows — and when planning A/B tests for them. Covers awareness-level messaging, field costs, plan tables, Baymard checkout findings, easy-cancel legal requirements, sample sizes, and a hard ethics floor against dark patterns. Also use when the user says "nobody signs up", "improve conversion", "my landing page isn't working", "design our pricing page", "add a paywall", "reduce checkout abandonment", or "build a cancel flow", even for one section. For onboarding, activation, and first-run empty states use onboarding-design; for login, sign-up mechanics, and account security use auth-flows; for visual direction use design-taste; for form mechanics use interaction-design; for psychology and dark-pattern law in depth use ux-principles.
 license: MIT
 metadata:
-  version: "1.1.0"
+  version: "1.2.0"
   category: design
   related: "onboarding-design auth-flows ux-principles interaction-design design-taste web-platform"
 ---
@@ -124,6 +124,7 @@ Onboarding and activation now live in `onboarding-design`: activation metrics (`
 - **Answer "which plan is right for me?"** with one-line "For…" descriptions per tier and an FAQ covering billing, trials, cancellation, refunds, and data.
 - **Trials**: state length, what happens at the end, whether a card is required, and send a reminder before charging. Choose card-upfront or not by audience and fraud risk, not by headline conversion rate alone.
 - **Paywalls and upgrade prompts** appear at the moment of value or at a real limit, never mid-task or during onboarding. Anatomy: what the user tried to do → what upgrading unlocks → price → CTA → **an escape hatch** ("Not now" / "Continue on Free") of real visibility. Cool down for days after a dismissal. Users can always see and export their own data, even over the limit.
+- **When an agent or API client hits the limit**, return a typed, non-retryable error that carries the limit, current use, the recommended plan and when it resets. Notify the human owner out of band; never block work already in flight.
 - Details: `references/pricing-paywalls.md`.
 
 ## Checkout
@@ -174,6 +175,7 @@ Baymard's research puts average documented cart abandonment around 70%, and find
 - **Asking for everything at signup.** Role, company size, phone, and use case belong in onboarding, if anywhere.
 - **Blank first-run dashboards.** Always an empty state with one action, a template, or labeled sample data (`onboarding-design`).
 - **Paywall mid-task or during onboarding.** Wait for value or a real limit, and always include a visible way out.
+- **A human-only paywall in an API or agent product.** An agent that gets an HTML upgrade page or a retryable 429 loops or fails silently. Give it a stable error code, and give its owner the upgrade prompt.
 - **Hiding the annual total or renewal terms.** Show the real amount charged and when; it is required in many jurisdictions and reduces refunds.
 - **Retention "offers" that block cancellation.** One offer, beside a prominent cancel button, is the ceiling.
 - **Declaring A/B winners early.** Peeking without a sequential method inflates false positives; respect the sample size.
@@ -202,7 +204,7 @@ For audits, group findings as **Fix now** (broken or blocking), **High impact**,
 |---|---|
 | `references/landing-pages.md` | Writing or restructuring a landing or home page: hero variants, section patterns, copy formulas per awareness level, proof placement, landing-page test ideas. |
 | `references/signup-onboarding.md` | Reviewing signup field costs, trial models (freemium, card upfront, reverse trial), or trial reminders from the conversion angle; for full onboarding design go to `onboarding-design`, for auth flows to `auth-flows`. |
-| `references/pricing-paywalls.md` | Designing a pricing page, plan table, trial terms, upgrade prompts, usage limits, paywalls, or a cancel flow. |
+| `references/pricing-paywalls.md` | Designing a pricing page, plan table, trial terms, upgrade prompts, usage limits, paywalls (including limits that agents or API clients hit), or a cancel flow. |
 | `references/checkout.md` | Building or auditing a cart or checkout: fields, payment, shipping, errors, trust, mobile checkout. |
 | `references/psychology.md` | Using or reviewing a persuasion mechanism (anchoring, defaults, social proof, loss aversion, goal-gradient) and checking where honest use ends; companion skill recommendations. |
 
