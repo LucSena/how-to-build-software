@@ -48,6 +48,20 @@
         "Groups or sections the settings and makes notification settings findable",
         "Does not propose conversion tactics (CTAs, social proof, urgency, pricing) for the settings page"
       ]
+    },
+    {
+      "id": 5,
+      "prompt": "Our product is an API that AI agents call on behalf of our customers. On the free plan, when a customer goes over 100 jobs a month we return HTTP 429 with an HTML page linking to pricing. Conversions from free to paid are near zero. Redesign the limit and upgrade experience.",
+      "expected_output": "Explains that the agent, not a person, receives the 429 and HTML: it retries or fails silently and the owner never sees the prompt. Replaces it with a typed, non-retryable error (stable code, limit, current use, recommended plan, reset time, upgrade URL, whether existing work is affected), a deliberate status (not 429, which signals retry), and an out-of-band notice to the account owner (deduplicated, in-app attention item or email) that opens a contextual paywall with an escape hatch. Blocks only new work, keeps in-flight jobs running, shows usage before the limit, and measures upgrades from the notice.",
+      "files": [],
+      "expectations": [
+        "Identifies that an agent, not a human, receives the current 429 and HTML page",
+        "Replaces it with a machine-readable error carrying the limit, current use and a recommended plan or upgrade path",
+        "Marks the error as not retryable or explains why 429 invites retries",
+        "Notifies the human account owner out of band (email or in-app attention item) rather than relying on the agent",
+        "Keeps existing or in-flight work running and blocks only new usage",
+        "Includes a visible escape hatch or no-pressure option in the human-facing upgrade prompt"
+      ]
     }
   ]
 }

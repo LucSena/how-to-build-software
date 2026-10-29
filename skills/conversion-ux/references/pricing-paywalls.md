@@ -8,6 +8,7 @@
 - Trials and renewal terms
 - Upgrade prompts and paywalls
 - Usage limits
+- When the caller is an agent
 - Cancel flows
 - Pricing and paywall test ideas
 
@@ -97,6 +98,28 @@ More table rules:
 - At the limit, block only new additions, never access to existing work; explain the options (upgrade, archive, delete).
 - For metered billing, show current period usage and projected cost; alert before overages; offer hard caps.
 
+## When the caller is an agent
+
+In API and agent products, the caller that hits a limit is often software acting unattended, so a human-only upgrade page helps no one.
+
+- **Return a typed error, not a page.** Include:
+  - a stable code (`PLAN_LIMIT_REACHED`);
+  - the limit, the allowance and current use;
+  - the current and recommended plan;
+  - when the limit resets;
+  - an upgrade URL meant for a human;
+  - whether existing work is affected;
+  - `retryable: false`, so the agent stops instead of looping.
+
+  RFC 9457 problem details work well for the shape.
+- **Pick the status deliberately.**
+  - `402 Payment Required` is formally "reserved for future use" in HTTP semantics, though agent payment protocols such as x402 already use it. If you use it, document it in the API contract; the error code is the real contract.
+  - Avoid `429` unless the limit really is a rate. Clients read 429 as "retry later".
+- **Tell the owner out of band.** The agent cannot upgrade. Record a deduplicated notice (one per limit per period), show it in the owner's attention list or email, and open the paywall in context the next time the human acts.
+- **Write the notice outside the failing transaction.** Do it after the rollback, or the rollback erases the notice along with the blocked write.
+- **Limit what the owner controls.** Put limits on new capacity the owner's agents create (agents, orders started, endpoints), not on reads or polling. Agents poll constantly, and a read limit punishes normal operation.
+- **Never block in-flight work.** In a two-sided product, count the buyer's actions, not the seller's, so one party's plan never strands the other party's delivery.
+
 ## Cancel flows
 
 **Structure**
@@ -135,4 +158,7 @@ Settings → Billing → [Cancel subscription]
 - California AB 2863 (automatic renewal, online cancellation): https://leginfo.legislature.ca.gov/faces/billTextClient.xhtml?bill_id=202320240AB2863
 - FTC, Negative Option Rule page and enforcement under ROSCA: https://www.ftc.gov/legal-library/browse/rules/negative-option-rule
 - EU Digital Services Act Art. 25 and Recital 67: https://eur-lex.europa.eu/eli/reg/2022/2065/oj
+- RFC 9110 §15.5.3, 402 Payment Required ("reserved for future use"): https://www.rfc-editor.org/rfc/rfc9110#name-402-payment-required
+- RFC 9457, Problem Details for HTTP APIs: https://www.rfc-editor.org/rfc/rfc9457
+- x402, payments over HTTP 402: https://github.com/coinbase/x402
 - marketingskills `pricing`, `paywalls`, and `churn-prevention` skills (MIT; paywall anatomy, trigger points, cancel-flow structure): https://github.com/coreyhaines31/marketingskills
